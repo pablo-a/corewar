@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/03/25 19:40:23 by mcotfas          ###   ########.fr        #
+#    Updated: 2016/06/03 16:18:57 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ SRCS = $(FTPATH)ft_putchar.c \
 				$(FTPATH)ft_itoa_base_u.c \
 				$(FTPATH)ft_bin_to_dec.c \
 				$(FTPATH)ft_charstr.c \
-				$(FTPATH)ft_str_isint.c \
+				$(FTPATH)ft_str_is_int.c \
 				$(PRINTFPATH)ft_printf.c \
 				$(PRINTFPATH)build_info.c \
 				$(PRINTFPATH)info_utils.c \

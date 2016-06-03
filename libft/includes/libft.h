@@ -6,7 +6,7 @@
 /*   By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:43:34 by mcotfas           #+#    #+#             */
-/*   Updated: 2016/04/25 15:19:10 by mcotfas          ###   ########.fr       */
+/*   Updated: 2016/06/03 16:19:43 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char				*ft_itoa_base(ssize_t n, size_t b, char base[16]);
 char				*ft_itoa_base_u(size_t n, size_t b, char base[16]);
 size_t				ft_bin_to_dec(char *bin);
 char				*ft_charstr(char c);
-int 				ft_str_is_int(char *str);
+int					ft_str_is_int(char *str);
 
 int					get_next_line(int const fd, char **line);
 
