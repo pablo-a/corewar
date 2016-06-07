@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/06 13:39:12 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/07 14:12:21 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@
 ** if (malloc(...) == -1)
 **		ft_printf("erreur : %s\n", strerror(errno));
 */
-#include <errno.h>
-#include <string.h>
-#include "../libft/includes/libftprintf.h"
+# include <errno.h>
+# include <string.h>
+# include "../libft/includes/libftprintf.h"
+# include "op.h"
+
+# define bool	int
+# define true	1
+# define false	0
 
 /* --------------------- STRUCTURE PRINCIPALE ---------------------------------
 ** CYCLE_TO_DIE est une variable centrale du jeu, on en aura besoin.
@@ -28,7 +33,20 @@
 
 typedef struct	s_env
 {
-	int		cycle_to_die;
+	unsigned char	memory[MEM_SIZE];
+	int				cycle_to_die;
 }				t_env;
+
+/* ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
+**       16 registres, un PC, un carry, son numero de joueur
+*/
+
+typedef struct	s_champ
+{
+	int		id;//num du champion, a mettre peut etre dans le env;
+	int		reg_tab[REG_NUMBER];// ses registres
+	int		PC;//                  prochaine instruction
+	bool	carry;//               si operation a reussi ou pas.
+}				t_champ;
 
 #endif
