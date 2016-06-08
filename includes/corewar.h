@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/07 14:12:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/08 14:16:22 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /* On va pouvoir utiliser ERRNO c'est de la balle :
 ** if (malloc(...) == -1)
-**		ft_printf("erreur : %s\n", strerror(errno));
+**		ft_printf("erreur : %s\n", strerror(errno)); || perror("Erreur:");
 */
 # include <errno.h>
 # include <string.h>
@@ -48,5 +48,18 @@ typedef struct	s_champ
 	int		PC;//                  prochaine instruction
 	bool	carry;//               si operation a reussi ou pas.
 }				t_champ;
+
+typedef struct	s_op
+{
+	char	*name;
+	int		nb_params;
+	char	*params;
+	int		opcode;
+	int		nb_cycle;
+	char	*description;
+	bool	OCP;
+	bool	modify_carry;
+
+}				t_op;
 
 #endif
