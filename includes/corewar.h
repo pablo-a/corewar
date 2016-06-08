@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/08 14:16:22 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/08 19:26:20 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct	s_op
 	char	*description;
 	bool	OCP;
 	bool	modify_carry;
-
 }				t_op;
 
 #endif
