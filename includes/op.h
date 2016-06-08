@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 11:06:45 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/08 19:26:22 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/08 21:44:45 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 
 # define COMMENT_CHAR		'#'
 # define LABEL_CHAR			':'
-# define DIRECT_CHAR			'%'
+# define DIRECT_CHAR		'%'
 # define SEPARATOR_CHAR		','
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 # define NAME_CMD_STRING		".name"
-# define COMMENT_CMD_STRING	".comment"
+# define COMMENT_CMD_STRING		".comment"
 
 # define REG_NUMBER			16
 
