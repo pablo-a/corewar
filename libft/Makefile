@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/03 16:18:57 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/10 10:55:27 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS = $(FTPATH)ft_putchar.c \
 				$(FTPATH)ft_isalnum.c \
 				$(FTPATH)ft_isascii.c \
 				$(FTPATH)ft_isprint.c \
+				$(FTPATH)ft_isnumeric.c \
 				$(FTPATH)ft_toupper.c \
 				$(FTPATH)ft_tolower.c \
 				$(FTPATH)ft_memset.c \

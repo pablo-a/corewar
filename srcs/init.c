@@ -6,12 +6,15 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/09 00:14:20 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 12:01:13 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+/* Les deux fonctions load servent a charger notre tableau d'instruction 
+** dans notre structure principale.
+*/
 static int	load_1(t_op *op_tab)
 {
 	op_tab[0] = (t_op){"live", 1, {T_DIR}, 1, 10, "alive", 0, 0};
@@ -48,20 +51,20 @@ static int	load_2(t_op *op_tab)
 	return (0);
 }
 
-t_champ		*init_champ(int id)
+t_champ		*init_champ(ssize_t id)
 {
 	t_champ	*champ;
 	int		i;
 
 	i = -1;
 	champ = (t_champ *)malloc(sizeof(t_champ));
-	champ->id = id;
+	champ->id = (int)id;
 	champ->pc = 0;
 	champ->carry = 0;
 	champ->cpt_interne = 0;
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
-	champ->reg_tab[0] = -id;
+	champ->reg_tab[0] = -(int)id;
 	return (champ);
 }
 
@@ -75,11 +78,10 @@ t_op		*init_op_tab(void)
 	return (op_tab);
 }
 
-t_war		*init_war(int nb_champ)
+t_war		*init_war(t_args *args)
 {
 	t_war	*war;
 	int		i;
-	t_champ	*tmp;
 
 	i = 0;
 	war = (t_war *)malloc(sizeof(t_war));
@@ -91,13 +93,7 @@ t_war		*init_war(int nb_champ)
 	war->cycle_to_die = CYCLE_TO_DIE;
 	war->current_cycle = 0;
 	war->op_tab = init_op_tab();
-	war->nb_champ = nb_champ;
+	war->args = args;
 	war->pile_champ = new_pile();
-	i = -1;
-	while (i++ < nb_champ)
-	{
-		tmp = init_champ(i + 1);
-		pile_append(war->pile_champ, tmp);
-	}
 	return (war);
 }

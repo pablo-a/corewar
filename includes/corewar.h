@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/08 23:43:43 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 12:01:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "../libft/includes/libftprintf.h"
 # include "op.h"
 
+
+# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define bool	int
 # define true	1
 # define false	0
@@ -37,7 +39,7 @@ typedef struct	s_war
 	int				cycle_to_die;
 	int				current_cycle;
 	struct s_op		*op_tab;
-	int				nb_champ;
+	struct s_args	*args;
 	struct s_pile	*pile_champ;
 }				t_war;
 
@@ -81,15 +83,29 @@ typedef struct	s_op
 	//int		(*associated_function)(int a, int b, int c);
 }				t_op;
 
+/* ------------------ STRUCTURE DES PARAMETRES --------------------------------
+** va permettre de stocker les valeurs des parametres, si on veut ajouter des
+**                        options ce sera ici
+*/
+
+typedef struct	s_args
+{
+	ssize_t	dump;
+	int		nb_champ;
+}				t_args;
+
 t_pile	*new_pile(void);
 int		pile_append(t_pile *pile, t_champ *champ);
 int		pile_prepend(t_pile *pile, t_champ *champ);
 int		free_pile(t_pile **pile);
 
+t_champ	*init_champ(ssize_t id);
 t_op	*init_op_tab(void);
-t_war	*init_war(int nb_joueur);
+t_war	*init_war(t_args *args);
 
-int		get_args(int argc, char **argv);
+int		get_args(int argc, char **argv, t_war *war);
 int		main(int argc, char **argv);
+
+int		error(char *str);
 
 #endif

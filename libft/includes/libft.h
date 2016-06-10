@@ -6,7 +6,7 @@
 /*   By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:43:34 by mcotfas           #+#    #+#             */
-/*   Updated: 2016/06/03 16:19:43 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 10:56:41 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int					ft_isascii(ssize_t c);
 int					ft_isprint(ssize_t c);
 int					ft_toupper(ssize_t c);
 int					ft_tolower(ssize_t c);
+int					ft_isnumeric(char *str);
 void				*ft_memset(void *b, ssize_t c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, void const *src, size_t n);
