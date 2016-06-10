@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 12:01:24 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 13:54:44 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 */
 # include <errno.h>
 # include <string.h>
+# include <fcntl.h>
 # include "../libft/includes/libftprintf.h"
 # include "op.h"
 
@@ -49,11 +50,12 @@ typedef struct	s_war
 
 typedef struct	s_champ
 {
-	int		id;//num du champion, a mettre peut etre dans le env;
-	int		reg_tab[REG_NUMBER];// ses registres
-	int		pc;//                  prochaine instruction
-	bool	carry;//               si operation a reussi ou pas.
-	int		cpt_interne;
+	int			id;//num du champion, a mettre peut etre dans le env;
+	int			reg_tab[REG_NUMBER];// ses registres
+	int			pc;//                  prochaine instruction
+	bool		carry;//               si operation a reussi ou pas.
+	int			cpt_interne;
+	t_header	*header;
 }				t_champ;
 
 typedef struct	s_pile
@@ -103,9 +105,12 @@ t_champ	*init_champ(ssize_t id);
 t_op	*init_op_tab(void);
 t_war	*init_war(t_args *args);
 
+int		convert_to_big_endian(unsigned int data);
+int		read_header(char *file, t_champ *champ);
 int		get_args(int argc, char **argv, t_war *war);
 int		main(int argc, char **argv);
 
 int		error(char *str);
+int		perror_exit(char *error);
 
 #endif

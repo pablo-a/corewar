@@ -6,12 +6,43 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 12:26:50 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 13:54:16 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "libftprintf.h"
+
+
+int		convert_to_big_endian(unsigned int data)
+{
+	int result;
+
+	result = ((data>>24) & 0xFF) |
+			((data>>8) & 0xFF00) |
+			((data<<8) & 0xFF0000) |
+			((data<<24) & 0xFF000000);
+	return (result);
+}
+
+int		read_header(char *file, t_champ *champ)
+{
+	t_header	*header;
+	int			fd;
+
+	if ((header = (t_header *)malloc(sizeof(t_header))) == NULL)
+		perror_exit("Allocation failed :");
+	if ((fd = open(file, O_RDONLY)) == -1)
+		perror_exit("Open failed ");
+	if (read(fd, header, sizeof(t_header)) == -1)
+		perror_exit("Read failed ");
+	if (close(fd) == -1)
+		perror_exit("Close failed ");
+	header->magic = convert_to_big_endian(header->magic);
+	header->prog_size = convert_to_big_endian(header->prog_size);
+	printf("name: %s, comment: %s, magic: %#010x, size: %#010x\n", header->prog_name, header->comment, header->magic, header->prog_size);
+	return (0);
+}
 
 int		get_args(int argc, char **argv, t_war *war)
 {
@@ -39,6 +70,7 @@ int		get_args(int argc, char **argv, t_war *war)
 			if ((i + 2 < argc) && ft_strstr(argv[i + 2], ".cor") != NULL)
 			champ = init_champ(ft_atoi(argv[i + 1]));
 			pile_append(war->pile_champ, champ);
+			read_header(argv[i + 2], war->pile_champ->last->champ);
 			war->args->nb_champ++;
 			i += 2;
 		}
@@ -46,6 +78,7 @@ int		get_args(int argc, char **argv, t_war *war)
 		else if (ft_strstr(argv[i], ".cor") != NULL)
 		{
 			pile_append(war->pile_champ, init_champ(3));//changer 3 par valeur 
+			read_header(argv[i], war->pile_champ->last->champ);
 //                                                                 disponible
 			war->args->nb_champ++;
 		}
@@ -53,7 +86,7 @@ int		get_args(int argc, char **argv, t_war *war)
 		else
 		{
 			ft_putendl(argv[i]);
-			error("Unrecognized command.");
+			error("Unrecognized parameter.");
 		}
 		i++;
 	}
