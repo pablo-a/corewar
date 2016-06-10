@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 17:44:49 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 21:29:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,16 @@ int		convert_to_big_endian(unsigned int data)
 
 int		read_instructions(int fd, t_war *war, t_champ *champ)
 {
-	int		ret;
-	char	c;
-	int		i;
+	unsigned char	c;
+	int				i;
 
 	i = 0;
-	champ->instructions = ft_strnew(CHAMP_MAX_SIZE - sizeof(t_header));
-	while ((ret = read(fd, &c, 1)) > 0)
+	champ->instructions = (unsigned char *)malloc(CHAMP_MAX_SIZE);
+	while (read(fd, &c, 1) > 0)
 	{
-		champ->instructions[i] = c;
+		(champ->instructions)[i] = c;
 		i++;
 	}
-	printf("%s\n", champ->instructions);
 	return (0);
 }
 

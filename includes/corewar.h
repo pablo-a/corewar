@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 16:32:42 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 21:16:50 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ typedef struct	s_war
 
 typedef struct	s_champ
 {
-	int			id;//num du champion, a mettre peut etre dans le env;
-	int			reg_tab[REG_NUMBER];// ses registres
-	int			pc;//                  prochaine instruction
-	bool		carry;//               si operation a reussi ou pas.
-	int			cpt_interne;
-	char		*instructions;
-	t_header	*header;
+	int				id;//num du champion, a mettre peut etre dans le env;
+	int				reg_tab[REG_NUMBER];// ses registres
+	int				pc;//                  prochaine instruction
+	bool			carry;//               si operation a reussi ou pas.
+	int				cpt_interne;
+	unsigned char	*instructions;
+	t_header		*header;
 }				t_champ;
 
 typedef struct	s_pile
