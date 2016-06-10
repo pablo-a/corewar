@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 22:21:41 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 22:51:06 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # include <fcntl.h>
 # include "libftprintf.h"
 # include "op.h"
+
+# define RED "\033[31m"
+# define BLACK "\033[30m"
+# define GREEN "\033[32m"
+# define BLUE "\033[34m"
+# define PURPLE "\033[35m"
+# define GRAY "\033[37m"
+# define YELLOW "\033[33m"
+# define END "\033[0m"
 
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define bool	int
@@ -114,6 +123,9 @@ t_war			*init_war(t_args *args);
 
 int				read_champ(char *file, t_champ *champ);
 int				read_instructions(int fd, t_champ *champ);//  CHAMP.C
+int				load_players_into_arena(t_war *war);
+int				load_bytecode(unsigned char *byte, unsigned char ram[MEM_SIZE],
+				int pos);
 
 int				convert_to_big_endian(unsigned int data);
 int				get_args(int argc, char **argv, t_war *war);//     MAIN.C
@@ -121,5 +133,6 @@ int				main(int argc, char **argv);
 
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
+int				display_ram(unsigned char ram[MEM_SIZE]);
 
 #endif
