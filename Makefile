@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/08 23:44:10 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/10 21:50:27 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCSPATH = ./srcs/
 INSTRUCTPATH = $(SRCSPATH)instructions/
 
 SRCS = $(SRCSPATH)main.c \
+	   $(SRCSPATH)champ.c \
 	   $(SRCSPATH)pile.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \

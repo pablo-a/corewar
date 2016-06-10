@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 21:16:50 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 22:21:41 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 # include <errno.h>
 # include <string.h>
 # include <fcntl.h>
-# include "../libft/includes/libftprintf.h"
+# include "libftprintf.h"
 # include "op.h"
-
 
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define bool	int
@@ -47,7 +46,6 @@ typedef struct	s_war
 /* ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
 **       16 registres, un PC, un carry, son numero de joueur
 */
-
 typedef struct	s_champ
 {
 	int				id;//num du champion, a mettre peut etre dans le env;
@@ -59,9 +57,13 @@ typedef struct	s_champ
 	t_header		*header;
 }				t_champ;
 
+/* ----------------------- STRUCTURE D'UNE PILE -------------------------------
+**
+*/
+
 typedef struct	s_pile
 {
-	int		nb_elem;
+	int				nb_elem;
 	struct s_node	*first;
 	struct s_node	*last;
 }				t_pile;
@@ -73,6 +75,10 @@ typedef struct	s_node
 	struct s_node	*prev;
 }				t_node;
 
+/* --------------------- STRUCTURE DES INSTRUCTIONS AUTORISEES ----------------
+** contient toutes les infos liees a chaque instructions. ptr sur fct a rajouter
+*/
+
 typedef struct	s_op
 {
 	char	name[5];
@@ -81,7 +87,7 @@ typedef struct	s_op
 	int		opcode;
 	int		nb_cycle;
 	char	description[42];
-	bool	OCP;
+	bool	ocp;
 	bool	modify_carry;
 	//int		(*associated_function)(int a, int b, int c);
 }				t_op;
@@ -97,21 +103,23 @@ typedef struct	s_args
 	int		nb_champ;
 }				t_args;
 
-t_pile	*new_pile(void);
-int		pile_append(t_pile *pile, t_champ *champ);
-int		pile_prepend(t_pile *pile, t_champ *champ);
-int		free_pile(t_pile **pile);
+t_pile			*new_pile(void);
+int				pile_append(t_pile *pile, t_champ *champ);
+int				pile_prepend(t_pile *pile, t_champ *champ);//     PILE.C
+int				free_pile(t_pile **pile);
 
-t_champ	*init_champ(ssize_t id);
-t_op	*init_op_tab(void);
-t_war	*init_war(t_args *args);
+t_champ			*init_champ(ssize_t id);
+t_op			*init_op_tab(void);//                            INIT.C
+t_war			*init_war(t_args *args);
 
-int		convert_to_big_endian(unsigned int data);
-int		read_champ(char *file, t_champ *champ, t_war *war);
-int		get_args(int argc, char **argv, t_war *war);
-int		main(int argc, char **argv);
+int				read_champ(char *file, t_champ *champ);
+int				read_instructions(int fd, t_champ *champ);//  CHAMP.C
 
-int		error(char *str);
-int		perror_exit(char *error);
+int				convert_to_big_endian(unsigned int data);
+int				get_args(int argc, char **argv, t_war *war);//     MAIN.C
+int				main(int argc, char **argv);
+
+int				error(char *str);//                                  ERROR.C
+int				perror_exit(char *error);
 
 #endif

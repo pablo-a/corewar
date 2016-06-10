@@ -6,11 +6,11 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 21:29:14 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 22:22:30 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
+#include "corewar.h"
 #include "libftprintf.h"
 
 
@@ -23,44 +23,6 @@ int		convert_to_big_endian(unsigned int data)
 			((data<<8) & 0xFF0000) |
 			((data<<24) & 0xFF000000);
 	return (result);
-}
-
-int		read_instructions(int fd, t_war *war, t_champ *champ)
-{
-	unsigned char	c;
-	int				i;
-
-	i = 0;
-	champ->instructions = (unsigned char *)malloc(CHAMP_MAX_SIZE);
-	while (read(fd, &c, 1) > 0)
-	{
-		(champ->instructions)[i] = c;
-		i++;
-	}
-	return (0);
-}
-
-int		read_champ(char *file, t_champ *champ, t_war *war)
-{
-	t_header	*header;
-	int			fd;
-
-	if ((header = (t_header *)malloc(sizeof(t_header))) == NULL)
-		perror_exit("Allocation failed :");
-	if ((fd = open(file, O_RDONLY)) == -1)
-		perror_exit("Open failed ");
-	if ((size_t)read(fd, header, sizeof(t_header)) < sizeof(t_header))
-		perror_exit("Read failed ");
-	read_instructions(fd, war, champ);
-	if (close(fd) == -1)
-		perror_exit("Close failed ");
-	header->magic = convert_to_big_endian(header->magic);
-	header->prog_size = convert_to_big_endian(header->prog_size);
-	printf("name: %s, comment: %s, magic: %#010x, size: %#010x\n", header->prog_name, header->comment, header->magic, header->prog_size);
-	if (header->magic != COREWAR_EXEC_MAGIC)
-		error("Bad magic number.");
-	champ->header = header;
-	return (0);
 }
 
 int		get_args(int argc, char **argv, t_war *war)
@@ -90,7 +52,7 @@ int		get_args(int argc, char **argv, t_war *war)
 				error("Expecting a player file. (*.cor) ");
 			champ = init_champ(ft_atoi(argv[i + 1]));
 			pile_append(war->pile_champ, champ);
-			read_champ(argv[i + 2], war->pile_champ->last->champ, war);
+			read_champ(argv[i + 2], war->pile_champ->last->champ);
 			
 			war->args->nb_champ++;
 			i += 2;
@@ -98,17 +60,14 @@ int		get_args(int argc, char **argv, t_war *war)
 		// ---------------- CHAMP.COR ONLY ---------------------------
 		else if (ft_strstr(argv[i], ".cor") != NULL)
 		{
-			pile_append(war->pile_champ, init_champ(3));//changer 3 par valeur 
-			read_champ(argv[i], war->pile_champ->last->champ, war);
-//                                                                 disponible
+			pile_append(war->pile_champ, init_champ(war->pile_champ->nb_elem + 1
+						));
+			read_champ(argv[i], war->pile_champ->last->champ);
 			war->args->nb_champ++;
 		}
 		// --------------- WRONG COMMAND ------------------------------
 		else
-		{
-			ft_putendl(argv[i]);
 			error("Unrecognized parameter.");
-		}
 		i++;
 	}
 	if (war->args->nb_champ < 1 || war->args->nb_champ > 4)
@@ -120,16 +79,12 @@ int		main(int argc, char **argv)
 {
 	t_war	*war;
 	t_args	args;
-	t_node	*node;
 
 	args.dump = -1;
 	args.nb_champ = 0;
 	war = init_war(&args);
 	get_args(argc, argv, war);
-	node = war->pile_champ->first;
-	while (node)
-	{
-		printf("===> %x\n", node->champ->reg_tab[0]);
-		node = node->next;
-	}
+	load_players_into_arena(war);
+	display_ram(war->ram);
+	return (0);
 }
