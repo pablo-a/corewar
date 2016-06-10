@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 13:54:44 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/10 16:32:42 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_champ
 	int			pc;//                  prochaine instruction
 	bool		carry;//               si operation a reussi ou pas.
 	int			cpt_interne;
+	char		*instructions;
 	t_header	*header;
 }				t_champ;
 
@@ -106,7 +107,7 @@ t_op	*init_op_tab(void);
 t_war	*init_war(t_args *args);
 
 int		convert_to_big_endian(unsigned int data);
-int		read_header(char *file, t_champ *champ);
+int		read_champ(char *file, t_champ *champ, t_war *war);
 int		get_args(int argc, char **argv, t_war *war);
 int		main(int argc, char **argv);
 
