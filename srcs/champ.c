@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 10:47:44 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 12:37:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int		read_champ(char *file, t_champ *champ)
 		perror_exit("Close failed ");
 	header->magic = convert_to_big_endian(header->magic);
 	header->prog_size = convert_to_big_endian(header->prog_size);
-	printf("name: %s, comment: %s, magic: %#010x, size: %#010x\n", header->prog_name, header->comment, header->magic, header->prog_size);
-	printf("player number ===> %x\n", champ->reg_tab[0]);
 	if (header->magic != COREWAR_EXEC_MAGIC)
 		error("Bad magic number.");
 	champ->header = header;
@@ -76,10 +74,13 @@ int		load_players_into_arena(t_war *war)
 	pos = 0;
 	node = war->pile_champ->first;
 	space = MEM_SIZE / war->pile_champ->nb_elem;
+	ft_printf("Introducing contestants :\n");
 	while (node)
 	{
 		node->champ->pc = 0;
 		load_bytecode(node->champ, war->ram, pos);
+		ft_printf("* Player %d, weighing %d bytes, %s (%s) !\n", ID(node->champ)
+			, SIZE(node->champ), NAME(node->champ), COMMENT(node->champ));
 		node = node->next;
 		pos += space;
 	}

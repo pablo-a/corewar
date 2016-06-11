@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 10:47:57 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 12:42:21 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@
 # define YELLOW "\033[33m"
 # define END "\033[0m"
 
+# define NAME(champ) champ->header->prog_name
+# define COMMENT(champ) champ->header->comment
+# define SIZE(champ) champ->header->prog_size
+# define ID(champ) champ->id
+
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define bool	int
 # define true	1
@@ -46,7 +51,9 @@ typedef struct	s_war
 {
 	unsigned char	ram[MEM_SIZE];
 	int				cycle_to_die;
+	int				max_check;
 	int				current_cycle;
+	int				current_live_nb;
 	struct s_op		*op_tab;
 	struct s_args	*args;
 	struct s_pile	*pile_champ;
@@ -61,7 +68,8 @@ typedef struct	s_champ
 	int				reg_tab[REG_NUMBER];// ses registres
 	int				pc;//                  prochaine instruction
 	bool			carry;//               si operation a reussi ou pas.
-	int				cpt_interne;
+	int				cpt_interne;// pour faire ses operations. (cycles).
+	int				cpt_live[2];// cpt[1] = nb_live et cpt[2] = last_live;
 	unsigned char	*instructions;
 	t_header		*header;
 }				t_champ;
@@ -134,5 +142,10 @@ int				main(int argc, char **argv);
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
+
+int				champ_action(t_war *war, int cycle);//      LAUNCH_WAR.C
+int				dump_war(t_war *war);
+int				its_over(t_war *war);
+int				launch_war(t_war *war);
 
 #endif

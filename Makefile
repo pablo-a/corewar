@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/10 21:50:27 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/11 12:19:33 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ INSTRUCTPATH = $(SRCSPATH)instructions/
 
 SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)champ.c \
+	   $(SRCSPATH)launch_war.c \
 	   $(SRCSPATH)pile.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \
@@ -65,5 +66,8 @@ fclean : clean
 	@make -C ./libft fclean
 
 re : fclean all
+
+norme :
+	norminette **/*.[ch]
 
 .PHONY: re fclean clean all

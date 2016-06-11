@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 22:04:50 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 12:39:26 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ t_champ		*init_champ(ssize_t id)
 	champ->id = (int)id;
 	champ->pc = 0;
 	champ->carry = 0;
-	champ->cpt_interne = 0;
+	champ->cpt_interne = 1;
+	champ->cpt_live[0] = 0;
+	champ->cpt_live[1] = 0;
 	champ->header = NULL;
 	champ->instructions = NULL;
 	while (i++ < REG_NUMBER)
@@ -94,6 +96,8 @@ t_war		*init_war(t_args *args)
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;
 	war->current_cycle = 0;
+	war->current_live_nb = 1;
+	war->max_check = 0;
 	war->op_tab = init_op_tab();
 	war->args = args;
 	war->pile_champ = new_pile();
