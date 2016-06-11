@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/11 23:43:27 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 00:56:44 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ t_strct		*asm_init_strct(void)
 	if ((new = (t_strct*)malloc(sizeof(t_strct))) == NULL)
 		return (NULL);
 	new->file = NULL;
-	new->header = NULL;
 	new->name = NULL;
 	new->comment = NULL;
+	new->header = NULL;
+	new->program = NULL;
 	return (new);
 }
 
@@ -47,9 +48,6 @@ t_list		*asm_lst_append(t_list *list, void *data)
 	ptr->next = NULL;
 	if ((ptr->content = ft_strdup(data)) == NULL)
 		return (NULL);
-//	ft_putstr("\033[34m");
-//	ft_putendl(ptr->content);
-//	ft_putstr("\033[37m");
 	return (list);
 }
 
@@ -62,10 +60,7 @@ t_list		*asm_get_file(char *name)
 	new = NULL;
 	buff = NULL;
 	if ((fd = open(name, O_RDONLY)) == -1)
-	{
 		asm_error("Fichier Inexistant");
-		return (NULL);
-	}
 	while (get_next_line(fd, &buff) == 1)
 	{
 		if (!buff)
@@ -86,7 +81,6 @@ t_list		*asm_get_file(char *name)
 int			asm_parse_file(char *name)
 {
 	t_strct		*strct;
-
 
 	if (!(strct = asm_init_strct()))
 		return (1);
