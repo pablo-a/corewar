@@ -6,14 +6,14 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:58 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 14:06:09 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 16:52:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-int		cor_fork(t_war *war, int a, int b, int c)
+int		cor_fork(t_war *war, t_champ *champ)
 {
 	return (0);
 }

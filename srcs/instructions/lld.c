@@ -6,14 +6,14 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:10 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 13:49:11 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 16:53:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-int		lld(t_war *war, int a, int b, int c)
+int		lld(t_war *war, t_champ *champ)
 {
 	return (0);
 }

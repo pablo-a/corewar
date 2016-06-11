@@ -6,14 +6,14 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:52 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 13:49:53 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 16:54:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-int		sti(t_war *war, int a, int b, int c)
+int		sti(t_war *war, t_champ *champ)
 {
 	return (0);
 }
