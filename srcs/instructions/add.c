@@ -17,10 +17,9 @@ int		add(t_war *war, t_champ *champ)
 {
 	int r1;
 	int r2;
-	int r3;
 
 	r1 = war->ram[champ->pc + 2];
 	r2 = war->ram[champ->pc + 3];
-	champ->reg_tab[champ->px + 4] = r1 + r2;
+	champ->reg_tab[champ->pc + 4] = champ->reg_tab[r1] + champ->reg_tab[r2];
 	return (0);
 }
