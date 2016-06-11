@@ -113,7 +113,7 @@ typedef struct	s_op
 	char	description[42];
 	bool	ocp;
 	bool	modify_carry;
-	int		(*associated_function)(t_war *war, t_instruction_params params);
+	int		(*associated_function)(t_war *war, t_champ *champ);
 }				t_op;
 
 /* ------------------ STRUCTURE DES PARAMETRES --------------------------------
@@ -155,21 +155,21 @@ int				dump_war(t_war *war);
 int				launch_war(t_war *war);
 
 
-int				add(t_war *war, int pc);
-int				aff(t_war *war, int pc);
-int				and(t_war *war, int pc);
-int				cor_fork(t_war *war, int pc);
-int				ld(t_war *war, int pc);
-int				ldi(t_war *war, int pc);
-int				lfork(t_war *war, int pc);
-int				live(t_war *war, int pc);
-int				lld(t_war *war, int pc);
-int				lldi(t_war *war, int pc);
-int				or(t_war *war, int pc);
-int				st(t_war *war, int pc);
-int				sti(t_war *war, int pc);
-int				sub(t_war *war, int pc);
-int				xor(t_war *war, int pc);
-int				zjmp(t_war *war, int pc);
+int				add(t_war *war, t_champ *champ);
+int				aff(t_war *war, t_champ *champ);
+int				and(t_war *war, t_champ *champ);
+int				cor_fork(t_war *war, t_champ *champ);
+int				ld(t_war *war, t_champ *champ);
+int				ldi(t_war *war, t_champ *champ);
+int				lfork(t_war *war, t_champ *champ);
+int				live(t_war *war, t_champ *champ);
+int				lld(t_war *war, t_champ *champ);
+int				lldi(t_war *war, t_champ *champ);
+int				or(t_war *war, t_champ *champ);
+int				st(t_war *war, t_champ *champ);
+int				sti(t_war *war, t_champ *champ);
+int				sub(t_war *war, t_champ *champ);
+int				xor(t_war *war, t_champ *champ);
+int				zjmp(t_war *war, t_champ *champ);
 
 #endif

@@ -13,7 +13,7 @@
 #include "corewar.h"
 #include "libftprintf.h"
 
-int		zjmp(t_war *war, int a, int b, int c)
+int		zjmp(t_war *war, t_champ *champ)
 {
 	return (0);
 }

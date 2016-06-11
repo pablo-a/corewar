@@ -35,16 +35,16 @@ int		get_nbr_cycle(t_war *war, int pc)
 	return (result);
 }
 
-int		execute(t_war *war, int pc)
+int		execute(t_war *war, t_champ *champ)
 {
 	int opcode;
 	t_instruction_params params;
 
-	opcode = war->ram[pc];
+	opcode = war->ram[champ->pc];
 	if (opcode < 0 || opcode > 16)
 		error("bad OPCODE.");
 
-	war->op_tab[opcode - 1].associated_function(war, params);
+	war->op_tab[opcode - 1].associated_function(war, champ);
 	//adjust PC ;
 	return (0);
 }
@@ -68,7 +68,7 @@ int		champ_action(t_war *war)
 			node->champ->cpt_interne++;
 		else
 		{
-			execute(war, node->champ->pc);
+			execute(war, node->champ);
 			node->champ->cpt_interne = 1;
 		}
 		node = node->prev;
