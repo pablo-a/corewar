@@ -6,24 +6,31 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 12:40:40 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 13:17:06 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-/* RETURN 0 IF NO PLAYER ARE ALIVE AT THE END OF 'CYCLE_TO_DIE' CYCLES.
-** RETURN 1 IF WAR NOT OVER YET.
+/* ------- OPTION -DUMP NB --------------------
+**   arrete la partie au bout de NB cycles.
 */
-int		its_over(t_war *war)
-{
-	return (1);
-}
 
 int		dump_war(t_war *war)
 {
+	display_ram(war->ram);
 	exit(0);
+}
+
+int		get_nbr_cycle(t_war *war, int ptr)
+{
+	int result;
+	int opcode;
+
+	opcode = war->ram[ptr];
+	result = war->op_tab[opcode - 1].nb_cycle;//4 pour choper le nbr de cycles.
+	return (result);
 }
 
 /* ALLOWS PLAYERS TO EXECUTE HIS INSTRUCTION IF POSSIBLE. (CYCLE TURNS)
@@ -32,6 +39,23 @@ int		dump_war(t_war *war)
 
 int		champ_action(t_war *war, int cycle)
 {
+	t_node	*node;
+	int		cycle_necessaires;
+
+	node = war->pile_champ->last;// le dernier processus commence
+	while (node)
+	{
+		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
+		ft_printf("cycles_necessaire a %s : %d\n", NAME(node->champ), cycle_necessaires);
+		if (node->champ->cpt_interne < cycle_necessaires)
+			node->champ->cpt_interne++;
+		else
+		{
+			//execute();
+			node->champ->cpt_interne = 0;
+		}
+		node = node->prev;
+	}
 	return (0);
 }
 
@@ -47,11 +71,12 @@ int		launch_war(t_war *war)
 	cycle = 1;
 	while (cycle < CYCLE_TO_DIE)
 	{
+		ft_printf("cycles numero  %d\n", cycle);
+		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
+		champ_action(war, cycle);
 		// CAS OU DUMP EST SPECIFIE
 		if (war->args->dump > 0 && war->current_cycle == war->args->dump)
 			dump_war(war);
-		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
-		champ_action(war, cycle);
 		cycle++;
 	}
 	//PARTIE QUI GERE LE CYCLE TO DIE A DECREMENTER OU PAS.

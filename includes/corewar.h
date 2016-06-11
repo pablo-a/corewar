@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 12:42:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 12:50:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ int				display_ram(unsigned char ram[MEM_SIZE]);
 
 int				champ_action(t_war *war, int cycle);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
-int				its_over(t_war *war);
 int				launch_war(t_war *war);
 
 #endif
