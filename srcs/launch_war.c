@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 14:11:13 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 15:20:47 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		get_nbr_cycle(t_war *war, int ptr)
 	return (result);
 }
 
-int		get_args_with_pc(unsigned char opcode, int *a, int *b, int *c)
+int		get_args_with_pc(unsigned char opcode, t_instruction_params *params)
 {
 	return (0);
 }
@@ -43,15 +43,14 @@ int		get_args_with_pc(unsigned char opcode, int *a, int *b, int *c)
 int		execute(t_war *war, int ptr)
 {
 	int opcode;
-	int a;
-	int b;
-	int c;
+	t_instruction_params params;
 
 	opcode = war->ram[ptr];
 	if (opcode < 0 || opcode > 16)
 		error("bad OPCODE.");
-	get_args_with_pc(war->ram[ptr], &a, &b, &c);
-	war->op_tab[opcode - 1].associated_function(war, a, b, c);
+	get_args_with_pc(war->ram[ptr], &params);
+	war->op_tab[opcode - 1].associated_function(war, params);
+	//adjust PC ;
 	return (0);
 }
 
