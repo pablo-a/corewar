@@ -6,65 +6,57 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 00:22:51 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/11 00:32:03 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/11 19:09:52 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+char 	**asm_list_command()
+{
+	char **tab_command;
+	int x;
+	
+	tab_command = (char**)malloc(sizeof(char*)*16);
+	x = 0;
+	tab_command[0] = ft_strdup("live");
+	tab_command[1] = ft_strdup("ld");
+	tab_command[2] = ft_strdup("st");
+	tab_command[3] = ft_strdup("add");
+	tab_command[4] = ft_strdup("sub");
+	tab_command[5] = ft_strdup("and");
+	tab_command[6] = ft_strdup("or");
+	tab_command[7] = ft_strdup("xor");
+	tab_command[8] = ft_strdup("zjmp");
+	tab_command[9] = ft_strdup("ldi");
+	tab_command[10] = ft_strdup("sti");
+	tab_command[11] = ft_strdup("fork");
+	tab_command[12] = ft_strdup("lld");
+	tab_command[13] = ft_strdup("lldi");
+	tab_command[14] = ft_strdup("lfork");
+	tab_command[15] = ft_strdup("aff");
+	return (tab_command);
+}
+
 int		asm_find_command(char *command, int fd)
 {
-	if (!ft_strcmp(command, "live"))
+	char **tab_command;
+	int x;
+
+	tab_command = asm_list_command();
+	x = 0;
+	fd = 1;
+	while (x < 16)
 	{
-		write(fd, "0x01", 4);
-		return (4);
+		if (!strcmp(command, tab_command[x]))
+		{
+			
+			if (x < 8 || x == 12)
+				return (4);
+			return (2);
+		}
+		x++;
 	}
-	else if (!ft_strcmp(command, "ld"))
-	{
-		write(fd, "0x02", 4);
-		return (4);
-	}
-	else if (!ft_strcmp(command, "st"))
-		write(fd, "0x03", 4);
-	else if (!ft_strcmp(command, "add"))
-		write(fd, "0x04", 4);
-	else if (!ft_strcmp(command, "sub"))
-		write(fd, "0x05", 4);
-	else if (!ft_strcmp(command, "and"))
-	{
-		write(fd, "0x06", 4);
-		return (4);
-	}
-	else if (!ft_strcmp(command, "or"))
-	{
-		write(fd, "0x07", 4);
-		return (4);
-	}
-	else if (!ft_strcmp(command, "xor"))
-	{
-		write(fd, "0x08", 4);
-		return (4);
-	}
-	else if (!ft_strcmp(command, "zjmp"))
-		write(fd, "0x09", 4);
-	else if (!ft_strcmp(command, "ldi"))
-		write(fd, "0x0a", 4);
-	else if (!ft_strcmp(command, "sti"))
-		write(fd, "0x0b", 4);
-	else if (!ft_strcmp(command, "fork"))
-		write(fd, "0x0c", 4);
-	else if (!ft_strcmp(command, "lld"))
-	{
-		write(fd, "0x0d", 4);
-		return (4);
-	}
-	else if (!ft_strcmp(command, "lldi"))
-		write(fd, "0x0e", 4);
-	else if (!ft_strcmp(command, "lfork"))
-		write(fd, "0x0f", 4);
-	else if (!ft_strcmp(command, "aff"))
-		write(fd, "0x10", 4);
-	else
-		asm_error("Apprend a ecrire petit scarabe");
-	return (2);
+	asm_error("Commande Invalide");
+	return (0);
 }
