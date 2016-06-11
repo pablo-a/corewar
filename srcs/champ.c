@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 22:51:04 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 10:47:44 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int		read_champ(char *file, t_champ *champ)
 	return (0);
 }
 
-int		load_bytecode(unsigned char *byte, unsigned char ram[MEM_SIZE], int pos)
+int		load_bytecode(t_champ *champ, unsigned char ram[MEM_SIZE], int pos)
 {
-	int i;
+	unsigned int i;
 
 	i = 0;
-	while (byte[i])
+	while (i < champ->header->prog_size)
 	{
-		ram[i + pos] = byte[i];
+		ram[i + pos] = champ->instructions[i];
 		i++;
 	}
 	return (0);
@@ -79,7 +79,7 @@ int		load_players_into_arena(t_war *war)
 	while (node)
 	{
 		node->champ->pc = 0;
-		load_bytecode(node->champ->instructions, war->ram, pos);
+		load_bytecode(node->champ, war->ram, pos);
 		node = node->next;
 		pos += space;
 	}

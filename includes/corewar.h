@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 22:51:06 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 10:47:57 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_war			*init_war(t_args *args);
 int				read_champ(char *file, t_champ *champ);
 int				read_instructions(int fd, t_champ *champ);//  CHAMP.C
 int				load_players_into_arena(t_war *war);
-int				load_bytecode(unsigned char *byte, unsigned char ram[MEM_SIZE],
+int				load_bytecode(t_champ *champ, unsigned char ram[MEM_SIZE],
 				int pos);
 
 int				convert_to_big_endian(unsigned int data);
