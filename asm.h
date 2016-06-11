@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/11 00:33:06 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/11 23:11:47 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,73 @@
 # include "libft/includes/libft.h"
 # include "op.h"
 
-/*
-** check.c
-*/
-int			asm_is_command(char *str);
-int			asm_is_label(char *str);
-int			asm_is_header(char *str);
+#include <stdio.h>
+
+typedef struct	s_strct
+{
+	t_list		*file;
+	header_t	*header;
+	char		*name;
+	char		*comment;
+// label,
+// char **command
+// char **arg
+//	char		**program;
+}				t_strct;
 
 /*
-**  parse.c
+**	main.c
+*/
+int			main(int argc, char **argv);
+void		asm_error(char *str);
+
+/*
+** asm_parse_file.c
+*/
+t_strct		*asm_init_strct(void);
+t_list		*asm_lst_append(t_list *list, void *data);
+t_list		*asm_get_file(char *name);
+int			asm_parse_file(char *name);
+
+/*
+** asm_check_file.c
+*/
+int			asm_check_file(t_strct *strct);
+
+/*
+** asm_header.c
+*/
+header_t	*asm_init_header(void);
+header_t	*asm_create_header(void);
+
+/*
+**  asm_parse_command.c
 */
 int			asm_count_arg(char *arg);
-int			asm_find_command(char *command, int fd);
 void		asm_find_opc(char **arg, int c, int fd);
 void		asm_parse_command(char *line, int fd);
 void		asm_encode(char *arg, int size, int fd);
 
 /*
-** main.c
+** asm_find_command.c
 */
-void		asm_error(char *str);
-void		asm_parse(int fd, char *name);
+int			asm_find_command(char *command, int fd);
+
+/*
+** asm_encode.c
+*/
+void		asm_encode(char *arg, int size, int fd);
+
+/*
+** asm_create_file.c
+*/
 char		*asm_find_file_name(char *file);
+
+/*
+** asm_util.c
+*/
+t_list  *asm_lst_browse(t_list *lst, int c);
+int     asm_str_browse(char *str);
+void    *asm_lc_error(int l, int c);
 
 #endif

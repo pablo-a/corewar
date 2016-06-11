@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   asm_create_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/10 17:25:41 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/11 23:30:36 by hdebard          ###   ########.fr       */
+/*   Created: 2016/06/11 17:50:58 by hdebard           #+#    #+#             */
+/*   Updated: 2016/06/11 17:51:37 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void		asm_error(char *str)
+char	*asm_find_file_name(char *file)
 {
-	ft_putendl(str);
-	exit(0);
-}
+	char	**split;
+	char	*new;
 
-int			main(int ac, char **av)
-{
-	if (ac != 2)
-	{
-		asm_error("Pas assez d'argument");
-		return (0);
-	}
-	if (asm_parse_file(av[1]) != 0)
-		return (0);
-	// else create_file
-	return (0);
+	split = ft_strsplit(file, '.');
+	new = split[0];
+	new = ft_strjoin(new, ".cor");
+	return (new);
 }

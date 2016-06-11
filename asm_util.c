@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   asm_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/10 17:25:41 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/11 23:30:36 by hdebard          ###   ########.fr       */
+/*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
+/*   Updated: 2016/06/11 23:42:36 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void		asm_error(char *str)
+t_list	*asm_lst_browse(t_list *lst, int c)
 {
-	ft_putendl(str);
-	exit(0);
+	while (lst && c--)
+		lst = lst->next;
+	return (lst);
 }
 
-int			main(int ac, char **av)
+int		asm_str_browse(char *str)
 {
-	if (ac != 2)
-	{
-		asm_error("Pas assez d'argument");
-		return (0);
-	}
-	if (asm_parse_file(av[1]) != 0)
-		return (0);
-	// else create_file
-	return (0);
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	return (i);
+}
+
+void	*asm_lc_error(int l, int c)
+{
+	ft_putstr("ERROR: [");
+	ft_putnbr(l + 1);
+	ft_putstr(", ");
+	ft_putnbr(c + 1);
+	ft_putendl("]");
+	exit(0);
 }
