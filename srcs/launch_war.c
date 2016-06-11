@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 17:01:18 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 18:27:27 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int		get_nbr_cycle(t_war *war, int pc)
 
 	opcode = war->ram[pc];
 	if (opcode < 0 || opcode > 16)
+	{
+		ft_printf("opcode = %d\n", opcode);
+		ft_printf("ptr = %d\n", pc);
 		error("bad OPCODE.");
+	}
 	result = war->op_tab[opcode - 1].nb_cycle;//4 pour choper le nbr de cycles.
 	return (result);
 }
@@ -42,7 +46,10 @@ int		execute(t_war *war, t_champ *champ)
 
 	opcode = war->ram[champ->pc];
 	if (opcode < 0 || opcode > 16)
+	{
+		ft_printf("opcode = %d\n", opcode);
 		error("bad OPCODE.");
+	}
 	if (opcode == 0)
 		champ->pc += 1;
 	else

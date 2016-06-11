@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/11 16:52:13 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/11 18:20:39 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS = $(SRCSPATH)main.c \
 	   $(INSTRUCTPATH)sub.c \
 	   $(INSTRUCTPATH)xor.c \
 	   $(INSTRUCTPATH)zjmp.c \
+	   $(INSTRUCTPATH)get_value.c \
 
 RM = rm -f
 
