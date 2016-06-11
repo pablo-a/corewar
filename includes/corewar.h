@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 12:50:19 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 14:10:17 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct	s_op
 	char	description[42];
 	bool	ocp;
 	bool	modify_carry;
-	//int		(*associated_function)(int a, int b, int c);
+	int		(*associated_function)(t_war *war, int a, int b, int c);
 }				t_op;
 
 /* ------------------ STRUCTURE DES PARAMETRES --------------------------------
@@ -143,8 +143,27 @@ int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
 
-int				champ_action(t_war *war, int cycle);//      LAUNCH_WAR.C
+int				get_args_with_pc(unsigned char opcode, int *a, int *b, int *c);
+int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
 int				launch_war(t_war *war);
+
+
+int				add(t_war *war, int a, int b, int c);
+int				aff(t_war *war, int a, int b, int c);
+int				and(t_war *war, int a, int b, int c);
+int				cor_fork(t_war *war, int a, int b, int c);
+int				ld(t_war *war, int a, int b, int c);
+int				ldi(t_war *war, int a, int b, int c);
+int				lfork(t_war *war, int a, int b, int c);
+int				live(t_war *war, int a, int b, int c);
+int				lld(t_war *war, int a, int b, int c);
+int				lldi(t_war *war, int a, int b, int c);
+int				or(t_war *war, int a, int b, int c);
+int				st(t_war *war, int a, int b, int c);
+int				sti(t_war *war, int a, int b, int c);
+int				sub(t_war *war, int a, int b, int c);
+int				xor(t_war *war, int a, int b, int c);
+int				zjmp(t_war *war, int a, int b, int c);
 
 #endif

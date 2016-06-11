@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 13:17:06 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 14:11:13 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,37 @@ int		get_nbr_cycle(t_war *war, int ptr)
 	int opcode;
 
 	opcode = war->ram[ptr];
+	if (opcode < 0 || opcode > 16)
+		error("bad OPCODE.");
 	result = war->op_tab[opcode - 1].nb_cycle;//4 pour choper le nbr de cycles.
 	return (result);
+}
+
+int		get_args_with_pc(unsigned char opcode, int *a, int *b, int *c)
+{
+	return (0);
+}
+
+int		execute(t_war *war, int ptr)
+{
+	int opcode;
+	int a;
+	int b;
+	int c;
+
+	opcode = war->ram[ptr];
+	if (opcode < 0 || opcode > 16)
+		error("bad OPCODE.");
+	get_args_with_pc(war->ram[ptr], &a, &b, &c);
+	war->op_tab[opcode - 1].associated_function(war, a, b, c);
+	return (0);
 }
 
 /* ALLOWS PLAYERS TO EXECUTE HIS INSTRUCTION IF POSSIBLE. (CYCLE TURNS)
 ** IT IS USED EACH CYCLE.
 */
 
-int		champ_action(t_war *war, int cycle)
+int		champ_action(t_war *war)
 {
 	t_node	*node;
 	int		cycle_necessaires;
@@ -46,13 +68,13 @@ int		champ_action(t_war *war, int cycle)
 	while (node)
 	{
 		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
-		ft_printf("cycles_necessaire a %s : %d\n", NAME(node->champ), cycle_necessaires);
+		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
 		if (node->champ->cpt_interne < cycle_necessaires)
 			node->champ->cpt_interne++;
 		else
 		{
-			//execute();
-			node->champ->cpt_interne = 0;
+			execute(war, node->champ->pc);
+			node->champ->cpt_interne = 1;
 		}
 		node = node->prev;
 	}
@@ -73,7 +95,7 @@ int		launch_war(t_war *war)
 	{
 		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
-		champ_action(war, cycle);
+		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
 		if (war->args->dump > 0 && war->current_cycle == war->args->dump)
 			dump_war(war);
