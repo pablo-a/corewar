@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 15:24:40 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/11 18:02:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ int				dump_war(t_war *war);
 int				launch_war(t_war *war);
 
 
+int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);
 int				aff(t_war *war, t_champ *champ);
 int				and(t_war *war, t_champ *champ);
