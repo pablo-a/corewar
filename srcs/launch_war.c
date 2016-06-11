@@ -23,38 +23,34 @@ int		dump_war(t_war *war)
 	exit(0);
 }
 
-int		get_nbr_cycle(t_war *war, int ptr)
+int		get_nbr_cycle(t_war *war, int pc)
 {
 	int result;
 	int opcode;
 
-	opcode = war->ram[ptr];
+	opcode = war->ram[pc];
 	if (opcode < 0 || opcode > 16)
 		error("bad OPCODE.");
 	result = war->op_tab[opcode - 1].nb_cycle;//4 pour choper le nbr de cycles.
 	return (result);
 }
 
-int		get_args_with_pc(unsigned char opcode, t_instruction_params *params)
-{
-	return (0);
-}
-
-int		execute(t_war *war, int ptr)
+int		execute(t_war *war, int pc)
 {
 	int opcode;
 	t_instruction_params params;
 
-	opcode = war->ram[ptr];
+	opcode = war->ram[pc];
 	if (opcode < 0 || opcode > 16)
 		error("bad OPCODE.");
-	get_args_with_pc(war->ram[ptr], &params);
+
 	war->op_tab[opcode - 1].associated_function(war, params);
 	//adjust PC ;
 	return (0);
 }
 
-/* ALLOWS PLAYERS TO EXECUTE HIS INSTRUCTION IF POSSIBLE. (CYCLE TURNS)
+/*
+** ALLOWS PLAYERS TO EXECUTE HIS INSTRUCTION IF POSSIBLE. (CYCLE TURNS)
 ** IT IS USED EACH CYCLE.
 */
 

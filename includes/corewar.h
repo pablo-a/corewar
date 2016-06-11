@@ -150,28 +150,26 @@ int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
 
-int				get_args_with_pc(unsigned char opcode, t_instruction_params
-				*params);
 int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
 int				launch_war(t_war *war);
 
 
-int				add(t_war *war, t_instruction_params params);
-int				aff(t_war *war, t_instruction_params params);
-int				and(t_war *war, t_instruction_params params);
-int				cor_fork(t_war *war, t_instruction_params params);
-int				ld(t_war *war, t_instruction_params params);
-int				ldi(t_war *war, t_instruction_params params);
-int				lfork(t_war *war, t_instruction_params params);
-int				live(t_war *war, t_instruction_params params);
-int				lld(t_war *war, t_instruction_params params);
-int				lldi(t_war *war, t_instruction_params params);
-int				or(t_war *war, t_instruction_params params);
-int				st(t_war *war, t_instruction_params params);
-int				sti(t_war *war, t_instruction_params params);
-int				sub(t_war *war, t_instruction_params params);
-int				xor(t_war *war, t_instruction_params params);
-int				zjmp(t_war *war, t_instruction_params params);
+int				add(t_war *war, int pc);
+int				aff(t_war *war, int pc);
+int				and(t_war *war, int pc);
+int				cor_fork(t_war *war, int pc);
+int				ld(t_war *war, int pc);
+int				ldi(t_war *war, int pc);
+int				lfork(t_war *war, int pc);
+int				live(t_war *war, int pc);
+int				lld(t_war *war, int pc);
+int				lldi(t_war *war, int pc);
+int				or(t_war *war, int pc);
+int				st(t_war *war, int pc);
+int				sti(t_war *war, int pc);
+int				sub(t_war *war, int pc);
+int				xor(t_war *war, int pc);
+int				zjmp(t_war *war, int pc);
 
 #endif
