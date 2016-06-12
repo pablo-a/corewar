@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/12 02:45:58 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 03:44:55 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_strct		*asm_init_strct(void)
 	new->comment = NULL;
 	new->header = NULL;
 	new->program = NULL;
+	new->l = 0;
+	new->c = 0;
 	return (new);
 }
 

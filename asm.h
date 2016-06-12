@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/12 02:32:21 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 04:14:31 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct	s_strct
 	struct s_str		*file;
 	char				*name;
 	char				*comment;
-
+	int					l;
+	int					c;
 
 	header_t	*header;
 	char		*program;
@@ -56,9 +57,14 @@ int			asm_parse_file(char *name);
 int			asm_check_file(t_strct *strct);
 
 /*
-** asm_parse_header.c
+** asm_check_header.c
 */
-int			asm_check_header(t_str *lst, t_strct *strct);
+t_str			*asm_check_header(t_str *lst, t_strct *strct);
+
+/*
+** asm_check_label.c
+*/
+t_str			*asm_check_label(t_str *lst, t_strct *strct);
 
 
 /*
@@ -66,7 +72,7 @@ int			asm_check_header(t_str *lst, t_strct *strct);
 */
 t_str  *asm_lst_browse(t_str *lst, int *l, int d);
 int     asm_str_browse(char *str);
-void    *asm_lc_error(int l, int c);
+void    *asm_lc_error(t_strct *strct);
 char        *asm_join(char *str1, char *str2);
 
 

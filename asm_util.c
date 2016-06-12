@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/12 02:50:42 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 04:12:22 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		asm_str_browse(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && str[i] == ' ')
+	while (str[i] && (str[i] == ' ' || str[i] == 9 | str[i] == 11))
 		i++;
 	return (i);
 }
@@ -39,12 +39,12 @@ int		asm_str_browse(char *str)
 /*
 ** fonction qui retourne erreur avec la ligne et la colonne
 */
-void	*asm_lc_error(int l, int c)
+void	*asm_lc_error(t_strct *strct)
 {
 	ft_putstr("ERROR: [");
-	ft_putnbr(l + 1);
+	ft_putnbr(strct->l + 1);
 	ft_putstr(", ");
-	ft_putnbr(c + 1);
+	ft_putnbr(strct->c + 1);
 	ft_putendl("]");
 	exit(0);
 }

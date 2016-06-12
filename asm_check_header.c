@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/12 02:57:38 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 04:58:21 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			asm_check_endquote(char *str)
 	{
 		if (str[i] == '\"')
 			return (i);
-		str[i];
+		i++;
 	}
 	return (0);
 }
@@ -33,23 +33,27 @@ int			asm_check_endquote(char *str)
 ** Je check si il y as une erreur dans le fichier apres la endquote
 ** sinon je recupere le nom/commentaire oklm
 */
-char		*asm_save_endquote(int c, char *str1, char *str2)
+char		*asm_save_endquote(char *str1, char *str2, t_strct *strct)
 {
 	int			i;
 	char		*new;
 
-	i = 0;
+	i = asm_check_endquote(str2);
 	new = NULL;
-	while (str2[c + i + 1])
+	while (str2[i + 1])
 	{
-		if (str2[c + i + 1] != '#' || str2[c + i + 1] != ' ')
-			asm_lc_error(l, c + i + 1);
-		i ++;
+		if (str2[i + 1] != '#' && str2[i + 1] != ' '
+			&& str2[i + 1] != 11 && str2[i + 1] != 9)
+		{
+			strct->c += i + 1;
+			asm_lc_error(strct);
+		}
+		i++;
 	}
 	str2[i] = 0;
 	new = asm_join(str1, str2);
 	str2[i] = '\"';
-	return (asm_join(str1, str2));
+	return (new);
 }
 
 /*
@@ -57,76 +61,86 @@ char		*asm_save_endquote(int c, char *str1, char *str2)
 ** a recuperer, je suis obliger de recuperer les saut de lignes pour le retourner
 ** a asm_check_line
 */
-int			asm_check_name(t_str *lst, t_strct *strct);
+t_str			*asm_check_name(t_str *lst, t_strct *strct)
 {
 	char	*start;
-	int		d;
-	int		c;
 
-	d = 1;
 	start = NULL;
-	if (ft_strncmp(" \"", lst->str + 8, 2))
-		return (NULL);
-	start = ft_strdup(lst->str + 10);
-	if ((c = asm_check_endquote(start)) != 0)
+	strct->c += asm_str_browse(lst->str + strct->c);
+	if (lst->str[strct->c] != '\"')
+		asm_lc_error(strct);
+	else
+		strct->c += 1;
+	start = ft_strdup(lst->str + strct->c);
+	if (asm_check_endquote(start) > 0)
 	{
-		str->comment = asm_save_endquote(c, "", start);
-		return (1);
+		strct->name = asm_save_endquote(NULL, start, strct);
+		return (lst->next);
 	}
 	else
 	{
 		lst = lst->next;
-		d++;
+		strct->l += 1;
+		start = asm_join(start, "\n");
 		while (lst)
 		{
-			if ((c = asm_check_endquote(lst->str)) != 0)
+			if (asm_check_endquote(lst->str) > 0)
 			{
-				strct->comment = asm_save_endquote(c, start, lst->str);
-				return (d);
+				strct->name = asm_save_endquote(start, lst->str, strct);
+				return (lst->next);
 			}
 			else
+			{
 				start = asm_join(start, lst->str);
-			d++;
+				start = asm_join(start, "\n");
+			}
+			strct->l += 1;
+			strct->c = 0;
 			lst = lst->next;
 		}
 	}
-	return (-1);
+	return (NULL);
 }
 
-int			asm_check_name(t_str *lst, t_strct *strct)
+t_str			*asm_check_comment(t_str *lst, t_strct *strct)
 {
 	char	*start;
-	int		d;
-	int		c;
 
-	d = 1;
 	start = NULL;
-	if (ft_strncmp(" \"", lst->str + 8, 2))
-		return (NULL);
-	start = ft_strdup(lst->str + 10);
-	if ((c = asm_check_endquote(start)) != 0)
+	strct->c += asm_str_browse(lst->str + strct->c);
+	if (lst->str[strct->c] != '\"')
+		asm_lc_error(strct);
+	else
+		strct->c += 1;
+	start = ft_strdup(lst->str + strct->c);
+	if (asm_check_endquote(start) > 0)
 	{
-		str->comment = asm_save_endquote(c, "", start);
-		return (1);
+		strct->comment = asm_save_endquote(NULL, start, strct);
+		return (lst->next);
 	}
 	else
 	{
 		lst = lst->next;
-		d++;
+		strct->l += 1;
+		start = asm_join(start, "\n");
 		while (lst)
 		{
-			if ((c = asm_check_endquote(lst->str)) != 0)
+			if (asm_check_endquote(lst->str) > 0)
 			{
-				strct->comment = asm_save_endquote(c, start, lst->str);
-				return (d);
+				strct->comment = asm_save_endquote(start, lst->str, strct);
+				return (lst->next);
 			}
 			else
+			{
 				start = asm_join(start, lst->str);
-			d++;
+				start = asm_join(start, "\n");
+			}
+			strct->l += 1;
+			strct->c = 0;
 			lst = lst->next;
 		}
 	}
-	return (-1);
+	return (NULL);
 }
 
 
@@ -136,23 +150,25 @@ int			asm_check_name(t_str *lst, t_strct *strct)
 ** la size de se que j ai enregistrer. . . . . .. . . ... . . . .. 
 */
 
-int			asm_check_header(t_str *lst, t_strct *strct)
+t_str			*asm_check_header(t_str *lst, t_strct *strct)
 {
-	int		l;
+	t_str *ptr;
 
-	if (!ft_strncmp(lst->name, NAME_CMD_STRING, 5))
+	if (!ft_strncmp(lst->str + strct->c, NAME_CMD_STRING, 5))
 	{
-		l = asm_check_name(lst, strct);
+		strct->c += 5;
+		ptr = asm_check_name(lst, strct);
 		if (ft_strlen(strct->name) > PROG_NAME_LENGTH - 1)
 			asm_error("Champion name too long (Max length 128)");
-		return (l);
+		return (ptr);
 	}
-	else if (!ft_strncmp(lst->name, COMMENT_CMD_STRING, 8))
+	else if (!ft_strncmp(lst->str + strct->c, COMMENT_CMD_STRING, 8))
 	{
-		l = asm_check_comment(lst, strct);
+		strct->c += 8;
+		ptr = asm_check_comment(lst, strct);
 		if (ft_strlen(strct->comment) > COMMENT_LENGTH - 1)
 			asm_error("Champion comment too long (Max length 2048)");
-		return (l);
+		return (ptr);
 	}
-	return (-1);
+	return (NULL);
 }
