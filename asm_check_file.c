@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:50:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/12 04:32:27 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 19:56:48 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,15 @@ int			asm_check_file(t_strct *strct)
 		{
 			ptr = ptr->next;
 		}
-		else if (ptr->str[strct->c] == '.')
+		else if (strct->name == NULL || strct->comment == NULL)
 		{
-			if (strct->name != NULL && strct->comment != NULL)
+			if (ptr->str[strct->c] != '.')
 				asm_lc_error(strct);
-			if ((ptr = asm_check_header(ptr, strct)) == NULL)
+			else if ((ptr = asm_check_header(ptr, strct)) == NULL)
 				exit(0);
 		}
 		else if (ft_strchr(LABEL_CHARS, ptr->str[strct->c]) != NULL)
 		{
-			ft_putendl(strct->name);
-			ft_putendl(strct->comment);
 			if ((ptr = asm_check_label(ptr, strct)) == NULL)
 				exit(0);
 		}

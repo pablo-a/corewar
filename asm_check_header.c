@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/12 04:58:21 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 20:56:17 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,25 @@ int			asm_check_endquote(char *str)
 char		*asm_save_endquote(char *str1, char *str2, t_strct *strct)
 {
 	int			i;
+	int			j;
 	char		*new;
 
 	i = asm_check_endquote(str2);
+	j = i;
 	new = NULL;
 	while (str2[i + 1])
 	{
 		if (str2[i + 1] != '#' && str2[i + 1] != ' '
 			&& str2[i + 1] != 11 && str2[i + 1] != 9)
 		{
-			strct->c += i + 1;
+			strct->c += i;
 			asm_lc_error(strct);
 		}
 		i++;
 	}
-	str2[i] = 0;
+	str2[j] = 0;
 	new = asm_join(str1, str2);
-	str2[i] = '\"';
+	str2[j] = '\"';
 	return (new);
 }
 
@@ -157,6 +159,8 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct)
 	if (!ft_strncmp(lst->str + strct->c, NAME_CMD_STRING, 5))
 	{
 		strct->c += 5;
+		if (!lst->str[strct->c] || lst->str[strct->c] != ' ')
+			asm_lc_error(strct);
 		ptr = asm_check_name(lst, strct);
 		if (ft_strlen(strct->name) > PROG_NAME_LENGTH - 1)
 			asm_error("Champion name too long (Max length 128)");
@@ -165,6 +169,8 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct)
 	else if (!ft_strncmp(lst->str + strct->c, COMMENT_CMD_STRING, 8))
 	{
 		strct->c += 8;
+		if (!lst->str[strct->c] || lst->str[strct->c] != ' ')
+			asm_lc_error(strct);
 		ptr = asm_check_comment(lst, strct);
 		if (ft_strlen(strct->comment) > COMMENT_LENGTH - 1)
 			asm_error("Champion comment too long (Max length 2048)");

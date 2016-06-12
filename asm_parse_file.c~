@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/12 21:13:16 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 21:09:28 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char **asm_list_command(void)
 	char **tab_command;
 	int x;
 	
-	tab_command = (char**)malloc(sizeof(char*) * 17);
+	tab_command = (char**)malloc(sizeof(char*)*16);
 	x = 0;
 	tab_command[0] = ft_strdup("live");
 	tab_command[1] = ft_strdup("ld");
@@ -35,7 +35,6 @@ char **asm_list_command(void)
 	tab_command[13] = ft_strdup("lldi");
 	tab_command[14] = ft_strdup("lfork");
 	tab_command[15] = ft_strdup("aff");
-	tab_command[16] = NULL;
 	return (tab_command);
 }
 
