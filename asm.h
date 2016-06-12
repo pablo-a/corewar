@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/12 22:16:01 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/13 00:11:42 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ typedef struct	s_label
 typedef struct	s_cmd
 {
 	struct s_cmd	*next;
-	char			*cmd;
+	int				cmd;
 	char			*line;
 	int				i;
+	int				l;
+	int				c;
 }				t_cmd;
 
 /*
