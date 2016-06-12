@@ -6,12 +6,15 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/12 00:56:44 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/12 02:45:58 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+/*
+** J'initialiser juste ma main structure strct
+*/
 t_strct		*asm_init_strct(void)
 {
 	t_strct		*new;
@@ -26,34 +29,40 @@ t_strct		*asm_init_strct(void)
 	return (new);
 }
 
-t_list		*asm_lst_append(t_list *list, void *data)
+/*
+** J ajoute un element a t_str *file;
+*/
+t_str		*asm_lst_append(t_str *lst, char *str)
 {
-	t_list		*ptr;
+	t_str		*ptr;
 
-	if (list == NULL)
+	if (lst == NULL)
 	{
-		if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
+		if ((lst = (t_str*)malloc(sizeof(t_str))) == NULL)
 			return (NULL);
-		ptr = list;
+		ptr = lst;
 	}
 	else
 	{
-		ptr = list;
+		ptr = lst;
 		while (ptr->next)
 			ptr = ptr->next;
-		if ((ptr->next = (t_list*)malloc(sizeof(t_list))) == NULL)
+		if ((ptr->next = (t_str*)malloc(sizeof(t_str))) == NULL)
 			return (NULL);
 		ptr = ptr->next;
 	}
 	ptr->next = NULL;
-	if ((ptr->content = ft_strdup(data)) == NULL)
+	if ((ptr->str = ft_strdup(str)) == NULL)
 		return (NULL);
-	return (list);
+	return (lst);
 }
 
-t_list		*asm_get_file(char *name)
+/*
+** Je read mon fichier
+*/
+t_str		*asm_get_file(char *name)
 {
-	t_list		*new;
+	t_str		*new;
 	char		*buff;
 	int			fd;
 
@@ -78,6 +87,9 @@ t_list		*asm_get_file(char *name)
 	return (new);
 }
 
+/*
+** J initialise ma main structure, j enregistre le fichier et je le check
+*/
 int			asm_parse_file(char *name)
 {
 	t_strct		*strct;
