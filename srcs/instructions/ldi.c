@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:22 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 17:02:54 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 17:10:00 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 	}
 	else if (tmp == DIR_CODE)
 	{
-		val.value = get_value(war, *current_pos, 4);
-		*current_pos += 4;
+		val.value = get_value(war, *current_pos, 2);
+		*current_pos += 2;
 	}
 	else if (tmp == IND_CODE)
 	{
@@ -64,15 +64,7 @@ static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ
 	}
 	else if (tmp == DIR_CODE)
 	{
-		val.value = get_value(war, *current_pos, 4);
-		*current_pos += 4;
-	}
-	else if (tmp == IND_CODE)
-	{
-		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
-		if (offset < 0)
-			offset = MEM_SIZE + offset;
-		val.value = get_value(war, offset, 4);
+		val.value = get_value(war, *current_pos, 2);
 		*current_pos += 2;
 	}
 	else
@@ -100,8 +92,6 @@ static int		go_next(int ocp)
 		result += 1;
 	else if (tmp == DIR_CODE)
 		result += 4;
-	else if (tmp == IND_CODE)
-		result += 2;
 	else
 		return (result + 3);// +3 : OCP et registre et +1 pour la forme.
 	return (result);
@@ -128,6 +118,7 @@ int		ldi(t_war *war, t_champ *champ)
 		return (-1);
 	}
 	champ->reg_tab[reg - 1] = war->ram[(addr.value + addr2.value) % IDX_MOD];
+	//				==> valeur de l'addresse (somme des addresses % IDX_MOD)
 	champ->pc += (current_pos - champ->pc);
 	champ->carry = 1;
 	return (0);
