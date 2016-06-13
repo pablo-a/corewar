@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:22 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 18:23:40 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 23:01:49 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ static int		go_next(int ocp)
 	if (tmp == REG_CODE)
 		result += 1;
 	else if (tmp == DIR_CODE)
-		result += 4;
+		result += 2;
 	else if (tmp == IND_CODE)
 		result += 2;
 	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
 	if (tmp == REG_CODE)
 		result += 1;
 	else if (tmp == DIR_CODE)
-		result += 4;
+		result += 2;
 	return (result + 3);
 }
 
