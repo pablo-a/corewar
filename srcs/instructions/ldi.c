@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:22 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 17:10:00 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 18:23:40 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 	int offset;
 
 	val.value = 0;
+	val.error = 0;
 	tmp = (ocp & 192) >> 6;//192 == 0b11000000
 	if (tmp == REG_CODE)
 	{
@@ -85,16 +86,12 @@ static int		go_next(int ocp)
 		result += 4;
 	else if (tmp == IND_CODE)
 		result += 2;
-	else
-		return (result);
 	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
 	if (tmp == REG_CODE)
 		result += 1;
 	else if (tmp == DIR_CODE)
 		result += 4;
-	else
-		return (result + 3);// +3 : OCP et registre et +1 pour la forme.
-	return (result);
+	return (result + 3);
 }
 
 int		ldi(t_war *war, t_champ *champ)

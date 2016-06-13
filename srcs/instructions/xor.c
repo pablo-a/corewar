@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:50:10 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 16:54:57 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 18:22:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ static int		go_next(int ocp)
 		result += 4;
 	else if (tmp == IND_CODE)
 		result += 2;
-	else
-		return (result);
 	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
 	if (tmp == REG_CODE)
 		result += 1;
@@ -102,9 +100,7 @@ static int		go_next(int ocp)
 		result += 4;
 	else if (tmp == IND_CODE)
 		result += 2;
-	else
-		return (result + 3);// +3 : OCP et registre et +1 pour la forme.
-	return (result);
+	return (result + 3);
 }
 
 int		xor(t_war *war, t_champ *champ)
