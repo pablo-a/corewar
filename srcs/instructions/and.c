@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:39 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 13:08:32 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 13:55:20 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	go_next(int ocp)
 	int result;
 	int tmp;
 
+	result = 0;
 	tmp = (ocp & 192) >> 6;//192 == 0b11000000
 	if (tmp == REG_CODE)
 		result += 1;
@@ -102,6 +103,7 @@ static int	go_next(int ocp)
 		result += 2;
 	else
 		return (result + 2);// +2 : OCP et passer a la prochaine instruction.
+	return (result);
 }
 
 int			and(t_war *war, t_champ *champ)

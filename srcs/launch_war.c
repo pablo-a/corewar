@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 18:27:27 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 14:06:04 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,24 @@ int		get_nbr_cycle(t_war *war, int pc)
 	int opcode;
 
 	opcode = war->ram[pc];
-	if (opcode < 0 || opcode > 16)
+	if (opcode < 1 || opcode > 16)
 	{
-		ft_printf("opcode = %d\n", opcode);
-		ft_printf("ptr = %d\n", pc);
-		error("bad OPCODE.");
+		result = 1;
+		return (result);
 	}
-	result = war->op_tab[opcode - 1].nb_cycle;//4 pour choper le nbr de cycles.
+	result = war->op_tab[opcode - 1].nb_cycle;
 	return (result);
 }
 
 int		execute(t_war *war, t_champ *champ)
 {
 	int opcode;
-	t_instruction_params params;
 
 	opcode = war->ram[champ->pc];
-	if (opcode < 0 || opcode > 16)
-	{
-		ft_printf("opcode = %d\n", opcode);
-		error("bad OPCODE.");
-	}
-	if (opcode == 0)
+	if (opcode < 1 || opcode > 16)
 		champ->pc += 1;
 	else
 		war->op_tab[opcode - 1].associated_function(war, champ);
-	//adjust PC ;
 	return (0);
 }
 
@@ -101,7 +93,7 @@ int		launch_war(t_war *war)
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
-		if (war->args->dump > 0 && war->current_cycle == war->args->dump)
+		if (war->args->dump > 0 && (war->current_cycle + cycle) == war->args->dump)
 			dump_war(war);
 		cycle++;
 	}
