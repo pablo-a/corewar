@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 17:59:49 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 12:37:36 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 22:18:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int		get_value(t_war *war, int pos, int size)
 	int i;
 
 	i = 1;
-	result = war->ram[pos];
+	result = war->ram[pos % MEM_SIZE];
 	while (i < size)
 	{
 		result = result << 8;
-		result = (war->ram[pos + i]) | result;
+		result = (war->ram[(pos + i) % MEM_SIZE]) | result;
 		i++;
 	}
 	return (result);

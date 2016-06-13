@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:42 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 18:43:33 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 22:49:18 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ static int		write_into_ram(t_war *war, int pos, int nb)
 
 int				st(t_war *war, t_champ *champ)
 {
-	int current_pos;
-	int ocp;
+	int			current_pos;
+	int			ocp;
 	t_return	val1;
 	t_return	val2;
+	int			tmp;
 
 	current_pos = champ->pc + 2;
 	ocp = war->ram[current_pos - 1];
@@ -101,9 +102,9 @@ int				st(t_war *war, t_champ *champ)
 		return (-1);
 	}
 	if ((tmp = ((ocp << 2) & 192) >> 6) == REG_CODE)
-		champ->reg_tab[val2] = val1;
+		champ->reg_tab[val2.value] = val1.value;
 	else
-		write_into_ram(war, (val2 % IDX_MOD), val1);
+		write_into_ram(war, (val2.value % IDX_MOD), val1.value);
 	champ->pc += (current_pos - champ->pc);
 	return (0);
 }

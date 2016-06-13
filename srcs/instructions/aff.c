@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:24 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 18:16:47 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 22:39:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		aff(t_war *war, t_champ *champ)
 	}
 	content = champ->reg_tab[reg - 1] % 256;
 	champ->pc += 3;
+	ft_printf("aff : %#x ", content);
 	ft_putchar(content);
 	return (0);
 }
