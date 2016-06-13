@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:39 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 13:55:20 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 14:17:16 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	go_next(int ocp)
 	else if (tmp == IND_CODE)
 		result += 2;
 	else
-		return (result + 2);// +2 : OCP et passer a la prochaine instruction.
+		return (result + 3);// +3 : OCP et registre et +1 pour la forme.
 	return (result);
 }
 
