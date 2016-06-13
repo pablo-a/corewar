@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 14:16:15 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 14:51:33 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 	}
 	else if (tmp == IND_CODE)
 	{
-		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
+		offset = (get_value(war, *current_pos, 2) + champ->pc) % IDX_MOD;
 		if (offset < 0)
 			offset = MEM_SIZE + offset;
 		val = get_value(war, offset, 4);
