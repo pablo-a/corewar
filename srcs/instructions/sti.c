@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:52 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 22:46:18 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 23:15:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
 			val.error = 1;
 		val.value = champ->reg_tab[val.value - 1];
-		*current_pos += 1;
+		*current_pos = calc_pc(*current_pos, 1);
 	}
 	else if (tmp == DIR_CODE)
 	{
 		val.value = get_value(war, *current_pos, 2);
-		*current_pos += 2;
+		*current_pos = calc_pc(*current_pos, 2);
 	}
 	else if (tmp == IND_CODE)
 	{
@@ -40,7 +40,7 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 		if (offset < 0)
 			offset = MEM_SIZE + offset;
 		val.value = get_value(war, offset, 4);
-		*current_pos += 2;
+		*current_pos = calc_pc(*current_pos, 2);
 	}
 	else
 		val.error = 1;
@@ -51,7 +51,6 @@ static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ
 {
 	int tmp;
 	t_return val;
-	int offset;
 
 	val.value = 0;
 	val.error = 0;
@@ -61,12 +60,12 @@ static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ
 		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
 			val.error = 1;
 		val.value = champ->reg_tab[val.value - 1];
-		*current_pos += 1;
+		*current_pos = calc_pc(*current_pos, 1);
 	}
 	else if (tmp == DIR_CODE)
 	{
 		val.value = get_value(war, *current_pos, 2);
-		*current_pos += 2;
+		*current_pos = calc_pc(*current_pos, 2);
 	}
 	else
 		val.error = 1;
@@ -104,20 +103,20 @@ int				sti(t_war *war, t_champ *champ)
 	t_return	val2;
 	int reg;
 
-	current_pos = (champ->pc + 2) % MEM_SIZE;
+	current_pos = (calc_pc(champ->pc, 2));
 	ocp = war->ram[calc_pc(current_pos, -1)];
 	reg = get_value(war, current_pos, 1);
-	current_pos++;
+	current_pos = calc_pc(current_pos, 1);
 	val1 = get_first(ocp, &current_pos, war, champ);
 	val2 = get_second(ocp, &current_pos, war, champ);
 	if (val1.error == 1 || val2.error == 1 || reg < 1 || reg > 16)
 	{
-		champ->pc += go_next(ocp);
+		champ->pc = calc_pc(champ->pc, go_next(ocp));
 		champ->carry = 0;
 		return (-1);
 	}
 	champ->reg_tab[reg - 1] = (val1.value + val2.value) % IDX_MOD;
-	champ->pc += (current_pos - champ->pc);
+	champ->pc = current_pos;
 	champ->carry = 1;
 	return (0);
 }

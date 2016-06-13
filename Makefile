@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/11 18:20:39 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/13 23:03:48 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)pile.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \
-	   $(SRCSPATH)update_pc.c\
+	   $(SRCSPATH)calc_pc.c\
 	   $(INSTRUCTPATH)add.c \
 	   $(INSTRUCTPATH)aff.c \
 	   $(INSTRUCTPATH)and.c \
