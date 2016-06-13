@@ -44,7 +44,7 @@ int		execute(t_war *war, t_champ *champ)
 
 	opcode = war->ram[champ->pc];
 	if (opcode < 1 || opcode > 16)
-		champ->pc += 1;
+		champ->pc = calc_pc(champ->pc, 1);
 	else
 		war->op_tab[opcode - 1].associated_function(war, champ);
 	return (0);

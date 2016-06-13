@@ -11,22 +11,22 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
 
 int		aff(t_war *war, t_champ *champ)
 {
 	int reg;
 	int content;
 
-	reg = war->ram[champ->pc + 2];
+	reg = war->ram[(champ->pc + 2) % MEM_SIZE];
 	if (reg < 1 || reg > 16)
 	{
-		champ->pc += 3;
+		champ->pc = calc_pc(champ->pc, 3);
 		return (-1);
 	}
 	content = champ->reg_tab[reg - 1] % 256;
-	champ->pc += 3;
+	champ->pc = calc_pc(champ->pc, 3);
+	//TODO Remove :
 	ft_printf("aff : %#x ", content);
-	ft_putchar(content);
+	ft_printf("%hhu", content);
 	return (0);
 }

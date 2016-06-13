@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
 
 static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 {
@@ -50,7 +49,6 @@ static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ
 {
 	int tmp;
 	t_return val;
-	int offset;
 
 	val.value = 0;
 	val.error = 0;
