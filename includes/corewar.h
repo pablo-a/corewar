@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 19:16:08 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 12:42:33 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define GRAY "\033[37m"
 # define YELLOW "\033[33m"
 # define END "\033[0m"
+
+# define ERROR 0xABCDEF
 
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
@@ -92,13 +94,6 @@ typedef struct	s_node
 	struct s_node	*prev;
 }				t_node;
 
-typedef struct	s_instruction_params
-{
-	int a;
-	int b;
-	int c;
-}				t_instruction_params;
-
 /* --------------------- STRUCTURE DES INSTRUCTIONS AUTORISEES ----------------
 ** contient toutes les infos liees a chaque instructions. ptr sur fct a rajouter
 */
@@ -126,6 +121,10 @@ typedef struct	s_args
 	ssize_t	dump;
 	int		nb_champ;
 }				t_args;
+
+/*
+** --------------------- FONCTIONS PROTOTYPES --------------------------------
+*/
 
 t_pile			*new_pile(void);
 int				pile_append(t_pile *pile, t_champ *champ);
