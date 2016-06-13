@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/13 00:11:42 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/13 02:32:25 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct	s_strct
 	char				*comment;
 	int					l;
 	int					c;
-	struct s_label		*labels;
-	struct s_cmd		*commands;
+//	struct s_label		*labels;
+//	struct s_cmd		*commands;
 
-	header_t	*header;
-	char		*program;
+//	header_t	*header;
+//	char		*program;
 }				t_strct;
 
 typedef struct	s_str
@@ -41,6 +41,7 @@ typedef struct	s_str
 	char			*str;
 }				t_str;
 
+/*
 typedef struct	s_label
 {
 	struct s_label	*next;
@@ -57,6 +58,7 @@ typedef struct	s_cmd
 	int				l;
 	int				c;
 }				t_cmd;
+*/
 
 /*
 **	main.c
