@@ -36,9 +36,7 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 	}
 	else if (tmp == IND_CODE)
 	{
-		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
-		if (offset < 0)
-			offset = MEM_SIZE + offset;
+		offset = calc_pc(get_value(war, *current_pos, 2), champ->pc);
 		val.value = get_value(war, offset, 4);
 		*current_pos = calc_pc(*current_pos, 2);
 	}

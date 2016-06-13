@@ -27,7 +27,7 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 			val.error = 1;
 		val.value = champ->reg_tab[val.value - 1];
 		*current_pos = calc_pc(*current_pos, 1);
-		*current_pos += 1;
+		*current_pos = calc_pc(*current_pos, 1);
 	}
 	else if (tmp == DIR_CODE)
 	{
@@ -36,9 +36,8 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 	}
 	else if (tmp == IND_CODE)
 	{
+		//TODO Check :
 		offset = calc_pc(get_value(war, *current_pos, 2), champ->pc);
-		if (offset < 0)
-			offset = MEM_SIZE + offset;
 		val.value = get_value(war, offset, 4);
 		*current_pos = calc_pc(*current_pos, 2);
 	}
@@ -70,9 +69,7 @@ static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ
 	}
 	else if (tmp == IND_CODE)
 	{
-		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
-		if (offset < 0)
-			offset = MEM_SIZE + offset;
+		offset = calc_pc(get_value(war, *current_pos, 2), champ->pc);
 		val.value = get_value(war, offset, 4);
 		*current_pos = calc_pc(*current_pos, 2);
 	}
@@ -112,7 +109,7 @@ int				and(t_war *war, t_champ *champ)
 	t_return	val2;
 	int reg;
 
-	current_pos = (champ->pc + 2) % MEM_SIZE;
+	current_pos = calc_pc(champ->pc, 2);
 	ocp = war->ram[calc_pc(current_pos, -1)];
 	val1 = get_first(ocp, &current_pos, war, champ);
 	val2 = get_second(ocp, &current_pos, war, champ);

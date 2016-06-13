@@ -26,12 +26,12 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
 			val.error = 1;
 		val.value = champ->reg_tab[val.value - 1];
-		*current_pos += 1;
+		*current_pos = calc_pc(*current_pos, 1);
 	}
 	else if (tmp == DIR_CODE)
 	{
 		val.value = get_value(war, *current_pos, 4);
-		*current_pos += 4;
+		*current_pos = calc_pc(*current_pos, 4);
 	}
 	else if (tmp == IND_CODE)
 	{
@@ -39,7 +39,7 @@ static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 		if (offset < 0)
 			offset = MEM_SIZE + offset;
 		val.value = get_value(war, offset, 4);
-		*current_pos += 2;
+		*current_pos = calc_pc(*current_pos, 2);
 	}
 	else
 		val.error = 1;
@@ -77,17 +77,17 @@ int			lld(t_war *war, t_champ *champ)
 	int			ocp;
 	int			current_pos;
 
-	current_pos = champ->pc + 2;
-	ocp = war->ram[current_pos - 1];
+	current_pos = calc_pc(champ->pc, 2);
+	ocp = war->ram[calc_pc(current_pos, -1)];
 	val = get_first(ocp, &current_pos, war, champ);
 	reg = war->ram[current_pos];
-	current_pos++;
+	current_pos = calc_pc(current_pos, 1);
 	if (val.value == 1 || reg < 1 || reg > 16)
 	{
-		champ->pc += go_next(ocp);
+		champ->pc = calc_pc(champ->pc, go_next(ocp));
 		return (-1);
 	}
 	champ->reg_tab[reg - 1] = val.value;
-	champ->pc += (current_pos - champ->pc);
+	champ->pc = current_pos;
 	return (0);
 }

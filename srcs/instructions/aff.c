@@ -17,7 +17,7 @@ int		aff(t_war *war, t_champ *champ)
 	int reg;
 	int content;
 
-	reg = war->ram[(champ->pc + 2) % MEM_SIZE];
+	reg = war->ram[calc_pc(champ->pc, 2)];
 	if (reg < 1 || reg > 16)
 	{
 		champ->pc = calc_pc(champ->pc, 3);

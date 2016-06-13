@@ -18,7 +18,6 @@ int		live(t_war *war, t_champ *champ)
 	war->current_live_nb++;
 	champ->cpt_live[0]++;
 	champ->cpt_live[1] = war->current_cycle;
-	//TODO calc pc :
-	champ->pc++;
+	champ->pc = calc_pc(champ->pc, 1);
 	return (0);
 }
