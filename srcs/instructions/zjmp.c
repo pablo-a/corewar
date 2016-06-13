@@ -11,20 +11,14 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
 
 int		zjmp(t_war *war, t_champ *champ)
 {
-	short int i;
-
 	if (champ->carry == 1)
 	{
-		i = (short int) (get_value(war, champ->pc + 1, 2) % MEM_SIZE);
-		champ->pc = champ->pc + i;
-		if (champ->pc < 0)
-			champ->pc = (MEM_SIZE) + champ->pc;
+		champ->pc = update_pc(champ, get_value(war, champ->pc + 1, 2));
 		return (0);
 	}
-	champ->pc++;
+	champ->pc = update_pc(champ, 1);
 	return (-1);
 }

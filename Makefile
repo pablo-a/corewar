@@ -28,6 +28,7 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)pile.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \
+	   $(SRCSPATH)update_pc.c\
 	   $(INSTRUCTPATH)add.c \
 	   $(INSTRUCTPATH)aff.c \
 	   $(INSTRUCTPATH)and.c \

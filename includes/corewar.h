@@ -158,6 +158,8 @@ int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
 int				launch_war(t_war *war);
 
+int 			update_pc(t_champ *champ, int value);
+
 
 int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);
