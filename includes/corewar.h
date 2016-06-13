@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 14:56:53 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 16:59:15 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # define GRAY "\033[37m"
 # define YELLOW "\033[33m"
 # define END "\033[0m"
-
-# define ERROR 0xABCDEF
 
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
@@ -74,6 +72,7 @@ typedef struct	s_champ
 	int				cpt_live[2];// cpt[1] = nb_live et cpt[2] = last_live;
 	unsigned char	*instructions;
 	t_header		*header;
+	int				is_dead;
 }				t_champ;
 
 /* ----------------------- STRUCTURE D'UNE PILE -------------------------------
@@ -122,6 +121,12 @@ typedef struct	s_args
 	int		nb_champ;
 }				t_args;
 
+
+typedef struct	s_return
+{
+	int value;
+	int error;
+}				t_return;
 /*
 ** --------------------- FONCTIONS PROTOTYPES --------------------------------
 */

@@ -6,43 +6,43 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 14:51:33 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 17:01:43 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-static int	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
+static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 {
 	int tmp;
-	int val;
+	t_return val;
 	int offset;
 
-	val = 0;
+	val.value = 0;
 	tmp = (ocp & 192) >> 6;//192 == 0b11000000
 	if (tmp == REG_CODE)
 	{
-		if ((val = get_value(war, *current_pos, 1)) < 1 || val > 16)
-			return (ERROR);
-		val = champ->reg_tab[val];
+		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
+			val.error = 1;
+		val.value = champ->reg_tab[val.value - 1];
 		*current_pos += 1;
 	}
 	else if (tmp == DIR_CODE)
 	{
-		val = get_value(war, *current_pos, 4);
+		val.value = get_value(war, *current_pos, 4);
 		*current_pos += 4;
 	}
 	else if (tmp == IND_CODE)
 	{
-		offset = (get_value(war, *current_pos, 2) + champ->pc) % IDX_MOD;
+		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
 		if (offset < 0)
 			offset = MEM_SIZE + offset;
-		val = get_value(war, offset, 4);
+		val.value = get_value(war, offset, 4);
 		*current_pos += 2;
 	}
 	else
-		return (ERROR);
+		val.error = 1;
 	return (val);
 }
 
@@ -76,22 +76,22 @@ static int	go_next(int ocp)
 
 int			ld(t_war *war, t_champ *champ)
 {
-	int val;
-	int reg;
-	int ocp;
-	int current_pos;
+	t_return	val;
+	int			reg;
+	int			ocp;
+	int			current_pos;
 
 	current_pos = champ->pc + 2;
 	ocp = war->ram[current_pos - 1];
 	val = get_first(ocp, &current_pos, war, champ);
 	reg = war->ram[current_pos];
 	current_pos++;
-	if (val == ERROR || reg < 1 || reg > 16)
+	if (val.error == 1 || reg < 1 || reg > 16)
 	{
 		champ->pc += go_next(ocp);
 		return (-1);
 	}
-	champ->reg_tab[reg - 1] = val;
+	champ->reg_tab[reg - 1] = val.value;
 	champ->pc += (current_pos - champ->pc);
 	return (0);
 }

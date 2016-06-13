@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 11:26:36 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 16:23:42 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_champ		*init_champ(ssize_t id)
 	champ->cpt_live[1] = 0;
 	champ->header = NULL;
 	champ->instructions = NULL;
+	champ->is_dead = 0;
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
 	champ->reg_tab[0] = -(int)id;

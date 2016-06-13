@@ -6,31 +6,31 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:39 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 14:19:52 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 16:56:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-static int	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
+static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 {
 	int tmp;
-	int val;
+	t_return val;
 	int offset;
 
-	val = 0;
+	val.value = 0;
 	tmp = (ocp & 192) >> 6;//192 == 0b11000000
 	if (tmp == REG_CODE)
 	{
-		if ((val = get_value(war, *current_pos, 1)) < 1 || val > 16)
-			return (ERROR);
-		val = champ->reg_tab[val];
+		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
+			val.error = 1;
+		val.value = champ->reg_tab[val.value - 1];
 		*current_pos += 1;
 	}
 	else if (tmp == DIR_CODE)
 	{
-		val = get_value(war, *current_pos, 4);
+		val.value = get_value(war, *current_pos, 4);
 		*current_pos += 4;
 	}
 	else if (tmp == IND_CODE)
@@ -38,32 +38,33 @@ static int	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
 		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
 		if (offset < 0)
 			offset = MEM_SIZE + offset;
-		val = get_value(war, offset, 4);
+		val.value = get_value(war, offset, 4);
 		*current_pos += 2;
 	}
 	else
-		return (ERROR);
+		val.error = 1;
 	return (val);
 }
 
-static int	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ)
+static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ)
 {
 	int tmp;
-	int val;
+	t_return val;
 	int offset;
 
-	val = 0;
+	val.value = 0;
+	val.error = 0;
 	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
 	if (tmp == REG_CODE)
 	{
-		if ((val = get_value(war, *current_pos, 1)) < 1 || val > 16)
-			return (ERROR);
-		val = champ->reg_tab[val];
+		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
+			val.error = 1;
+		val.value = champ->reg_tab[val.value - 1];
 		*current_pos += 1;
 	}
 	else if (tmp == DIR_CODE)
 	{
-		val = get_value(war, *current_pos, 4);
+		val.value = get_value(war, *current_pos, 4);
 		*current_pos += 4;
 	}
 	else if (tmp == IND_CODE)
@@ -71,15 +72,15 @@ static int	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ)
 		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
 		if (offset < 0)
 			offset = MEM_SIZE + offset;
-		val = get_value(war, offset, 4);
+		val.value = get_value(war, offset, 4);
 		*current_pos += 2;
 	}
 	else
-		return (ERROR);
+		val.error = 1;
 	return (val);
 }
 
-static int	go_next(int ocp)
+static int		go_next(int ocp)
 {
 	int result;
 	int tmp;
@@ -106,12 +107,12 @@ static int	go_next(int ocp)
 	return (result);
 }
 
-int			and(t_war *war, t_champ *champ)
+int				and(t_war *war, t_champ *champ)
 {
 	int current_pos;
 	int ocp;
-	int val1;
-	int val2;
+	t_return	val1;
+	t_return	val2;
 	int reg;
 
 	current_pos = champ->pc + 2;
@@ -120,13 +121,13 @@ int			and(t_war *war, t_champ *champ)
 	val2 = get_second(ocp, &current_pos, war, champ);
 	reg = get_value(war, current_pos, 1);
 	current_pos++;
-	if (val1 == ERROR || val2 == ERROR || reg < 1 || reg > 16)
+	if (val1.error == 1 || val2.error == 1 || reg < 1 || reg > 16)
 	{
 		champ->pc += go_next(ocp);
 		champ->carry = 0;
 		return (-1);
 	}
-	champ->reg_tab[reg - 1] = val1 & val2;
+	champ->reg_tab[reg - 1] = val1.value & val2.value;
 	champ->pc += (current_pos - champ->pc);
 	champ->carry = 1;
 	return (0);
