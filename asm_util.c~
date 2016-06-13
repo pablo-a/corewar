@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/13 18:55:46 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/13 18:30:12 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ int		asm_str_browse(char *str)
 	return (i);
 }
 
+int		asm_array_browse(char **array)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i][0] == "#")
+		i++;
+	return (i);
+}
 
 /*
 ** fonction qui retourne erreur avec la ligne et la colonne

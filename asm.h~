@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/13 02:32:25 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/13 18:23:58 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_strct
 	char				*comment;
 	int					l;
 	int					c;
+	struct s_byteline	*bytelines;
 //	struct s_label		*labels;
 //	struct s_cmd		*commands;
 
@@ -40,6 +41,28 @@ typedef struct	s_str
 	struct s_str	*next;
 	char			*str;
 }				t_str;
+
+typedef struct s_byteline
+{
+ struct s_byteline	*next;
+	
+	int					label; //(0 | 1)
+	char				*name;
+	int					index_tab_cmmand;
+	char				**parms;
+		
+	char				byte_cmd;
+	char				byte_ocp;
+	char				**byte_parms;
+	int					size_line;
+
+    // end
+	char				*byte_line;
+}
+
+
+
+
 
 /*
 typedef struct	s_label
@@ -95,6 +118,7 @@ t_str			*asm_check_label(t_str *lst, t_strct *strct);
 */
 t_str  *asm_lst_browse(t_str *lst, int *l, int d);
 int     asm_str_browse(char *str);
+int     asm_array_browse(char *str);
 void    *asm_lc_error(t_strct *strct);
 char        *asm_join(char *str1, char *str2);
 

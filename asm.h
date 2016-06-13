@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/13 18:02:02 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/13 18:55:51 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct	s_strct
 	char				*comment;
 	int					l;
 	int					c;
-//	struct s_label		*labels;
-//	struct s_cmd		*commands;
+	struct s_byteline	*bytelines;
 
 //	header_t	*header;
 //	char		*program;
@@ -41,28 +40,22 @@ typedef struct	s_str
 	char			*str;
 }				t_str;
 
-typedefstruct s_byteline
+typedef struct s_byteline
 {
-    next;
-    int     label; //(0 | 1)
-    char    *name;
-    int     index_tab_cmmand;
-    char **parms,
-
-
-
-		char    byte_cmd;
-    char    byte_ocp;
-    char    **byte_parms;
-    int     size_line;
+	struct s_byteline	*next;
+	int					label; //(0 | 1)
+	char				*name;
+	int					index_tab_cmmand;
+	char				**parms;
+		
+	char				byte_cmd;
+	char				byte_ocp;
+	char				**byte_parms;
+	int					size_line;
 
     // end
-    char    *byte_line;
-}
-
-
-
-
+	char				*byte_line;
+}					t_byteline;
 
 /*
 typedef struct	s_label

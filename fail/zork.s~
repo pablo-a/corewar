@@ -4,7 +4,7 @@
 
 	k"
 
-sti r1, %:live, %1
+sti r1, %:live, %:l2 , %:live                 #dsfjigjs
 l2:		sti r1, %:live, %1
 		and r1, %0, r1
 

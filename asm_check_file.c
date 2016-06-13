@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:50:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/13 02:31:44 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/13 18:49:49 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,8 @@ int			asm_check_file(t_strct *strct)
 		}
 		else if (ft_strchr(LABEL_CHARS, ptr->str[strct->c]) != NULL)
 		{
-					// des que je tombe sur un label / une commande exit j en suis la.
-			exit(0);
-
-//			if ((ptr = asm_check_label(ptr, strct)) == NULL)
-//				exit(0);
+			if ((ptr = asm_check_label(ptr, strct)) == NULL)
+				exit(0);
 		}
 		else
 			asm_lc_error(strct);
