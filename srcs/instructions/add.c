@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:46:33 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 17:08:42 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/13 11:31:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int		add(t_war *war, t_champ *champ)
 	champ->reg_tab[r3] = champ->reg_tab[r1] + champ->reg_tab[r2];
 	champ->carry = 1;
 	champ->pc += 5;
-	ft_printf("%d + %d gives %d", champ->reg_tab[r1], champ->reg_tab[r2], champ->reg_tab[r3]);
 	return (0);
 }
