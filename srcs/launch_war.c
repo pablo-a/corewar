@@ -64,7 +64,7 @@ int		champ_action(t_war *war)
 	while (node)
 	{
 		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
-		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
+//		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
 		if (node->champ->cpt_interne < cycle_necessaires)
 			node->champ->cpt_interne++;
 		else
@@ -89,7 +89,7 @@ int		launch_war(t_war *war)
 	cycle = 1;
 	while (cycle < CYCLE_TO_DIE)
 	{
-		ft_printf("cycles numero  %d\n", cycle);
+//		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE

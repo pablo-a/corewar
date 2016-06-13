@@ -83,7 +83,7 @@ int		main(int argc, char **argv)
 	war = init_war(&args);
 	get_args(argc, argv, war);
 	load_players_into_arena(war);
-	display_ram(war->ram);
+//	display_ram(war->ram);
 	while (war->current_live_nb > 0)
 		launch_war(war);
 	return (0);
