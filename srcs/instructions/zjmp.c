@@ -23,6 +23,8 @@ int		zjmp(t_war *war, t_champ *champ)
 		champ->pc = champ->pc + i;
 		if (champ->pc < 0)
 			champ->pc = (MEM_SIZE) + champ->pc;
+		return (0);
 	}
-	return (0);
+	champ->pc++;
+	return (-1);
 }
