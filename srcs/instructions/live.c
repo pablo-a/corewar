@@ -18,7 +18,7 @@ static int	add_live(t_war *war, int id)
 	t_node *node;
 
 	node = war->pile_champ->first;
-	while (node->champ->id != id && node)
+	while (node && node->champ->id != id)
 		node = node->next;
 	node->champ->cpt_live[0]++;
 	node->champ->cpt_live[1] = war->current_cycle;
