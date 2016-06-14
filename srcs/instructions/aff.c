@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:24 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 22:39:19 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/14 02:03:10 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int		aff(t_war *war, t_champ *champ)
 	champ->pc = calc_pc(champ->pc, 3);
 	//TODO Remove :
 	ft_printf("aff : %#x ", content);
-	ft_printf("%hhu", content);
+	ft_printf("%hhu\n", content);
 	return (0);
 }

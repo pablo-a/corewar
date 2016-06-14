@@ -6,12 +6,39 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 17:44:17 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/14 02:00:32 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
+
+int		reset_champ_live(t_war *war)
+{
+	t_node *node;
+
+	node = war->pile_champ->first;
+	while (node)
+	{
+		node->champ->cpt_live[0] = 0;
+		node = node->next;
+	}
+	return (0);
+}
+
+int		find_dead_champs(t_war *war)
+{
+	t_node *node;
+
+	node = war->pile_champ->first;
+	while (node)
+	{
+		if (node->champ->cpt_live[0] == 0)
+			node->champ->is_dead = 1;
+		node = node->next;
+	}
+	return (0);
+}
 
 /* ------- OPTION -DUMP NB --------------------
 **   arrete la partie au bout de NB cycles.
@@ -63,6 +90,11 @@ int		champ_action(t_war *war)
 	node = war->pile_champ->last;// le dernier processus commence
 	while (node)
 	{
+		if (node->champ->is_dead)
+		{
+			node = node->prev;
+			break ;
+		}
 		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
 //		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
 		if (node->champ->cpt_interne < cycle_necessaires)
@@ -87,6 +119,7 @@ int		launch_war(t_war *war)
 
 	war->current_live_nb = 0;
 	cycle = 1;
+	reset_champ_live(war);
 	while (cycle < CYCLE_TO_DIE)
 	{
 //		ft_printf("cycles numero  %d\n", cycle);
@@ -105,5 +138,6 @@ int		launch_war(t_war *war)
 		war->cycle_to_die -= CYCLE_DELTA;
 	else
 		war->max_check++;
+	find_dead_champs(war);
 	return (0);
 }

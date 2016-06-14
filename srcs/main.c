@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 12:05:04 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/14 02:02:00 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@ int		convert_to_big_endian(unsigned int data)
 			((data << 8) & 0xFF0000) |
 			((data << 24) & 0xFF000000);
 	return (result);
+}
+
+int		who_won(t_war *war)
+{
+	t_node	*node;
+	t_champ	*winner;
+	int		i;
+
+	i = 0;
+	node = war->pile_champ->first;
+	winner = war->pile_champ->first->champ;
+	while (i < war->args->nb_champ)
+	{
+		if (node->champ->cpt_live[1] > winner->cpt_live[1])
+			winner = node->champ;
+		node = node->next;
+		i++;
+	}
+	ft_printf("Contestant %d, \"%s\" has won!\n", winner->id,
+			winner->header->prog_name);
 }
 
 int		get_args(int argc, char **argv, t_war *war)
@@ -86,5 +106,6 @@ int		main(int argc, char **argv)
 //	display_ram(war->ram);
 	while (war->current_live_nb > 0)
 		launch_war(war);
+	who_won(war);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 23:05:03 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/14 01:29:57 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_champ
 	int				cpt_live[2];// cpt[1] = nb_live et cpt[2] = last_live;
 	unsigned char	*instructions;
 	t_header		*header;
+	struct s_champ	*father;
 	int				is_dead;
 }				t_champ;
 
@@ -154,6 +155,8 @@ int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
 
+int				reset_champ_live(t_war *war);
+int				find_dead_champs(t_war *war);
 int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
 int				launch_war(t_war *war);
