@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/14 14:55:59 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/14 13:33:08 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,34 +61,29 @@ int asm_check_aff(char **tab)
 int asm_check_command(int i, char **tab, t_byteline byteline)
 {
 	int x;
-	int ret;
 	char *str;
 	char **arg;
 
 	str = tab[1];
 	x = 2;
-	ret = 0;
 	while(tab[x++])
 		str = ft_strjoin(str, tab[x]);
 	arg = ft_strsplit(str, SEPARATOR_CHAR);
 	if (i == 0 || i == 8 || i == 11 || i == 14)
-		ret = asm_check_live_zjmp_fork(arg);
+		return (asm_check_live_zjmp_fork(arg));
 	if (i == 1 || i == 12)
-		ret = asm_check_ld(arg);
+		return (asm_check_ld(arg));
 	if (i == 2)
-		ret = asm_check_st(arg);
+		return (asm_check_st(arg));
 	if (i == 3 || i == 4)
-		ret = asm_check_add_sub(arg);
+		return (asm_check_add_sub(arg));
 	if (i > 4 || i < 8)
-		ret = asm_check_and_or(arg);
+		return (asm_check_and_or(arg));
 	if (i == 9 || i == 13)
-		ret = asm_check_ldi(arg);
+		return (asm_check_ldi(arg));
 	if (i == 11)
-		ret = asm_check_sti(arg);
+		return (asm_check_sti(arg));
 	if (i == 15)
-		ret = asm_check_aff(arg);
-//  Si ret est different de 0, c'est une erreur est la fonction le renvoye.
-	if (ret != 0)
-		return (ret);
-//  Suite du code a faire
+		return (asm_check_aff(arg));
+	return (-1);
 }
