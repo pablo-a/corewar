@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/14 01:29:57 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/15 17:07:03 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include "libftprintf.h"
+# include "ncurses.h"
 # include "op.h"
 
 # define RED "\033[31m"
@@ -154,6 +155,7 @@ int				main(int argc, char **argv);
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
+int				display_reg(t_champ *champ);
 
 int				reset_champ_live(t_war *war);
 int				find_dead_champs(t_war *war);
