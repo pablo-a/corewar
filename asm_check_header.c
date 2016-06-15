@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/13 00:12:44 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/15 11:47:09 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_str			*asm_check_name(t_str *lst, t_strct *strct)
 	return (NULL);
 }
 
-t_str			*asm_check_comment(t_str *lst, t_strct *strct)
+t_str			*asm_check_coment(t_str *lst, t_strct *strct)
 {
 	char	*start;
 
@@ -171,7 +171,7 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct)
 		strct->c += 8;
 		if (!lst->str[strct->c] || lst->str[strct->c] != ' ')
 			asm_lc_error(strct);
-		ptr = asm_check_comment(lst, strct);
+		ptr = asm_check_coment(lst, strct);
 		if (ft_strlen(strct->comment) > COMMENT_LENGTH - 1)
 			asm_error("Champion comment too long (Max length 2048)");
 		return (ptr);

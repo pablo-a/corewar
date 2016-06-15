@@ -6,7 +6,7 @@
 #    By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/07 15:12:46 by vbarrete          #+#    #+#              #
-#    Updated: 2016/06/15 11:55:30 by hdebard          ###   ########.fr        #
+#    Updated: 2016/06/15 11:49:20 by hdebard          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,6 @@ SRC = 	main.c\
 		asm_parse_file.c\
 		asm_check_file.c\
 		asm_check_header.c\
-		asm_check_label.c\
 		asm_check_command.c\
 		asm_check_command_2.c\
 		asm_check_arg.c\

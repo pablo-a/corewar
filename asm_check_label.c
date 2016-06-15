@@ -6,20 +6,13 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 03:35:54 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/13 18:55:24 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/15 12:44:45 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int				asm_check_command(int x, char **array, t_strct *strct)
-{
-	if (x < 0 || array == NULL || strct == NULL)
-		return (1);
-	return (1);
-}
-
-int				asm_is_command(char **array, t_strct *strct)
+int				asm_is_command(t_str *lst, char **array, t_strct *strct)
 {
 	int x;
 
@@ -28,8 +21,15 @@ int				asm_is_command(char **array, t_strct *strct)
 	{
 		if (!ft_strcmp(array[0], strct->tab_command[x]))
 		{
-			if (asm_check_command(x, array, strct) == 0)
+			strct->c += ft_strlen(array[0]);
+			if (lst->str[strct->c] != ' ')
+				return (0);
+			strct->c += asm_str_browse(lst->str + strct->c);
+			if (asm_check_command(x, lst->str, strct) == 0)
+			{
+				// create t_byteline
 				return (1);
+			}
 			else
 				asm_error("Erreur, moi pas comprendre!");
 		}
@@ -46,11 +46,7 @@ int				asm_is_label(char *str)
 	while (str[i])
 	{
 		if (str[i] == LABEL_CHAR)
-		{
-			if (str[i + 1])
-				return (0);
 			return (1);
-		}
 		if (ft_strchr(LABEL_CHARS, str[i]) == NULL)
 			return (0);
 		i++;
@@ -58,10 +54,12 @@ int				asm_is_label(char *str)
 	return (0);
 }
 
-void			asm_save_label(char *str, t_strct *strct)
+int				asm_save_label(char *str, t_strct *strct)
 {
 	t_byteline *ptr;
+	int i;
 
+	i = 0;
 	if (strct->bytelines == NULL)
 	{
 		if ((strct->bytelines = (t_byteline*)malloc(sizeof(t_byteline))) == NULL)
@@ -77,9 +75,14 @@ void			asm_save_label(char *str, t_strct *strct)
 			asm_error("Malloc Fail");
 		ptr = ptr->next;
 	}
+	while (str[i] && str[i] != ':')
+		i++;
+	str[i] = 0;
 	ptr->next = NULL;
 	ptr->label = 1;
 	ptr->name = ft_strdup(str);
+	str[i] = ':';
+	return (i);
 }
 
 t_str			*asm_check_label(t_str *lst, t_strct *strct)
@@ -89,20 +92,29 @@ t_str			*asm_check_label(t_str *lst, t_strct *strct)
 	array = ft_strsplit(lst->str + strct->c, ' ');
 	if (asm_is_label(array[0]) == 0)
 	{
-		if (asm_is_command(array, strct) == 0)
+		if (asm_is_command(lst, array, strct) == 0)
+		{
+			ft_putendl("ERRRROR");
+			exit(0);
 			return (NULL);
+		}
 	}
 	else
 	{
-		asm_save_label(array[0], strct);
-		strct->c += ft_strlen(array[0]) + 1;
+		strct->c += asm_save_label(array[0], strct) + 1;
 		free(array);
+		strct->c += asm_str_browse(lst->str + strct->c);
 		array = ft_strsplit(lst->str + strct->c, ' ');
-		if (!array[0] || array[0][0] == '#')
+		if (!lst->str[strct->c] || lst->str[strct->c] == '#')
 		{
 		}
-		else if (asm_is_command(array, strct) == 0)
+		else if (asm_is_command(lst, array, strct) == 0)
+		{
+			ft_putendl("ERRRROR");
+			exit(0);
 			return (NULL);
+		}
 	}
+	free(array);
 	return (lst->next);
 }

@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/13 18:55:51 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/15 12:54:03 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,12 @@ typedef struct s_byteline
 	struct s_byteline	*next;
 	int					label; //(0 | 1)
 	char				*name;
-	int					index_tab_cmmand;
-	char				**parms;
-		
 	char				byte_cmd;
 	char				byte_ocp;
-	char				**byte_parms;
-	int					size_line;
+	char				**byte_args;
+	int					*byte_size;
+	int					args_nbr;
 
-    // end
 	char				*byte_line;
 }					t_byteline;
 
@@ -105,7 +102,6 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct);
 */
 t_str			*asm_check_label(t_str *lst, t_strct *strct);
 
-
 /*
 ** asm_util.c
 */
@@ -114,6 +110,30 @@ int     asm_str_browse(char *str);
 void    *asm_lc_error(t_strct *strct);
 char        *asm_join(char *str1, char *str2);
 
+
+
+/*
+** asm_check_command.c
+*/
+int asm_check_and_or(char **tab);
+int asm_check_ldi(char **tab);
+int asm_check_sti(char **tab);
+int asm_check_aff(char **tab);
+int asm_check_command(int i, char *str, t_strct *strct);
+/*
+** asm_check_command.c
+*/
+int asm_check_comment(char *str);
+int asm_check_live_zjmp_fork(char **tab);
+int asm_check_ld(char **tab);
+int asm_check_st(char **tab);
+int asm_check_add_sub(char **tab);
+/*
+** asm_check_arg.c
+*/
+int asm_is_ind(char *str);
+int asm_is_dir(char *str);
+int asm_is_reg(char *str);
 
 /*
 ** asm_header.c
