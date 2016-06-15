@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/15 17:44:53 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/15 23:52:46 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		asm_intlen(int i);
 int asm_check_and_or(char **tab);
 int asm_check_ldi(char **tab);
 void  asm_check_sti(char **array, t_strct *strct, char *name, int len);
-int asm_check_aff(char **tab);
+void asm_check_aff(char **array, t_strct *strct, char *name, int len);
 int asm_check_command(int i, char *str, t_strct *strct);
 /*
 ** asm_check_command.c
@@ -131,7 +131,8 @@ int asm_check_add_sub(char **tab);
 int asm_is_ind(char *str);
 int asm_is_dir(char *str);
 int asm_is_reg(char *str);
-
+void	asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c);
+void	asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c);
 /*
 ** asm_header.c
 

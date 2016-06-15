@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/15 17:58:12 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 00:07:12 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,73 +42,44 @@ void  asm_check_sti(char **array, t_strct *strct, char *name, int len)
 {
 	int c;
 	int d;
+	int kop1;
 
+	kop1 = 0; // kop1 il aime pas segfault
+	while (array[kop1])
+		kop1++;
+	if (kop1 < 3)
+		asm_lc_error(strct);
     if (!(c = asm_is_reg(array[0])))
 		asm_lc_error(strct);
 	else
-	{
-		d = c;
-		d += asm_str_browse(array[0] + d);
-		if (array[0][d] != 0)
-			asm_lc_error(strct);
-		array[0][c] = 0;
-		ft_strcpy(name + len, array[0]);
-		strct->c += d + 1;
-		len += c;
-		name[len] = SEPARATOR_CHAR;
-		len++;
-	}
+		asm_save_arg(array[0], strct, name, &len, c);
 	d = asm_str_browse(array[1]);
     if (!(c = asm_is_reg(array[1] + d)) && !(c = asm_is_dir(array[1] + d))
 		&& !(c = asm_is_ind(array[1] + d)))
 		asm_lc_error(strct);
 	else
-	{
-		c = c + d;
-		d = c;
-		d += asm_str_browse(array[1] + d);
-		if (array[1][d] != 0)
-			asm_lc_error(strct);
-		ft_putendl("ouin ouin ouin");
-		array[1][c] = 0;
-		ft_strcpy(name + len, array[1]);
-		strct->c += d + 1;
-		len += c;
-		name[len] = SEPARATOR_CHAR;
-		len++;
-	}
+		asm_save_arg(array[1] + d, strct, name, &len, c);
 	d = asm_str_browse(array[2]);
     if (!(c = asm_is_reg(array[2] + d)) && !(c = asm_is_dir(array[2] + d)))
 		asm_lc_error(strct);
 	else
+		asm_save_arg_finish(array[2] + d,array[3], strct, name, &len, c);
+}
+
+void asm_check_aff(char **array, t_strct *strct, char *name, int len)
+{
+	int c;
+
+	ft_putendl(array[0]);
+	if (!(c = asm_is_reg(array[0])))
+		asm_lc_error(strct);
+	else
 	{
-		c = c + d;
-		d = c;
-		d += asm_str_browse(array[2] + d);
-		array[2][c] = 0;
-		ft_strcpy(name + len, array[2]);
-		strct->c += d;
-		if (array[2][d] != COMMENT_CHAR)
-		{
-			if (array[2][d] == 0)
-			{
-				if (array[3])
-					asm_lc_error(strct);
-			}
-			else
-				asm_lc_error(strct);
-		}
+		asm_save_arg_finish(array[0], array[1], strct, name, &len, c);
 	}
 }
 
-int asm_check_aff(char **tab)
-{
-	if (!asm_is_reg(tab[0]))
-		return (1);
-	if (tab[1] && !asm_check_comment(tab[1]))
-		return (2);
-	return (0);
-}
+void             asm_save_command(t_byteline *new, t_strct *strct);
 
 int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 {
@@ -120,7 +91,7 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	len = ft_strlen(str + strct->c);
 	if (i == -1 || !str || !strct)
 	{
-		ft_putendl("Pablo suce des *****!");
+		ft_putendl("Hello Gringo!!");
 		exit(0);
 	}
 	ret = 1;
@@ -137,7 +108,16 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	if (i == 10)
 	{
 		asm_check_sti(array, strct, new->name, len);
-		printf("\033[32m[%s]\033[37m\n", new->name);
+		if (str[strct->c] == ',')
+			asm_lc_error(strct);
+		ret = 0;
+	}
+	else if (i == 15)
+	{
+//		asm_check_sti(array, strct, new->name, len); SEGFAULT
+		asm_check_aff(array, strct, new->name, len);
+		if (str[strct->c] == ',')
+			asm_lc_error(strct);
 		ret = 0;
 	}
 	else
@@ -173,5 +153,23 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 		ret = asm_check_aff(arg); 
 	if (ret == 0)
 			 save -> new -> in -> byteline */
+	if (ret == 0)
+		asm_save_command(new, strct);
+	printf("\033[32m[%s]\n\033[37m", new->name);
 	return (ret);
+}
+
+void             asm_save_command(t_byteline *new, t_strct *strct)
+{
+    t_byteline *ptr;
+
+    if (strct->bytelines == NULL)
+        strct->bytelines = new;
+    else
+    {
+        ptr = strct->bytelines;
+        while (ptr->next)
+            ptr = ptr->next;
+        ptr->next = new;
+    }
 }
