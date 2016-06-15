@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/15 17:58:12 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/15 17:47:19 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,34 +55,29 @@ void  asm_check_sti(char **array, t_strct *strct, char *name, int len)
 		ft_strcpy(name + len, array[0]);
 		strct->c += d + 1;
 		len += c;
-		name[len] = SEPARATOR_CHAR;
+		name[len] = SEPARTOR_CHAR;
 		len++;
 	}
-	d = asm_str_browse(array[1]);
-    if (!(c = asm_is_reg(array[1] + d)) && !(c = asm_is_dir(array[1] + d))
-		&& !(c = asm_is_ind(array[1] + d)))
+    if (!(c = asm_is_reg(array[1])) && !(c = asm_is_dir(array[1]))
+		&& !(c = asm_is_ind(array[1])))
 		asm_lc_error(strct);
 	else
 	{
-		c = c + d;
 		d = c;
 		d += asm_str_browse(array[1] + d);
 		if (array[1][d] != 0)
 			asm_lc_error(strct);
-		ft_putendl("ouin ouin ouin");
 		array[1][c] = 0;
 		ft_strcpy(name + len, array[1]);
 		strct->c += d + 1;
 		len += c;
-		name[len] = SEPARATOR_CHAR;
+		name[len] = SEPARTOR_CHAR;
 		len++;
 	}
-	d = asm_str_browse(array[2]);
-    if (!(c = asm_is_reg(array[2] + d)) && !(c = asm_is_dir(array[2] + d)))
+    if (!(c = asm_is_reg(array[2])) && !(c = asm_is_dir(array[2])))
 		asm_lc_error(strct);
 	else
 	{
-		c = c + d;
 		d = c;
 		d += asm_str_browse(array[2] + d);
 		array[2][c] = 0;
@@ -128,18 +123,14 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	new->next = NULL;
 	new->label = 0;
 	array = ft_strsplit(str + strct->c, ',');
-	new->name = (char*)malloc(len + 1);
-	ft_bzero(new->name, len + 1);
-	ft_strcpy(new->name, strct->tab_command[i]);
-	len = ft_strlen(strct->tab_command[i]);
-	new->name[len] = ' ';
+	byteline->name = (char*)malloc(len + 1);
+	ft_bzero(byteline->name, len + 1);
+	ft_strcpy(byteline->name, strct->tab_command[i]);
+	len = ft_strlen(tab_command[i]);
+	byteline->name[len] = ' ';
 	len++;
 	if (i == 10)
-	{
-		asm_check_sti(array, strct, new->name, len);
-		printf("\033[32m[%s]\033[37m\n", new->name);
-		ret = 0;
-	}
+		asm_check_sti(array, strct, byteline->name);
 	else
 	{
 		int j = 0;

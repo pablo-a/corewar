@@ -6,27 +6,11 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/15 16:21:17 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/13 22:14:46 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-
-int		asm_intlen(int i)
-{
-	int len;
-
-	len = 0;
-	if (i < 0 || i == 0)
-		len++;
-	while (i != 0)
-	{
-		len++;
-		i /= 10;
-	}
-	return (len);
-}
 
 /*
 ** fonction pour parcourir la ligne et incremanter le compteur de ligne
