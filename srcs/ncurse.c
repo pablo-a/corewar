@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 15:58:40 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 18:26:58 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void draw_borders(WINDOW *screen)
 {
 	int x, y, i; 
+	wattron(screen, COLOR_PAIR(1));
 	getmaxyx(screen, y, x); // 4 corners 
 	mvwprintw(screen, 0, 0, "+"); 
 	mvwprintw(screen, y - 1, 0, "+"); 
@@ -31,6 +32,7 @@ void draw_borders(WINDOW *screen)
 		mvwprintw(screen, y - 1, i, "-"); 
 	}
 	wrefresh(screen);
+	wattroff(screen, COLOR_PAIR(1));
 }
 
 int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
@@ -55,33 +57,34 @@ int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
 	return (0);
 }
 
-int		refresh_infos(WINDOW *win, t_war *war)
+void	display_infos(WINDOW *win, t_war *war)
 {
 	int y;
 	int x;
 
 	wclear(win);
 	draw_borders(win);
+	wattron(win, COLOR_PAIR(3));
 	y = 12;
-	x = 3;
-	mvwprintw(win, 10, 3, "Current Cycle : %d", war->current_cycle);
+	x = 7;
+	mvwprintw(win, 10, x, "Current Cycle : %d", war->current_cycle);
 	display_champs(war, win, &y, &x);
 	y += 2;
-	mvwprintw(win, y, 3, "CYCLE_TO_DIE : %d", war->cycle_to_die);
+	mvwprintw(win, y, x, "CYCLE_TO_DIE : %d", war->cycle_to_die);
 	y += 3;
-	mvwprintw(win, y, 3, "CYCLE_DELTA : %d", CYCLE_DELTA);
+	mvwprintw(win, y, x, "CYCLE_DELTA : %d", CYCLE_DELTA);
 	y += 3;
-	mvwprintw(win, y, 3, "NBR_LIVE : %d", NBR_LIVE);
-	mvwprintw(win, y + 1, 7, "Current Lives : %d", war->current_live_nb);
+	mvwprintw(win, y, x, "NBR_LIVE : %d", NBR_LIVE);
+	mvwprintw(win, y + 1, x + 4, "Current Lives : %d", war->current_live_nb);
 	y += 4;
-	mvwprintw(win, y, 3, "MAX_CHECKS : %d", MAX_CHECKS);
-	mvwprintw(win, y + 1, 7, "Current checks : %d", war->max_check);
+	mvwprintw(win, y, x, "MAX_CHECKS : %d", MAX_CHECKS);
+	mvwprintw(win, y + 1, x + 4, "Current checks : %d", war->max_check);
 	y += 4;
 	wrefresh(win);
-	return (0);
+	wattroff(win, COLOR_PAIR(3));
 }
 
-void	refresh_main_content(WINDOW *win, t_war *war)
+void	display_main_content(WINDOW *win, t_war *war)
 {
 	int index;
 	int curr_x;
@@ -91,6 +94,7 @@ void	refresh_main_content(WINDOW *win, t_war *war)
 
 	wclear(win);
 	draw_borders(win);
+	wattron(win, COLOR_PAIR(2));
 	index = 0;
 	curs_set(0);
 	getmaxyx(win, size_y, size_x);
@@ -113,6 +117,7 @@ void	refresh_main_content(WINDOW *win, t_war *war)
 		index++;
 	}
 	wrefresh(win);
+	wattroff(win, COLOR_PAIR(2));
 }
 
 int		bad_size_window(int y, int x)
@@ -136,6 +141,14 @@ int		bad_size_window(int y, int x)
 	return (0);
 }
 
+int		set_colors(void)
+{
+	init_pair(1, COLOR_BLUE, COLOR_RED);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_CYAN, COLOR_BLACK);
+	return (0);
+}
+
 int		init_ncurse(t_war *war)
 {
 	WINDOW	*main_window;
@@ -144,21 +157,32 @@ int		init_ncurse(t_war *war)
 	int		screen_y;
 	int		tmp_x;
 	int		tmp_y;
+	int		ch;
 
 	initscr();
+	start_color();
+	//keypad(stdscr, TRUE);
+	//raw();
+	//noecho();
+	//nodelay(stdscr, TRUE);
 	getmaxyx(stdscr, screen_y, screen_x);
 	main_window = newwin(screen_y, screen_x - SIZE_INFO, 0, 0);
 	info_window = newwin(screen_y, SIZE_INFO, 0, screen_x - SIZE_INFO);
-	//start_color();
-	//init_pair(1, COLOR_BLUE, COLOR_RED);
-	//wattron(main_window, COLOR_PAIR(1));
-	//set_colors();
+	set_colors();
 	if (screen_y < MIN_HEIGHT || screen_x < MIN_WIDTH)
 		bad_size_window(screen_y, screen_x);
-	refresh_main_content(main_window, war);
-	refresh_infos(info_window, war);
+	display_main_content(main_window, war);
+	display_infos(info_window, war);
 	while (1)
 	{
+		/*
+		if ((ch = getch()) == KEY_LEFT)
+		{
+			clear();
+			exit(0);
+		}
+		*/
+		war->current_cycle++;
 		getmaxyx(stdscr, tmp_y, tmp_x);
 		if (tmp_y < MIN_HEIGHT || tmp_x < MIN_WIDTH)
 			bad_size_window(tmp_y, tmp_x);
@@ -169,14 +193,18 @@ int		init_ncurse(t_war *war)
 			wresize(main_window, screen_y, screen_x - SIZE_INFO);
 			wresize(info_window, screen_y, SIZE_INFO);
 			mvwin(info_window, 0, screen_x - SIZE_INFO);
-			//wclear(stdscr);
-			refresh_main_content(main_window, war);
-			refresh_infos(info_window, war);
+			display_main_content(main_window, war);
+			display_infos(info_window, war);
 		}
-		//mvwprintw(main_window, screen_y / 2, (screen_x - 20) / 2, "WE WANT RED");
-		wrefresh(main_window);
-		wrefresh(info_window);
+		else
+		{
+			usleep(GAME_SPEED);
+			//display_main_content(main_window, war);
+			mvwprintw(info_window, 10, 7, "Current Cycle : %d", war->current_cycle);
+			wrefresh(info_window);
+			//display_infos(info_window, war);
+		}
+		//launch_war(war);
 	}
-	//wattroff(main_window, COLOR_PAIR(1));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 13:47:59 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 18:18:22 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define BYTE_PER_LINE 64
 # define SPACE_BT_BYTE 1
 # define SIZE_INFO 50
+# define GAME_SPEED 100000
 
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
@@ -136,6 +137,17 @@ typedef struct	s_return
 	int value;
 	int error;
 }				t_return;
+
+/* ------------------ NCURSE STRUCT -----------------------------------------
+** 
+*/
+
+typedef struct	s_ncurse
+{
+	WINDOW *main_window;
+	WINDOW *info_window;
+}				t_ncurse;
+
 /*
 ** --------------------- FONCTIONS PROTOTYPES --------------------------------
 */
@@ -190,9 +202,11 @@ int				sub(t_war *war, t_champ *champ);
 int				xor(t_war *war, t_champ *champ);
 int				zjmp(t_war *war, t_champ *champ);
 
-int				init_ncurse(t_war *war);
+int				init_ncurse(t_war *war);//               NCURSE.C
+void			display_infos(WINDOW *win, t_war *war);
+void			display_main_content(WINDOW *win, t_war *war);
+int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
 int				bad_size_window(int y, int x);
 void			draw_borders(WINDOW *screen);
-void			draw_content(WINDOW *win, t_war *war);
 
 #endif

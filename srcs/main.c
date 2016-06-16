@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 14:47:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 18:02:23 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ int		main(int argc, char **argv)
 	load_players_into_arena(war);
 	init_ncurse(war);
 //	display_ram(war->ram);
-	while (war->current_live_nb > 0)
-		launch_war(war);
-	who_won(war);
+	//while (war->current_live_nb > 0)
+	//	launch_war(war);
+	//who_won(war);
 	return (0);
 }
