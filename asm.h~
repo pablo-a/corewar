@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 18:50:19 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 18:17:53 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,28 @@ typedef struct s_byteline
 	char				*name;
 	int					len;
 
+
 	char				*byte_line;
 }					t_byteline;
+
+/*
+typedef struct	s_label
+{
+	struct s_label	*next;
+	char			*name;
+	int				i;
+}				t_label;
+
+typedef struct	s_cmd
+{
+	struct s_cmd	*next;
+	int				cmd;
+	char			*line;
+	int				i;
+	int				l;
+	int				c;
+}				t_cmd;
+*/
 
 /*
 **	main.c
@@ -88,6 +108,7 @@ void    *asm_lc_error(t_strct *strct);
 char        *asm_join(char *str1, char *str2);
 int		asm_intlen(int i);
 
+
 /*
 ** asm_check_command.c
 */
@@ -113,28 +134,36 @@ int asm_is_dir(char *str, t_byteline *new, int len);
 int asm_is_reg(char *str, t_byteline *new);
 void	asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c);
 void	asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c);
-
 /*
 ** asm_header.c
 
 header_t	*asm_init_header(void);
 header_t	*asm_create_header(void);
 
+
 **  asm_parse_command.c
+
 int			asm_count_arg(char *arg);
 void		asm_find_opc(char **arg, int c, int fd);
 void		asm_parse_command(char *line, int fd);
 void		asm_encode(char *arg, int size, int fd);
 
+
 ** asm_find_command.c
+
 int			asm_find_command(char *command, int fd);
+
 
 ** asm_encode.c
 
 void		asm_encode(char *arg, int size, int fd);
 
+
 ** asm_create_file.c
+
 char		*asm_find_file_name(char *file);
+
+
 */
 
 #endif

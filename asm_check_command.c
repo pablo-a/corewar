@@ -6,20 +6,11 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:07:20 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 18:41:08 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 18:51:01 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-/*
-int asm_check_comment(char *str)
-{
-	if (str[0] == COMMENT_CHAR)
-		return (1);
-	return (0);
-}
-*/
 
 void asm_check_live(char **array, t_strct *strct, t_byteline *new, int len)
 {
