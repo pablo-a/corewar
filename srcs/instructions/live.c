@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:59 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/14 02:02:58 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/15 10:05:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	add_live(t_war *war, int id)
 	node = war->pile_champ->first;
 	while (node && node->champ->id != id)
 		node = node->next;
+	if (node == NULL)
+		return (-1);
 	node->champ->cpt_live[0]++;
 	node->champ->cpt_live[1] = war->current_cycle;
 }

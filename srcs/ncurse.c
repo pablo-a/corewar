@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ncurses.h                                          :+:      :+:    :+:   */
+/*   ncurse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/15 16:57:40 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/15 17:41:03 by pabril           ###   ########.fr       */
+/*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
+/*   Updated: 2016/06/15 18:21:06 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifdef NCURSES_H
-# define NCURSES_H
+#include "../includes/corewar.h"
 
-#include <ncurses.h>
-
-typedef struct	s_infos
+init_ncurse(t_war *war)
 {
-	int				width;
-	int				height;
-	int				start_x;
-	int				start_y;
-}				t_infos;
+	WINDOW	*main_window;
+	int		screen_x;
+	int		screen_y;
 
-#endif
+	getmaxyx(stdscr, y, x);
+	initscr();
+	main_window = newwin(screen_y, screen_x, 0, 0);
+	box(main_window, 0, 0);
+	wrefresh(main_window);
+	endwin();
+
+}

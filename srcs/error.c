@@ -6,12 +6,13 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 19:36:21 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/10 22:51:02 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/15 16:13:45 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include "corewar.h"
+#include <ncurses.h>
 
 int		error(char *str)
 {
@@ -44,4 +45,18 @@ int		display_ram(unsigned char ram[MEM_SIZE])
 		i++;
 	}
 	return (0);
+}
+
+int		display_reg(t_champ *champ)
+{
+	int		i;
+
+	i = 0;
+	ft_printf("champions : %s\n", champ->header->prog_name);
+	while (i < REG_NUMBER)
+	{
+		ft_printf("registre %d : %#x\n", i, champ->reg_tab[i]);
+		i++;
+	}
+	ft_putstr("\n");
 }
