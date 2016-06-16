@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/14 01:25:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 14:47:45 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_war		*init_war(t_args *args)
 		i++;
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;
-	war->current_cycle = 0;
+	war->current_cycle = 1;
 	war->current_live_nb = 1;
 	war->max_check = 0;
 	war->op_tab = init_op_tab();

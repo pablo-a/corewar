@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/15 17:07:03 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 13:47:59 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 ** if (malloc(...) == -1)
 **		ft_printf("erreur : %s\n", strerror(errno)); || perror("Erreur:");
 */
+
+# include <ncurses.h>
 # include <errno.h>
 # include <string.h>
 # include <fcntl.h>
 # include "libftprintf.h"
-# include "ncurses.h"
 # include "op.h"
 
 # define RED "\033[31m"
@@ -32,6 +33,12 @@
 # define GRAY "\033[37m"
 # define YELLOW "\033[33m"
 # define END "\033[0m"
+
+# define MIN_HEIGHT 70
+# define MIN_WIDTH 310
+# define BYTE_PER_LINE 64
+# define SPACE_BT_BYTE 1
+# define SIZE_INFO 50
 
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
@@ -182,5 +189,10 @@ int				sti(t_war *war, t_champ *champ);
 int				sub(t_war *war, t_champ *champ);
 int				xor(t_war *war, t_champ *champ);
 int				zjmp(t_war *war, t_champ *champ);
+
+int				init_ncurse(t_war *war);
+int				bad_size_window(int y, int x);
+void			draw_borders(WINDOW *screen);
+void			draw_content(WINDOW *win, t_war *war);
 
 #endif
