@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:07:20 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 16:22:04 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 17:38:44 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,33 @@ int asm_check_comment(char *str)
 	return (0);
 }
 
-int asm_check_live_zjmp_fork(char **array, t_strct *strct, char *name, int len)
+int asm_check_live(char **array, t_strct *strct, t_byteline *new, int len)
+{
+	int c;
+
+	if (!array[0])
+        asm_lc_error(strct);
+    if (!(c = asm_is_dir(tab[0], new, 4)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg_finish(array[0], array[1], strct, new->name, &len, c);
+	new->len++;
+}
+
+int asm_check_zjmp_fork(char **array, t_strct *strct, t_byteline *new, int len)
 {
 	int c;
 
 	if (!array[0])
 		asm_lc_error(strct);
-	if (!(c = asm_is_dir(tab[0])))
+	if (!(c = asm_is_dir(tab[0], new, 2)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg_finish(array[0], array[1], strct, name, &len, c);
+		asm_save_arg_finish(array[0], array[1], strct, new->name, &len, c);
+	new->len++;
 }
 
-int asm_check_ld(char **array, t_strct *strct, char *name, int len)
+int asm_check_ld(char **array, t_strct *strct, t_byteline *new, int len)
 {
 	int c;
 	int d;
@@ -41,36 +55,66 @@ int asm_check_ld(char **array, t_strct *strct, char *name, int len)
 	while (array[kop1])
 		kop1++;
 	if (kop1 < 2)
-		
-	if (!asm_is_dir(tab[0]) && !asm_is_ind(tab[0]))
-		return(1);
-    if (!asm_is_reg(tab[1]))
-		return(2);
-	if (tab[2] && !asm_check_comment(tab[2]))
-        return(3);
-	return (0);
+		asm_lc_error(strct);
+	if (!(c = asm_is_dir(tab[0], new, 4)) && !(c = asm_is_ind(tab[0], new)))
+		  asm_lc_error(strct);
+	else
+		asm_save_arg(array[0], strct, new->name, &len, c);
+	d = asm_str_browse(array[1]);
+    if (!(c = asm_is_reg(tab[1] + d, new)))
+		asm_lc_error(strct);
+	else
+		asm_save_arg_finish(array[1] + d,array[2], strct, new->name, &len, c);
+    new->len += 2;
 }
 
-int asm_check_st(char **tab)
+int asm_check_st(char **array, t_strct *strct, char t_byteline *new, int len)
 {
-	if (!asm_is_reg(tab[0]))
-        return(1);
-    if (!asm_is_ind(tab[1]) && !asm_is_reg(tab[1]))
-        return(2);
-    if (tab[2] && !asm_check_comment(tab[2]))
-        return(3);
-	return (0);
+    int c;
+    int d;
+    int kop1;
+
+    kop1 = 0;
+    while (array[kop1])
+        kop1++;
+    if (kop1 < 2)
+		asm_lc_error(strct);
+	if (!(c = asm_is_reg(tab[0], new)))
+        asm_lc_error(strct);
+	else
+        asm_save_arg(array[0], strct, new->name, &len, c);
+    d = asm_str_browse(array[1]);
+    if (!(c = asm_is_ind(tab[1], new)) && !(c =asm_is_reg(tab[1], new)))
+		asm_lc_error(strct);
+    else
+        asm_save_arg_finish(array[1] + d,array[2], strct, new->name, &len, c);
+    new->len += 2;
 }
 
-int asm_check_add_sub(char **tab)
+int asm_check_add_sub(char **array, t_strct *strct, char t_byteline *new, int len)
 {
-    if (!asm_is_reg(tab[0]))
-        return(1);
-    if (!asm_is_reg(tab[1]))
-        return(2);
-	if (!asm_is_reg(tab[2]))
-		return(3);
-    if (tab[3] && !asm_check_comment(tab[3]))
-		return(4);
-	return (0);
+    int c;
+    int d;
+    int kop1;
+
+    kop1 = 0;
+    while (array[kop1])
+        kop1++;
+    if (kop1 < 3)
+        asm_lc_error(strct);
+    if (!(c = asm_is_reg(array[0], new)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg(array[0], strct, new->name, &len, c);
+    d = asm_str_browse(array[1]);
+    if (!(c = asm_is_reg(array[1] + d, new)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg(array[1] + d, strct, new->name, &len, c);
+    d = asm_str_browse(array[2]);
+    if (!(c = asm_is_reg(array[2] + d, new)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg_finish(array[2] + d,array[3], strct, new->name, &len, c);
+    new->len += 2;
 }

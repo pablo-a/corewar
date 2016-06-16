@@ -6,36 +6,66 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 16:36:45 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 17:39:17 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int asm_check_and_or(char **tab)
+int asm_check_and_or(char **array, t_strct *strct, char t_byteline *new, int len)
 {
-    if (!asm_is_reg(tab[0]) && !asm_is_dir(tab[0]) && !asm_is_ind(tab[0]))
-		return(1);
-    if (!asm_is_reg(tab[1]) && !asm_is_dir(tab[1]) && !asm_is_ind(tab[1]))
-		return(2);
-    if (!asm_is_reg(tab[2]))
-        return(3);
-    if (tab[3] && !asm_check_comment(tab[3]))
-		return(4);
-	return (0);
+    int c;
+    int d;
+    int kop1;
+
+    kop1 = 0;
+    while (array[kop1])
+		kop1++;
+    if (kop1 < 3)
+		asm_lc_error(strct);
+    if (!(c = asm_is_reg(array[0], new)) && !(c = asm_is_ind(tab[0], new)) && !(c = asm_is_dir(tab[0], new, 4)))
+		asm_lc_error(strct);
+    else
+        asm_save_arg(array[0], strct, new->name, &len, c);
+    d = asm_str_browse(array[1]);
+    if (!(c = asm_is_reg(array[1], new)) && !(c = asm_is_ind(tab[1], new)) && !(c = asm_is_dir(tab[1], new, 4)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg(array[1] + d, strct, new->name, &len, c);
+    d = asm_str_browse(array[2]);
+    if (!(c = asm_is_reg(array[2] + d, new)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg_finish(array[2] + d,array[3], strct, new->name, &len, c);
+    new->len += 2;
 }
 
-int asm_check_ldi(char **tab)
+int asm_check_ldi(char **array, t_strct *strct, char t_byteline *new, int len)
 {
-    if (!asm_is_reg(tab[0]) && !asm_is_dir(tab[0]) && !asm_is_ind(tab[0]))
-        return(1);
-    if (!asm_is_reg(tab[1]) && !asm_is_dir(tab[1]))
-		return(2);
-    if (!asm_is_reg(tab[2]))
-		return(3);
-    if (tab[3] && !asm_check_comment(tab[3]))
-		return(4);
-	return (0);
+	int c;
+    int d;
+    int kop1;
+
+    kop1 = 0;
+    while (array[kop1])
+        kop1++;
+    if (kop1 < 3)
+        asm_lc_error(strct);
+    if (!(c = asm_is_reg(array[0], new)) && !(c = asm_is_ind(tab[0], new)) && !(c = asm_is_dir(tab[0], new, 2)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg(array[0], strct, new->name, &len, c);
+    d = asm_str_browse(array[1]);
+    if (!(c = asm_is_reg(array[1], new)) && !(c = asm_is_dir(tab[1], new, 2)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg(array[1] + d, strct, new->name, &len, c);
+    d = asm_str_browse(array[2]);
+    if (!(c = asm_is_reg(array[2] + d, new)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg_finish(array[2] + d,array[3], strct, new->name, &len, c);
+    new->len += 2;
 }
 
 void  asm_check_sti(char **array, t_strct *strct, t_byteline *new, int len)
@@ -67,16 +97,17 @@ void  asm_check_sti(char **array, t_strct *strct, t_byteline *new, int len)
 	new->len += 2;
 }
 
-void asm_check_aff(char **array, t_strct *strct, char *new, int len)
+void asm_check_aff(char **array, t_strct *strct, t_byteline *new, int len)
 {
-	int c;
+    int c;
 
-	if (!array[0])
+    if (!array[0])
         asm_lc_error(strct);
-	if (!(c = asm_is_reg(array[0])))
-		asm_lc_error(strct);
-	else
-		asm_save_arg_finish(array[0], array[1], strct, name, &len, c);
+    if (!(c = asm_is_reg(tab[0], new)))
+        asm_lc_error(strct);
+    else
+        asm_save_arg_finish(array[0], array[1], strct, new->name, &len, c);
+    new->len += 2;
 }
 
 void             asm_save_command(t_byteline *new, t_strct *strct);
@@ -106,18 +137,48 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	len = ft_strlen(strct->tab_command[i]);
 	new->name[len] = ' ';
 	len++;
-	if (i == 0 || i == 8 || i == 11 || i == 14)
+	if (i == 0)
 	{
-		asm_check_live_zjmp_fork(array, strct, new->name, len);
+		asm_check_live(array, strct, new, len);
+		if (str[strct->c] == SEPARATOR_CHAR)
+            asm_lc_error(strct);
+        ret = 0;
+	}
+	if (i == 8 || i == 11 || i == 14)
+	{
+		asm_check_zjmp_fork(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
             asm_lc_error(strct);
         ret = 0;
 	}
 	if (i == 1 || i == 12)
 	{
-		asm_check_ld(array, strct, new->name, len);
+		asm_check_ld(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
+			asm_lc_error(strct);
+        ret = 0;
 	}
+	if (i == 2)
+	{
+		asm_check_st(array, strct, new, len);
+		if (str[strct->c] == SEPARATOR_CHAR)
+            asm_lc_error(strct);
+        ret = 0;
+	}
+	if (i == 3 || i == 4)
+    {
+        asm_check_add_sub(array, strct, new, len);
+        if (str[strct->c] == SEPARATOR_CHAR)
+            asm_lc_error(strct);
+        ret = 0;
+    }
+	if (i > 4 || i < 8)
+    {
+        asm_check_and_or(array, strct, new, len);
+        if (str[strct->c] == SEPARATOR_CHAR)
+            asm_lc_error(strct);
+        ret = 0;
+    }
 	if (i == 10)
 	{
 		asm_check_sti(array, strct, new, len);
@@ -129,7 +190,7 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	{
 //		asm_check_sti(array, strct, new->name, len); SEGFAULT
 		asm_check_aff(array, strct, new->name, len);
-		if (str[strct->c] == ',')
+		if (str[strct->c] == SEPARATOR_CHAR)
 			asm_lc_error(strct);
 		ret = 0;
 	}
