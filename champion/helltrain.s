@@ -16,7 +16,7 @@ entry:
 	sti		r1, %:cc4ld, %2
 	sti		r1, %:cc3, %1
 	sti		r1, %:cc3, %9
-	sti		r1, %:cc2, %1
+	sti		r1,	%:cc2, %1
 	ld		%0, r16
 	fork	%:cc_spawn
 
@@ -26,7 +26,7 @@ wall_prep:
 
 wall:
 	live	%4902343
-	st		r2, -24
+	st		r2,	-24
 	st		r2, -33
 	st		r2, -42
 	st		r2, -51

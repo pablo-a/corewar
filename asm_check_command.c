@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:07:20 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 18:51:01 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 21:16:33 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void asm_check_ld(char **array, t_strct *strct, t_byteline *new, int len)
 	if (kop1 < 2)
 		asm_lc_error(strct);
 	if (!(c = asm_is_dir(array[0], new, 4)) && !(c = asm_is_ind(array[0], new)))
-		  asm_lc_error(strct);
+		asm_lc_error(strct);
 	else
 		asm_save_arg(array[0], strct, new->name, &len, c);
 	d = asm_str_browse(array[1]);

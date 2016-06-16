@@ -6,7 +6,7 @@
 /*   By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/04 19:34:44 by mcotfas           #+#    #+#             */
-/*   Updated: 2016/06/16 19:49:02 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 22:56:26 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char				**asm_initsplit(char const *s)
 	if (!s)
 		return (NULL);
 	while (i < ft_strlen((char *)s))
-		while (s[i++] != ' ' && s[i++] != '\t' && s[i++] != '\v' && s[i - 1])
+		while (s[i++] != ' ' && s[i - 1] != '\t' && s[i - 1] != '\v' && s[i - 1])
 			if (s[i] == ' ' || s[i] == '\t' || s[i] == '\0' || s[i] == '\v')
 				j++;
 	return ((char **)malloc(sizeof(char *) * (j + 1)));
@@ -54,6 +54,5 @@ char				**asm_strsplit(char const *s)
 		i = i + j + 1;
 	}
 	ret[k] = NULL;
-	printf("{%s}\n", ret[0]);
 	return (ret);
 }
