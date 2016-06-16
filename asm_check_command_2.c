@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 00:07:12 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/16 16:36:45 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int asm_check_ldi(char **tab)
 	return (0);
 }
 
-void  asm_check_sti(char **array, t_strct *strct, char *name, int len)
+void  asm_check_sti(char **array, t_strct *strct, t_byteline *new, int len)
 {
 	int c;
 	int d;
@@ -49,34 +49,34 @@ void  asm_check_sti(char **array, t_strct *strct, char *name, int len)
 		kop1++;
 	if (kop1 < 3)
 		asm_lc_error(strct);
-    if (!(c = asm_is_reg(array[0])))
+    if (!(c = asm_is_reg(array[0], new)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg(array[0], strct, name, &len, c);
+		asm_save_arg(array[0], strct, new->name, &len, c);
 	d = asm_str_browse(array[1]);
-    if (!(c = asm_is_reg(array[1] + d)) && !(c = asm_is_dir(array[1] + d))
-		&& !(c = asm_is_ind(array[1] + d)))
+    if (!(c = asm_is_reg(array[1] + d, new)) && !(c = asm_is_dir(array[1] + d, new, 2))
+		&& !(c = asm_is_ind(array[1] + d, new)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg(array[1] + d, strct, name, &len, c);
+		asm_save_arg(array[1] + d, strct, new->name, &len, c);
 	d = asm_str_browse(array[2]);
-    if (!(c = asm_is_reg(array[2] + d)) && !(c = asm_is_dir(array[2] + d)))
+    if (!(c = asm_is_reg(array[2] + d, new)) && !(c = asm_is_dir(array[2] + d, new, 2)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg_finish(array[2] + d,array[3], strct, name, &len, c);
+		asm_save_arg_finish(array[2] + d,array[3], strct, new->name, &len, c);
+	new->len += 2;
 }
 
-void asm_check_aff(char **array, t_strct *strct, char *name, int len)
+void asm_check_aff(char **array, t_strct *strct, char *new, int len)
 {
 	int c;
 
-	ft_putendl(array[0]);
+	if (!array[0])
+        asm_lc_error(strct);
 	if (!(c = asm_is_reg(array[0])))
 		asm_lc_error(strct);
 	else
-	{
 		asm_save_arg_finish(array[0], array[1], strct, name, &len, c);
-	}
 }
 
 void             asm_save_command(t_byteline *new, t_strct *strct);
@@ -98,6 +98,7 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	new = (t_byteline*)malloc(sizeof(t_byteline));
 	new->next = NULL;
 	new->label = 0;
+	new->len = 0;
 	array = ft_strsplit(str + strct->c, ',');
 	new->name = (char*)malloc(len + 1);
 	ft_bzero(new->name, len + 1);
@@ -105,10 +106,22 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	len = ft_strlen(strct->tab_command[i]);
 	new->name[len] = ' ';
 	len++;
+	if (i == 0 || i == 8 || i == 11 || i == 14)
+	{
+		asm_check_live_zjmp_fork(array, strct, new->name, len);
+		if (str[strct->c] == SEPARATOR_CHAR)
+            asm_lc_error(strct);
+        ret = 0;
+	}
+	if (i == 1 || i == 12)
+	{
+		asm_check_ld(array, strct, new->name, len);
+		if (str[strct->c] == SEPARATOR_CHAR)
+	}
 	if (i == 10)
 	{
-		asm_check_sti(array, strct, new->name, len);
-		if (str[strct->c] == ',')
+		asm_check_sti(array, strct, new, len);
+		if (str[strct->c] == SEPARATOR_CHAR)
 			asm_lc_error(strct);
 		ret = 0;
 	}

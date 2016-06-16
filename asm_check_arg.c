@@ -6,13 +6,13 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/15 23:45:17 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/16 16:30:32 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int asm_is_ind(char *str)
+int asm_is_ind(char *str, t_byteline *new)
 {
 	int val;
 	int c;
@@ -21,11 +21,12 @@ int asm_is_ind(char *str)
 	if (!ft_isdigit(str[c]) || str[c] == '-')
 		return (0);
 	val = ft_atoi(str + 1);
-	c += asm_intlen(val);		
+	c += asm_intlen(val);
+	new->len += 1;
 	return (c);
 }
 
-int asm_is_dir(char *str)
+int asm_is_dir(char *str, t_byteline *new, int len)
 {
 	int c;
 	int val;
@@ -47,10 +48,11 @@ int asm_is_dir(char *str)
 		while (ft_strchr(LABEL_CHARS, str[c]) != NULL)
 			c++;
 	}
+	new->len += len;
 	return (c);
 }
 
-int asm_is_reg(char *str)
+int asm_is_reg(char *str, t_byteline *new)
 {
 	int val;
 	int c;
@@ -65,6 +67,7 @@ int asm_is_reg(char *str)
 	c += asm_intlen(val);
 	if (!val || val < 0 || val > REG_NUMBER)
 		return (0);
+	new->len += 1;
 	return (c);
 }
 
