@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 14:47:45 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 18:38:32 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ t_war		*init_war(t_args *args)
 	war->op_tab = init_op_tab();
 	war->args = args;
 	war->pile_champ = new_pile();
+	war->ncurse = NULL;
 	return (war);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 18:18:22 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 18:49:21 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 # define SIZE_INFO 50
 # define GAME_SPEED 100000
 
+# define MAIN_WINDOW war->ncurse->main_window
+# define INFO_WINDOW war->ncurse->info_window
+
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
 # define SIZE(champ) champ->header->prog_size
@@ -66,6 +69,7 @@ typedef struct	s_war
 	struct s_op		*op_tab;
 	struct s_args	*args;
 	struct s_pile	*pile_champ;
+	struct s_ncurse	*ncurse;
 }				t_war;
 
 /* ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
@@ -202,6 +206,7 @@ int				sub(t_war *war, t_champ *champ);
 int				xor(t_war *war, t_champ *champ);
 int				zjmp(t_war *war, t_champ *champ);
 
+int				init_ncurse_struct(t_war *war);
 int				init_ncurse(t_war *war);//               NCURSE.C
 void			display_infos(WINDOW *win, t_war *war);
 void			display_main_content(WINDOW *win, t_war *war);

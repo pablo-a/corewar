@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 18:26:58 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/16 18:49:20 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,39 +149,43 @@ int		set_colors(void)
 	return (0);
 }
 
+int		init_ncurse_struct(t_war *war)
+{
+	t_ncurse	*ncurse;
+	int		screen_x;
+	int		screen_y;
+
+	initscr();
+	start_color();
+	ncurse = (t_ncurse *)malloc(sizeof(t_ncurse));
+	getmaxyx(stdscr, screen_y, screen_x);
+	ncurse->main_window = newwin(screen_y, screen_x - SIZE_INFO, 0, 0);
+	ncurse->info_window = newwin(screen_y, SIZE_INFO, 0, screen_x - SIZE_INFO);
+	war->ncurse = ncurse;
+	return (0);
+}
+
 int		init_ncurse(t_war *war)
 {
-	WINDOW	*main_window;
-	WINDOW	*info_window;
 	int		screen_x;
 	int		screen_y;
 	int		tmp_x;
 	int		tmp_y;
 	int		ch;
 
-	initscr();
-	start_color();
 	//keypad(stdscr, TRUE);
 	//raw();
 	//noecho();
 	//nodelay(stdscr, TRUE);
+	init_ncurse_struct(war);
 	getmaxyx(stdscr, screen_y, screen_x);
-	main_window = newwin(screen_y, screen_x - SIZE_INFO, 0, 0);
-	info_window = newwin(screen_y, SIZE_INFO, 0, screen_x - SIZE_INFO);
 	set_colors();
 	if (screen_y < MIN_HEIGHT || screen_x < MIN_WIDTH)
 		bad_size_window(screen_y, screen_x);
-	display_main_content(main_window, war);
-	display_infos(info_window, war);
+	display_main_content(MAIN_WINDOW, war);
+	display_infos(INFO_WINDOW, war);
 	while (1)
 	{
-		/*
-		if ((ch = getch()) == KEY_LEFT)
-		{
-			clear();
-			exit(0);
-		}
-		*/
 		war->current_cycle++;
 		getmaxyx(stdscr, tmp_y, tmp_x);
 		if (tmp_y < MIN_HEIGHT || tmp_x < MIN_WIDTH)
@@ -190,19 +194,19 @@ int		init_ncurse(t_war *war)
 		{
 			screen_x = tmp_x;
 			screen_y = tmp_y;
-			wresize(main_window, screen_y, screen_x - SIZE_INFO);
-			wresize(info_window, screen_y, SIZE_INFO);
-			mvwin(info_window, 0, screen_x - SIZE_INFO);
-			display_main_content(main_window, war);
-			display_infos(info_window, war);
+			wresize(MAIN_WINDOW, screen_y, screen_x - SIZE_INFO);
+			wresize(INFO_WINDOW, screen_y, SIZE_INFO);
+			mvwin(INFO_WINDOW, 0, screen_x - SIZE_INFO);
+			display_main_content(MAIN_WINDOW, war);
+			display_infos(INFO_WINDOW, war);
 		}
 		else
 		{
 			usleep(GAME_SPEED);
-			//display_main_content(main_window, war);
-			mvwprintw(info_window, 10, 7, "Current Cycle : %d", war->current_cycle);
-			wrefresh(info_window);
-			//display_infos(info_window, war);
+			//display_main_content(MAIN_WINDOW, war);
+			mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
+			wrefresh(INFO_WINDOW);
+			//display_infos(INFO_WINDOW, war);
 		}
 		//launch_war(war);
 	}
