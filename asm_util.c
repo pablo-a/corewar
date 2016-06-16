@@ -6,12 +6,11 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/16 18:44:33 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 19:32:14 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
 
 int		asm_intlen(int i)
 {
@@ -47,7 +46,7 @@ int		asm_str_browse(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t' | str[i] == '\v'))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'))
 		i++;
 	return (i);
 }

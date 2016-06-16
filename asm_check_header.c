@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/15 11:47:09 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/16 19:15:00 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,11 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct)
 	if (!ft_strncmp(lst->str + strct->c, NAME_CMD_STRING, 5))
 	{
 		strct->c += 5;
-		if (!lst->str[strct->c] || lst->str[strct->c] != ' ')
+		if (!lst->str[strct->c] || (lst->str[strct->c] != ' ' && lst->str[strct->c] != '\t'))
+		{
+			ft_putendl("YOLO");
 			asm_lc_error(strct);
+		}
 		ptr = asm_check_name(lst, strct);
 		if (ft_strlen(strct->name) > PROG_NAME_LENGTH - 1)
 			asm_error("Champion name too long (Max length 128)");
@@ -169,7 +172,7 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct)
 	else if (!ft_strncmp(lst->str + strct->c, COMMENT_CMD_STRING, 8))
 	{
 		strct->c += 8;
-		if (!lst->str[strct->c] || lst->str[strct->c] != ' ')
+		if (!lst->str[strct->c] || (lst->str[strct->c] != ' ' && lst->str[strct->c] != '\t'))
 			asm_lc_error(strct);
 		ptr = asm_check_coment(lst, strct);
 		if (ft_strlen(strct->comment) > COMMENT_LENGTH - 1)

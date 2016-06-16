@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 03:35:54 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/16 18:36:14 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 19:42:43 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				asm_is_command(t_str *lst, char **array, t_strct *strct)
 		if (!ft_strcmp(array[0], strct->tab_command[x]))
 		{
 			strct->c += ft_strlen(array[0]);
-			if (lst->str[strct->c] != ' ')
+			if (lst->str[strct->c] != ' ' && lst->str[strct->c] != '\t')
 				return (0);
 			strct->c += asm_str_browse(lst->str + strct->c);
 			if (asm_check_command(x, lst->str, strct) == 0)
@@ -90,7 +90,7 @@ t_str			*asm_check_label(t_str *lst, t_strct *strct)
 {
 	char	**array;
 
-	array = ft_strsplit(lst->str + strct->c, ' ');
+	array = asm_strsplit(lst->str + strct->c);
 	if (asm_is_label(array[0]) == 0)
 	{
 		if (asm_is_command(lst, array, strct) == 0)
@@ -105,7 +105,7 @@ t_str			*asm_check_label(t_str *lst, t_strct *strct)
 		strct->c += asm_save_label(array[0], strct) + 1;
 		free(array);
 		strct->c += asm_str_browse(lst->str + strct->c);
-		array = ft_strsplit(lst->str + strct->c, ' ');
+		array = asm_strsplit(lst->str + strct->c);
 		if (!lst->str[strct->c] || lst->str[strct->c] == '#')
 		{
 		}

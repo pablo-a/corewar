@@ -6,7 +6,7 @@
 #    By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/07 15:12:46 by vbarrete          #+#    #+#              #
-#    Updated: 2016/06/15 11:55:30 by hdebard          ###   ########.fr        #
+#    Updated: 2016/06/16 19:40:52 by vbarrete         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,8 @@ SRC = 	main.c\
 		asm_check_command.c\
 		asm_check_command_2.c\
 		asm_check_arg.c\
-		asm_util.c
+		asm_util.c\
+		asm_strsplit.c
 
 OBJ = $(SRC:.c=.o)
 

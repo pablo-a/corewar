@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 18:50:19 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 19:41:32 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ t_str			*asm_check_header(t_str *lst, t_strct *strct);
 ** asm_check_label.c
 */
 t_str			*asm_check_label(t_str *lst, t_strct *strct);
+
+/*
+** asm_strsplit.c
+*/
+char **asm_strsplit(char const *s);
 
 /*
 ** asm_util.c
