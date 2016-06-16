@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/15 23:52:46 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/16 18:17:53 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_byteline
 	struct s_byteline	*next;
 	int					label; //(0 | 1)
 	char				*name;
-	int					size;
+	int					len;
 
 
 	char				*byte_line;
@@ -112,25 +112,26 @@ int		asm_intlen(int i);
 /*
 ** asm_check_command.c
 */
-int asm_check_and_or(char **tab);
-int asm_check_ldi(char **tab);
-void  asm_check_sti(char **array, t_strct *strct, char *name, int len);
-void asm_check_aff(char **array, t_strct *strct, char *name, int len);
+void asm_check_and_or(char **array, t_strct *strct, t_byteline *new, int len);
+void asm_check_ldi(char **array, t_strct *strct, t_byteline *new, int len);
+void  asm_check_sti(char **array, t_strct *strct, t_byteline *new, int len);
+void asm_check_aff(char **array, t_strct *strct, t_byteline *new, int len);
 int asm_check_command(int i, char *str, t_strct *strct);
 /*
 ** asm_check_command.c
 */
-int asm_check_comment(char *str);
-int asm_check_live_zjmp_fork(char **tab);
-int asm_check_ld(char **tab);
-int asm_check_st(char **tab);
-int asm_check_add_sub(char **tab);
+void asm_check_comment(char *str);
+void asm_check_live(char **array, t_strct *strct, t_byteline *new, int len);
+void asm_check_zjmp_fork(char **array, t_strct *strct, t_byteline *new, int len);
+void asm_check_ld(char **array, t_strct *strct, t_byteline *new, int len);
+void asm_check_st(char **array, t_strct *strct, t_byteline *new, int len);
+void asm_check_add_sub(char **array, t_strct *strct, t_byteline *new, int len);
 /*
 ** asm_check_arg.c
 */
-int asm_is_ind(char *str);
-int asm_is_dir(char *str);
-int asm_is_reg(char *str);
+int asm_is_ind(char *str, t_byteline *new);
+int asm_is_dir(char *str, t_byteline *new, int len);
+int asm_is_reg(char *str, t_byteline *new);
 void	asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c);
 void	asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c);
 /*

@@ -6,13 +6,13 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 17:39:17 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 18:39:35 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int asm_check_and_or(char **array, t_strct *strct, char t_byteline *new, int len)
+void asm_check_and_or(char **array, t_strct *strct, t_byteline *new, int len)
 {
     int c;
     int d;
@@ -23,12 +23,12 @@ int asm_check_and_or(char **array, t_strct *strct, char t_byteline *new, int len
 		kop1++;
     if (kop1 < 3)
 		asm_lc_error(strct);
-    if (!(c = asm_is_reg(array[0], new)) && !(c = asm_is_ind(tab[0], new)) && !(c = asm_is_dir(tab[0], new, 4)))
+    if (!(c = asm_is_reg(array[0], new)) && !(c = asm_is_ind(array[0], new)) && !(c = asm_is_dir(array[0], new, 4)))
 		asm_lc_error(strct);
     else
         asm_save_arg(array[0], strct, new->name, &len, c);
     d = asm_str_browse(array[1]);
-    if (!(c = asm_is_reg(array[1], new)) && !(c = asm_is_ind(tab[1], new)) && !(c = asm_is_dir(tab[1], new, 4)))
+    if (!(c = asm_is_reg(array[1] + d, new)) && !(c = asm_is_ind(array[1] + d, new)) && !(c = asm_is_dir(array[1] + d, new, 4)))
         asm_lc_error(strct);
     else
         asm_save_arg(array[1] + d, strct, new->name, &len, c);
@@ -40,7 +40,7 @@ int asm_check_and_or(char **array, t_strct *strct, char t_byteline *new, int len
     new->len += 2;
 }
 
-int asm_check_ldi(char **array, t_strct *strct, char t_byteline *new, int len)
+void asm_check_ldi(char **array, t_strct *strct, t_byteline *new, int len)
 {
 	int c;
     int d;
@@ -51,12 +51,12 @@ int asm_check_ldi(char **array, t_strct *strct, char t_byteline *new, int len)
         kop1++;
     if (kop1 < 3)
         asm_lc_error(strct);
-    if (!(c = asm_is_reg(array[0], new)) && !(c = asm_is_ind(tab[0], new)) && !(c = asm_is_dir(tab[0], new, 2)))
+    if (!(c = asm_is_reg(array[0], new)) && !(c = asm_is_ind(array[0], new)) && !(c = asm_is_dir(array[0], new, 2)))
         asm_lc_error(strct);
     else
         asm_save_arg(array[0], strct, new->name, &len, c);
     d = asm_str_browse(array[1]);
-    if (!(c = asm_is_reg(array[1], new)) && !(c = asm_is_dir(tab[1], new, 2)))
+    if (!(c = asm_is_reg(array[1] + d, new)) && !(c = asm_is_dir(array[1] + d, new, 2)))
         asm_lc_error(strct);
     else
         asm_save_arg(array[1] + d, strct, new->name, &len, c);
@@ -86,7 +86,9 @@ void  asm_check_sti(char **array, t_strct *strct, t_byteline *new, int len)
 	d = asm_str_browse(array[1]);
     if (!(c = asm_is_reg(array[1] + d, new)) && !(c = asm_is_dir(array[1] + d, new, 2))
 		&& !(c = asm_is_ind(array[1] + d, new)))
+	{
 		asm_lc_error(strct);
+	}
 	else
 		asm_save_arg(array[1] + d, strct, new->name, &len, c);
 	d = asm_str_browse(array[2]);
@@ -103,7 +105,7 @@ void asm_check_aff(char **array, t_strct *strct, t_byteline *new, int len)
 
     if (!array[0])
         asm_lc_error(strct);
-    if (!(c = asm_is_reg(tab[0], new)))
+    if (!(c = asm_is_reg(array[0], new)))
         asm_lc_error(strct);
     else
         asm_save_arg_finish(array[0], array[1], strct, new->name, &len, c);
@@ -144,42 +146,49 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
             asm_lc_error(strct);
         ret = 0;
 	}
-	if (i == 8 || i == 11 || i == 14)
+	else if (i == 8 || i == 11 || i == 14)
 	{
 		asm_check_zjmp_fork(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
             asm_lc_error(strct);
         ret = 0;
 	}
-	if (i == 1 || i == 12)
+	else if (i == 1 || i == 12)
 	{
 		asm_check_ld(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
 			asm_lc_error(strct);
         ret = 0;
 	}
-	if (i == 2)
+	else if (i == 2)
 	{
 		asm_check_st(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
             asm_lc_error(strct);
         ret = 0;
 	}
-	if (i == 3 || i == 4)
+	else if (i == 3 || i == 4)
     {
         asm_check_add_sub(array, strct, new, len);
         if (str[strct->c] == SEPARATOR_CHAR)
             asm_lc_error(strct);
         ret = 0;
     }
-	if (i > 4 || i < 8)
+	else if (i > 4 && i < 8)
     {
         asm_check_and_or(array, strct, new, len);
         if (str[strct->c] == SEPARATOR_CHAR)
             asm_lc_error(strct);
         ret = 0;
     }
-	if (i == 10)
+	else if (i == 9 || i == 13)
+    {
+        asm_check_ldi(array, strct, new, len);
+        if (str[strct->c] == SEPARATOR_CHAR)
+            asm_lc_error(strct);
+        ret = 0;
+    }
+	else if (i == 10)
 	{
 		asm_check_sti(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
@@ -189,7 +198,7 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	else if (i == 15)
 	{
 //		asm_check_sti(array, strct, new->name, len); SEGFAULT
-		asm_check_aff(array, strct, new->name, len);
+		asm_check_aff(array, strct, new, len);
 		if (str[strct->c] == SEPARATOR_CHAR)
 			asm_lc_error(strct);
 		ret = 0;

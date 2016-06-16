@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/15 16:21:17 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/16 18:44:33 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		asm_str_browse(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == 9 | str[i] == 11))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' | str[i] == '\v'))
 		i++;
 	return (i);
 }

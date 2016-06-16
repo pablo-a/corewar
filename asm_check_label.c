@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 03:35:54 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/15 12:44:45 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/16 18:36:14 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int				asm_is_command(t_str *lst, char **array, t_strct *strct)
 	x = 0;
 	while (strct->tab_command[x])
 	{
+//		printf("\033[33m{%s,%s}\n\033[37m",array[0], strct->tab_command[x]);
 		if (!ft_strcmp(array[0], strct->tab_command[x]))
 		{
 			strct->c += ft_strlen(array[0]);
