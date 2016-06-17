@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 18:05:04 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:50:29 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int			asm_parse_file(char *name)
 	else if (asm_check_file(strct) != 0)
 		return (1);
 	else if (asm_parse_command(strct) != 0)
+		return (1);
+	else if (asm_write_file(strct, name) != 0)
 		return (1);
 	return (0);
 }

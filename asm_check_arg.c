@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 22:53:30 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 19:40:00 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int asm_is_dir(char *str, t_byteline *new, int len)
 			c++;
 		while (ft_isdigit(str[c]))
 			c++;
-		new->len += 1;
 	}
 	else
 	{

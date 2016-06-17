@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/17 18:18:26 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:46:45 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,16 @@ int		asm_parse_command(t_strct *strct)
 					c_line = asm_encode(tmp->byte_line, args[x] + 1, 2, c_line);
 				}
 				x++;
-			}
+			}/*
 			int i = 0;
+			printf("Size: - %d -\n", tmp->len);
 			while (i < tmp->len)
 			{
-				printf("\033[37m%hhx\n", tmp->byte_line[i]);
+				printf("%hhx ", tmp->byte_line[i]);
+				fflush(stdout);
 				i++;
 			}
+			ft_putendl("");*/
 			tmp->byte_line[c_line] = 0;
 		}
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 18:01:37 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 21:27:23 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ int asm_check_command(int i, char *str, t_strct *strct)//char **tab)
 	}
 	if (ret == 0)
 		asm_save_command(new, strct);
-	printf("\033[32m[%s]\n\033[37m", new->name);
+//	printf("\033[32m[%s]\n\033[37m", new->name);
 	return (ret);
 }
 

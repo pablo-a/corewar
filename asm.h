@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 18:15:27 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:51:44 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,8 @@ int			asm_encode_label(char *byte_line, int n, int l_size, int c_line);
 
 /*
 ** asm_create_file.c
-char		*asm_find_file_name(char *file);
 */
+int		asm_write_file(t_strct *strct, char *name);
+
 
 #endif

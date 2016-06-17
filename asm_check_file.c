@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:50:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 18:08:22 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 21:27:11 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int			asm_check_file(t_strct *strct)
 		strct->c = 0;
 		strct->l += 1;
 	}
-	ft_putendl("\033[37mParsing is good");
+//	ft_putendl("\033[37mParsing is good");
 	return (0);
 }

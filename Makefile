@@ -6,7 +6,7 @@
 #    By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/07 15:12:46 by vbarrete          #+#    #+#              #
-#    Updated: 2016/06/17 15:51:44 by vbarrete         ###   ########.fr        #
+#    Updated: 2016/06/17 19:48:48 by hdebard          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -24,7 +24,8 @@ SRC = 	main.c\
 		asm_strsplit.c\
 		asm_encode.c\
 		asm_find_command.c\
-		asm_parse_command.c
+		asm_parse_command.c\
+		asm_create_file.c
 
 OBJ = $(SRC:.c=.o)
 
