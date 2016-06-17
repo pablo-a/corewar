@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 19:47:47 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 20:19:53 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int		refresh_current_cycle(t_war *war)
 {
+	wattron(INFO_WINDOW, COLOR_PAIR(3));
 	mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
 	wrefresh(INFO_WINDOW);
+	wattroff(INFO_WINDOW, COLOR_PAIR(3));
 	usleep(war->ncurse->game_speed);
 	return (1);
 }
