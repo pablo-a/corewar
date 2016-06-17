@@ -6,15 +6,12 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/16 19:15:00 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 22:06:32 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/*
-** Je cherche la endquote et retourne la pos si je trouve
-*/
 int			asm_check_endquote(char *str)
 {
 	int			i;
@@ -29,10 +26,6 @@ int			asm_check_endquote(char *str)
 	return (0);
 }
 
-/*
-** Je check si il y as une erreur dans le fichier apres la endquote
-** sinon je recupere le nom/commentaire oklm
-*/
 char		*asm_save_endquote(char *str1, char *str2, t_strct *strct)
 {
 	int			i;
@@ -58,12 +51,7 @@ char		*asm_save_endquote(char *str1, char *str2, t_strct *strct)
 	return (new);
 }
 
-/*
-** Comme il peut y avoir des saut de ligne dans le nom/commentaire c est un peut chiant
-** a recuperer, je suis obliger de recuperer les saut de lignes pour le retourner
-** a asm_check_line
-*/
-t_str			*asm_check_name(t_str *lst, t_strct *strct)
+t_str		*asm_check_name(t_str *lst, t_strct *strct)
 {
 	char	*start;
 
@@ -104,7 +92,7 @@ t_str			*asm_check_name(t_str *lst, t_strct *strct)
 	return (NULL);
 }
 
-t_str			*asm_check_coment(t_str *lst, t_strct *strct)
+t_str		*asm_check_coment(t_str *lst, t_strct *strct)
 {
 	char	*start;
 
@@ -145,14 +133,7 @@ t_str			*asm_check_coment(t_str *lst, t_strct *strct)
 	return (NULL);
 }
 
-
-/*
-** je compare le content avec ".name" / ".comment" pour choisir
-** quel fonction appeler, si tout ce passe bien je verifie
-** la size de se que j ai enregistrer. . . . . .. . . ... . . . .. 
-*/
-
-t_str			*asm_check_header(t_str *lst, t_strct *strct)
+t_str		*asm_check_header(t_str *lst, t_strct *strct)
 {
 	t_str *ptr;
 

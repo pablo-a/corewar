@@ -6,17 +6,17 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 19:50:29 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 22:05:21 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char **asm_list_command(void)
+char		**asm_list_command(void)
 {
-	char **tab_command;
-	int x;
-	
+	char		**tab_command;
+	int			x;
+
 	tab_command = (char**)malloc(sizeof(char*) * 17);
 	x = 0;
 	tab_command[0] = ft_strdup("live");
@@ -39,9 +39,6 @@ char **asm_list_command(void)
 	return (tab_command);
 }
 
-/*
-** J'initialiser juste ma main structure strct
-*/
 t_strct		*asm_init_strct(void)
 {
 	t_strct		*new;
@@ -53,16 +50,11 @@ t_strct		*asm_init_strct(void)
 	new->name = NULL;
 	new->comment = NULL;
 	new->bytelines = NULL;
-//	new->header = NULL;
-//	new->program = NULL;
 	new->l = 0;
 	new->c = 0;
 	return (new);
 }
 
-/*
-** J ajoute un element a t_str *file;
-*/
 t_str		*asm_lst_append(t_str *lst, char *str)
 {
 	t_str		*ptr;
@@ -88,9 +80,6 @@ t_str		*asm_lst_append(t_str *lst, char *str)
 	return (lst);
 }
 
-/*
-** Je read mon fichier
-*/
 t_str		*asm_get_file(char *name)
 {
 	t_str		*new;
@@ -118,9 +107,6 @@ t_str		*asm_get_file(char *name)
 	return (new);
 }
 
-/*
-** J initialise ma main structure, j enregistre le fichier et je le check
-*/
 int			asm_parse_file(char *name)
 {
 	t_strct		*strct;

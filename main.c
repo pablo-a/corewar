@@ -6,24 +6,18 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 17:25:41 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/12 19:54:41 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 22:03:53 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/*
-** Gestion d erreur simple et exit
-*/
 void		asm_error(char *str)
 {
 	ft_putendl(str);
 	exit(0);
 }
 
-/*
-** Rien d extra, je check que j ai bien un arg 2 et j avance
-*/
 int			main(int ac, char **av)
 {
 	if (ac != 2)
@@ -33,6 +27,5 @@ int			main(int ac, char **av)
 	}
 	if (asm_parse_file(av[1]) != 0)
 		return (0);
-	// else create_file
 	return (0);
 }

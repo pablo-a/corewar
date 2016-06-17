@@ -6,13 +6,13 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 03:35:54 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/16 22:54:39 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 22:08:09 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int				asm_is_command(t_str *lst, char **array, t_strct *strct)
+int		asm_is_command(t_str *lst, char **array, t_strct *strct)
 {
 	int x;
 
@@ -35,7 +35,7 @@ int				asm_is_command(t_str *lst, char **array, t_strct *strct)
 	return (0);
 }
 
-int				asm_is_label(char *str)
+int		asm_is_label(char *str)
 {
 	int i;
 
@@ -51,10 +51,10 @@ int				asm_is_label(char *str)
 	return (0);
 }
 
-int				asm_save_label(char *str, t_strct *strct)
+int		asm_save_label(char *str, t_strct *strct)
 {
-	t_byteline *ptr;
-	int i;
+	t_byteline	*ptr;
+	int			i;
 
 	i = 0;
 	if (strct->bytelines == NULL)
@@ -82,7 +82,7 @@ int				asm_save_label(char *str, t_strct *strct)
 	return (i);
 }
 
-t_str			*asm_check_label(t_str *lst, t_strct *strct)
+t_str	*asm_check_label(t_str *lst, t_strct *strct)
 {
 	char	**array;
 
