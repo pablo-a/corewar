@@ -6,7 +6,7 @@
 /*   By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/04 19:34:44 by mcotfas           #+#    #+#             */
-/*   Updated: 2016/06/16 22:56:26 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 00:37:20 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char				**asm_initsplit(char const *s)
 	if (!s)
 		return (NULL);
 	while (i < ft_strlen((char *)s))
-		while (s[i++] != ' ' && s[i - 1] != '\t' && s[i - 1] != '\v' && s[i - 1])
+		while (s[i++] != ' ' && s[i - 1] != '\t'
+			&& s[i - 1] != '\v' && s[i - 1])
 			if (s[i] == ' ' || s[i] == '\t' || s[i] == '\0' || s[i] == '\v')
 				j++;
 	return ((char **)malloc(sizeof(char *) * (j + 1)));
@@ -34,7 +35,6 @@ char				**asm_strsplit(char const *s)
 	size_t		j;
 	char		**ret;
 	int			k;
-	char		*tmp;
 
 	ret = asm_initsplit(s);
 	if (!ret)
@@ -44,13 +44,11 @@ char				**asm_strsplit(char const *s)
 	while (i < ft_strlen((char *)s))
 	{
 		j = 0;
-		while (s[i + j] != ' ' && s[i + j] != '\t' && s[i + j] != '\v' && s[i + j])
+		while (s[i + j] != ' ' && s[i + j] != '\t'
+			&& s[i + j] != '\v' && s[i + j])
 			j++;
 		if (j > 0)
-		{
-			tmp = ft_strsub(s, i, j);
-			ret[k++] = tmp;
-		}
+			ret[k++] = ft_strsub(s, i, j);
 		i = i + j + 1;
 	}
 	ret[k] = NULL;

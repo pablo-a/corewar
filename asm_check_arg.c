@@ -6,22 +6,22 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 19:40:00 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 00:34:38 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int asm_is_ind(char *str, t_byteline *new)
+int			asm_is_ind(char *str, t_byteline *new)
 {
-	int c;
+	int		c;
 
 	c = 0;
 	if (!ft_isdigit(str[c]) && str[c] != '-')
 		return (0);
-	if (str[c] == '-' &&  !ft_isdigit(str[c + 1]))
+	if (str[c] == '-' && !ft_isdigit(str[c + 1]))
 		return (0);
-	else if  (str[c] == '-')
+	else if (str[c] == '-')
 		c++;
 	while (ft_isdigit(str[c]))
 		c++;
@@ -29,9 +29,9 @@ int asm_is_ind(char *str, t_byteline *new)
 	return (c);
 }
 
-int asm_is_dir(char *str, t_byteline *new, int len)
+int			asm_is_dir(char *str, t_byteline *new, int len)
 {
-	int c;
+	int			c;
 
 	c = 0;
 	if (str[0] != '%')
@@ -41,9 +41,9 @@ int asm_is_dir(char *str, t_byteline *new, int len)
 	{
 		if (!ft_isdigit(str[c]) && str[c] != '-')
 			return (0);
-		if (str[c] == '-' &&  !ft_isdigit(str[c + 1]))
+		if (str[c] == '-' && !ft_isdigit(str[c + 1]))
 			return (0);
-		else if  (str[c] == '-')
+		else if (str[c] == '-')
 			c++;
 		while (ft_isdigit(str[c]))
 			c++;
@@ -58,10 +58,10 @@ int asm_is_dir(char *str, t_byteline *new, int len)
 	return (c);
 }
 
-int asm_is_reg(char *str, t_byteline *new)
+int			asm_is_reg(char *str, t_byteline *new)
 {
-	int val;
-	int c;
+	int			val;
+	int			c;
 
 	c = 0;
 	if (str[0] != 'r')
@@ -77,9 +77,9 @@ int asm_is_reg(char *str, t_byteline *new)
 	return (c);
 }
 
-void	asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c)
+void		asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c)
 {
-	int d;
+	int			d;
 
 	d = c;
 	ft_putstr(str + d);
@@ -94,10 +94,10 @@ void	asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c)
 	*len += 1;
 }
 
-void	asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c)
+void		asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c)
 {
-	int d;
-	char ch;
+	int			d;
+	char		ch;
 
 	d = c;
 	d += asm_str_browse(str + d);

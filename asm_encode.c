@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 19:12:06 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/17 18:15:39 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/18 00:45:58 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		asm_find_label(t_strct *strct, t_byteline *ptr, char *name)
 {
-	int diff;
-	t_byteline *tmp;
+	int			diff;
+	t_byteline	*tmp;
 	int			token;
 
 	token = 0;
@@ -54,10 +54,9 @@ int		asm_find_label(t_strct *strct, t_byteline *ptr, char *name)
 
 int		asm_encode(char *byte_line, char *nbr, int l_size, int c_line)
 {
-	int n;
-//	unsigned int m;
-	short i;
-	unsigned short j;
+	int				n;
+	short			i;
+	unsigned short	j;
 
 	n = ft_atoi(nbr);
 	if (l_size == 2)
@@ -89,9 +88,8 @@ int		asm_encode(char *byte_line, char *nbr, int l_size, int c_line)
 
 int		asm_encode_label(char *byte_line, int n, int l_size, int c_line)
 {
-//	unsigned int m;
-	short i;
-	unsigned short j;
+	short			i;
+	unsigned short	j;
 
 	if (l_size == 2)
 	{

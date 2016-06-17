@@ -6,32 +6,32 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/17 19:46:45 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 00:43:40 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int     asm_count_arg(char *arg)
+int		asm_count_arg(char *arg)
 {
-    int     x;
-    int     count;
+	int		x;
+	int		count;
 
-    x = 0;
-    count = 1;
-    while (arg[x] != '\0')
-    {
-        if (arg[x] == SEPARATOR_CHAR)
-            count++;
-        x++;
-    }
-    return (count);
+	x = 0;
+	count = 1;
+	while (arg[x] != '\0')
+	{
+		if (arg[x] == SEPARATOR_CHAR)
+			count++;
+		x++;
+	}
+	return (count);
 }
 
-int     asm_find_opc(char **arg, int l)// int l_size)
+int		asm_find_opc(char **arg, int l)
 {
-    int     opc;
-    int     x;
+	int		opc;
+	int		x;
 	int		a;
 	int		b;
 	int		c;
@@ -39,15 +39,15 @@ int     asm_find_opc(char **arg, int l)// int l_size)
 	a = 0;
 	b = 0;
 	c = 0;
-    opc = 0;
-    x = 0;
-    while (x < l)
-    {
-        if (arg[x][0] == 'r')
+	opc = 0;
+	x = 0;
+	while (x < l)
+	{
+		if (arg[x][0] == 'r')
 			opc = 1;
-        else if (arg[x][0] == DIRECT_CHAR)
+		else if (arg[x][0] == DIRECT_CHAR)
 			opc = 2;
-        else if (ft_isdigit(arg[x][0]) || arg[x][0] == '-')
+		else if (ft_isdigit(arg[x][0]) || arg[x][0] == '-')
 			opc = 3;
 		if (x == 0)
 			a = opc;
@@ -56,9 +56,9 @@ int     asm_find_opc(char **arg, int l)// int l_size)
 		else
 			c = opc;
 		x++;
-    }
+	}
 	opc = ((a << 6) | (b << 4) | (c << 2));
-    return (opc);
+	return (opc);
 }
 
 int		asm_parse_command(t_strct *strct)
@@ -101,10 +101,7 @@ int		asm_parse_command(t_strct *strct)
 				else if (args[x][0] == '%')
 				{
 					if (args[x][1] == ':')
-					{
-						
 						c_line = asm_encode_label(tmp->byte_line, asm_find_label(strct, tmp, args[x] + 2), l_size, c_line);
-					}
 					else
 						c_line = asm_encode(tmp->byte_line, args[x] + 1, l_size, c_line);
 				}
@@ -113,16 +110,7 @@ int		asm_parse_command(t_strct *strct)
 					c_line = asm_encode(tmp->byte_line, args[x] + 1, 2, c_line);
 				}
 				x++;
-			}/*
-			int i = 0;
-			printf("Size: - %d -\n", tmp->len);
-			while (i < tmp->len)
-			{
-				printf("%hhx ", tmp->byte_line[i]);
-				fflush(stdout);
-				i++;
 			}
-			ft_putendl("");*/
 			tmp->byte_line[c_line] = 0;
 		}
 		tmp = tmp->next;

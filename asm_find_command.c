@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 00:22:51 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/17 15:59:03 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/18 00:47:02 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		asm_find_command(char *command, t_strct *strct)
 {
-	int x;
+	int		x;
 
 	x = 0;
 	while (ft_strcmp(strct->tab_command[x], command))
