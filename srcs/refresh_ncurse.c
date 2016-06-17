@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 12:59:19 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 13:46:34 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,33 +66,34 @@ int		refresh_lives_info(t_war *war)
 
 int		calc_pos_in_ram(int *y, int *x, int size_window[2], int pos)
 {
-	*x = (size_x - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) +
+	pos = pos % MEM_SIZE;
+	*x = (size_window[1] - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) +
 				SIZE_INFO + 6)) / 2;
-	*x += ((pos % BYTE_PER_LINE) * (SPACE_BT_BYTE + 1));
-	*y = (size_y - (MEM_SIZE / BYTE_PER_LINE)) / 2;
+	*x += ((pos % BYTE_PER_LINE) * (SPACE_BT_BYTE + 2));
+	*y = (size_window[0] - (MEM_SIZE / BYTE_PER_LINE)) / 2;
 	*y += (pos / BYTE_PER_LINE);
+	return (0);
 }
 
-int		refresh_ram(t_war *war, int pos, int size)
+int		refresh_ram(t_war *war, int pos, int size, int color)
 {
 	int offset_y;
 	int offset_x;
 	int size_window[2];
 	int cpt;
 
+	wattron(MAIN_WINDOW, COLOR_PAIR(color));
 	cpt = 0;
 	getmaxyx(MAIN_WINDOW, size_window[0], size_window[1]);
 	calc_pos_in_ram(&offset_y, &offset_x, size_window, pos);
 	while (cpt < size)
 	{
-		if (pos + cpt % BYTE_PER_LINE == BYTE_PER_LINE - 1)
-			mvwprintw(MAIN_WINDOW, offset_y, offset_x, "%02x", war->ram[pos]);
-		else
-			mvwprintw(MAIN_WINDOW, offset_y, offset_x, "%02x", war->ram[pos]);
+		mvwprintw(MAIN_WINDOW, offset_y, offset_x, "%02x", war->ram[pos]);
 		cpt++;
 		pos = (pos + 1) % MEM_SIZE;
 		calc_pos_in_ram(&offset_y, &offset_x, size_window, pos);
 	}
 	wrefresh(MAIN_WINDOW);
+	wattroff(MAIN_WINDOW, COLOR_PAIR(color));
 	return (0);
 }

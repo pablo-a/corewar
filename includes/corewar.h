@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 13:00:37 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 13:34:16 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,6 @@ int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
 int				refresh_info_constants(t_war *war);
 int				refresh_lives_info(t_war *war);
 int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
-int				refresh_ram(t_war *war, int pos, int size);
+int				refresh_ram(t_war *war, int pos, int size, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:59 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/15 10:05:07 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 13:25:11 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		live(t_war *war, t_champ *champ)
 	id = get_value(war, champ->pc + 1, 4);
 	if (id == champ->id)
 	{
-		champ->cpt_live[0]++;
+		(champ->cpt_live[0])++;
 		champ->cpt_live[1] = war->current_cycle;
 		if (champ->father != NULL)
 			champ->father->cpt_live[1] = war->current_cycle;

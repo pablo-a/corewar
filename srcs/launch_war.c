@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 12:38:39 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 13:46:44 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int		launch_war(t_war *war)
 	reset_champ_live(war);
 	while (cycle < CYCLE_TO_DIE)
 	{
+		refresh_ram(war, 4000 + cycle, 4, 1);
 //		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
@@ -130,8 +131,8 @@ int		launch_war(t_war *war)
 			dump_war(war);
 		cycle++;
 		war->current_cycle++;
-		refresh_current_cycle(war);
-		refresh_lives_info(war);
+		refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
+		refresh_lives_info(war);// REFRESH TOUTES LES VARIABLES LIVES
 	}
 	//PARTIE QUI GERE LE CYCLE TO DIE A DECREMENTER OU PAS.
 	if (war->current_live_nb >= NBR_LIVE && (war->max_check = 0))
@@ -140,7 +141,7 @@ int		launch_war(t_war *war)
 		war->cycle_to_die -= CYCLE_DELTA;
 	else
 		war->max_check++;
-	refresh_info_constants(war);
+	refresh_info_constants(war);// REFRESH LES CONSTANTES DE JEU
 	find_dead_champs(war);
 	return (0);
 }
