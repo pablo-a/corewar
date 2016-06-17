@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 13:34:16 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 14:30:15 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define END "\033[0m"
 
 # define MIN_HEIGHT 70
-# define MIN_WIDTH 310
+# define MIN_WIDTH 270
 # define BYTE_PER_LINE 64
 # define SPACE_BT_BYTE 1
 # define SIZE_INFO 50
@@ -145,6 +145,7 @@ typedef struct	s_ncurse
 {
 	WINDOW *main_window;
 	WINDOW *info_window;
+	int		game_speed;
 }				t_ncurse;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 13:46:34 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 14:19:21 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		refresh_current_cycle(t_war *war)
 {
 	mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
 	wrefresh(INFO_WINDOW);
-	usleep(GAME_SPEED);
+	usleep(war->ncurse->game_speed);
 	return (1);
 }
 

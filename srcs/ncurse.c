@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 13:33:35 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 15:30:42 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int		init_ncurse_struct(t_war *war)
 	getmaxyx(stdscr, screen_y, screen_x);
 	ncurse->main_window = newwin(screen_y, screen_x - SIZE_INFO, 0, 0);
 	ncurse->info_window = newwin(screen_y, SIZE_INFO, 0, screen_x - SIZE_INFO);
+	ncurse->game_speed = GAME_SPEED;
 	war->ncurse = ncurse;
 	return (0);
 }
@@ -172,13 +173,17 @@ int		init_ncurse(t_war *war)
 	int		screen_y;
 	int		tmp_x;
 	int		tmp_y;
-	int		ch;
+	char	ch;
 
 	//keypad(stdscr, TRUE);
 	//raw();
-	//noecho();
 	//nodelay(stdscr, TRUE);
 	init_ncurse_struct(war);
+	//timeout(-1);
+	//WINDOW *event;
+	//event = newwin(1, 1, 0, 0);
+	//nodelay(event, TRUE);
+	//noecho();
 	getmaxyx(stdscr, screen_y, screen_x);
 	set_colors();
 	if (screen_y < MIN_HEIGHT || screen_x < MIN_WIDTH)
@@ -187,7 +192,17 @@ int		init_ncurse(t_war *war)
 	display_infos(INFO_WINDOW, war);
 	while (1)
 	{
-		war->current_cycle++;
+		/*
+		ch = wgetch(event);
+		display_main_content(MAIN_WINDOW, war);
+		display_infos(INFO_WINDOW, war);
+		if (ch == 27)
+		{
+			clear();
+			refresh();
+			exit(0);
+		}
+		*/
 		getmaxyx(stdscr, tmp_y, tmp_x);
 		if (tmp_y < MIN_HEIGHT || tmp_x < MIN_WIDTH)
 			bad_size_window(tmp_y, tmp_x);

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 13:46:44 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 15:31:52 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		reset_champ_live(t_war *war)
 		node->champ->cpt_live[0] = 0;
 		node = node->next;
 	}
+	war->current_live_nb = 0;
 	return (0);
 }
 
@@ -120,8 +121,19 @@ int		launch_war(t_war *war)
 	war->current_live_nb = 0;
 	cycle = 1;
 	reset_champ_live(war);
+	WINDOW *event;
+	event = newwin(1,1,1,1);
+	nodelay(event, TRUE);
+	noecho();
 	while (cycle < CYCLE_TO_DIE)
 	{
+		int ch = wgetch(event);
+		if (ch == 27)
+		{
+			clear();
+			refresh();
+			exit(0);
+		}
 		refresh_ram(war, 4000 + cycle, 4, 1);
 //		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
