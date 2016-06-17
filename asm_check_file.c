@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:50:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 22:56:54 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 18:08:22 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,12 @@ int			asm_check_file(t_strct *strct)
 				exit(0);
 		}
 		else if (ft_strchr(LABEL_CHARS, ptr->str[strct->c]) != NULL)
-		{
-			if ((ptr = asm_check_label(ptr, strct)) == NULL)
-				exit(0);
-		}
+			ptr = asm_check_label(ptr, strct);
 		else
 			asm_lc_error(strct);
 		strct->c = 0;
 		strct->l += 1;
 	}
-	ft_putendl("Parsing is good");
+	ft_putendl("\033[37mParsing is good");
 	return (0);
 }

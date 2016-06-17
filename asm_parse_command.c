@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/16 21:56:03 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 18:18:26 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int     asm_count_arg(char *arg)
     return (count);
 }
 
-int     asm_find_opc(char **arg, int c, int l_size)
+int     asm_find_opc(char **arg, int l)// int l_size)
 {
     int     opc;
     int     x;
@@ -41,7 +41,7 @@ int     asm_find_opc(char **arg, int c, int l_size)
 	c = 0;
     opc = 0;
     x = 0;
-    while (x < c)
+    while (x < l)
     {
         if (arg[x][0] == 'r')
 			opc = 1;
@@ -57,14 +57,14 @@ int     asm_find_opc(char **arg, int c, int l_size)
 			c = opc;
 		x++;
     }
-	opc = ((a << 6) | (b << 4) | (c == 2));
+	opc = ((a << 6) | (b << 4) | (c << 2));
     return (opc);
 }
 
 int		asm_parse_command(t_strct *strct)
 {
 	char			**command;
-	chari			**args;
+	char			**args;
 	t_byteline		*tmp;
 	int				l_size;
 	int				x;
@@ -79,16 +79,16 @@ int		asm_parse_command(t_strct *strct)
 			x = 0;
 			c_line = 0;
 			tmp->byte_line = (char*)malloc(tmp->len + 1);
+			command = ft_strsplit(tmp->name, ' ');
 			tmp->byte_line[0] = asm_find_command(command[0], strct) + 1;
 			c_line++;
 			len = asm_count_arg(command[1]);
-			command = ft_strsplit(tmp->name, ' ');
-			args = ft_strsplit(command[1], ',');
-			l_size = asm_find_size(command[0]);
+			args = ft_strsplit(command[1], SEPARATOR_CHAR);
+			l_size = asm_label_size(command[0]);
 			if (ft_strcmp(command[0], "live") && ft_strcmp(command[0], "zjmp") \
 				&& ft_strcmp(command[0], "fork") && ft_strcmp(command[0], "lfork"))
 			{
-				tmp->byte_line[1] = asm_find_opc(arg, len);
+				tmp->byte_line[1] = asm_find_opc(args, len);
 				c_line++;
 			}
 			while (x < len)
@@ -102,12 +102,8 @@ int		asm_parse_command(t_strct *strct)
 				{
 					if (args[x][1] == ':')
 					{
-						/* c_line = asm_encode(tmp->byte_line,
-						**   asm_find_label(strct, tmp), l_size);
-						**
-						**
-						**
-						*/
+						
+						c_line = asm_encode_label(tmp->byte_line, asm_find_label(strct, tmp, args[x] + 2), l_size, c_line);
 					}
 					else
 						c_line = asm_encode(tmp->byte_line, args[x] + 1, l_size, c_line);
@@ -118,9 +114,15 @@ int		asm_parse_command(t_strct *strct)
 				}
 				x++;
 			}
+			int i = 0;
+			while (i < tmp->len)
+			{
+				printf("\033[37m%hhx\n", tmp->byte_line[i]);
+				i++;
+			}
 			tmp->byte_line[c_line] = 0;
 		}
 		tmp = tmp->next;
 	}
-	return (0)
+	return (0);
 }

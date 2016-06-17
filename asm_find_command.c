@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 00:22:51 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/16 18:02:37 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 15:59:03 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		asm_label_size(char *command)
 	else if (!ft_strcmp(command, "lld"))
 		return (4);
 	else if (!ft_strcmp(command, "lldi"))
-		return (2)
+		return (2);
 	else if (!ft_strcmp(command, "lfork"))
 		return (2);
 	else if (!ft_strcmp(command, "aff"))

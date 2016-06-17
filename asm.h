@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/16 19:41:32 by vbarrete         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:15:27 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,29 @@ header_t	*asm_init_header(void);
 header_t	*asm_create_header(void);
 
 **  asm_parse_command.c
+*/
+
 int			asm_count_arg(char *arg);
-void		asm_find_opc(char **arg, int c, int fd);
-void		asm_parse_command(char *line, int fd);
-void		asm_encode(char *arg, int size, int fd);
+int			asm_find_opc(char **arg, int l);
+int			asm_parse_command(t_strct *strct);
 
+/*
 ** asm_find_command.c
-int			asm_find_command(char *command, int fd);
+*/
 
+int			asm_find_command(char *command, t_strct * strct);
+int     	asm_label_size(char *command);
+
+/*
 ** asm_encode.c
+*/
 
-void		asm_encode(char *arg, int size, int fd);
+int     asm_find_label(t_strct *strct, t_byteline *ptr, char *name);
+int			asm_encode(char *byte_line, char *nbr, int l_size, int c_line);
+int			asm_encode_label(char *byte_line, int n, int l_size, int c_line);
 
+
+/*
 ** asm_create_file.c
 char		*asm_find_file_name(char *file);
 */
