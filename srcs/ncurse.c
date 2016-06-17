@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 18:49:20 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 12:48:48 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	display_infos(WINDOW *win, t_war *war)
 	y += 4;
 	mvwprintw(win, y, x, "MAX_CHECKS : %d", MAX_CHECKS);
 	mvwprintw(win, y + 1, x + 4, "Current checks : %d", war->max_check);
-	y += 4;
 	wrefresh(win);
 	wattroff(win, COLOR_PAIR(3));
 }
@@ -98,7 +97,8 @@ void	display_main_content(WINDOW *win, t_war *war)
 	index = 0;
 	curs_set(0);
 	getmaxyx(win, size_y, size_x);
-	curr_x = (size_x - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) + SIZE_INFO + 6)) / 2;
+	curr_x = (size_x - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) +
+				SIZE_INFO + 6)) / 2;
 	//ft_printf("size x = %d, curr_x = %d\n", size_x, curr_x);
 	curr_y = (size_y - (MEM_SIZE / BYTE_PER_LINE)) / 2;
 	while (index < MEM_SIZE)
@@ -106,7 +106,8 @@ void	display_main_content(WINDOW *win, t_war *war)
 		if (index % BYTE_PER_LINE == BYTE_PER_LINE - 1)
 		{
 			mvwprintw(win, curr_y, curr_x, "%02.2x", war->ram[index]);
-			curr_x = (size_x - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) + SIZE_INFO + 6)) / 2;
+			curr_x = (size_x - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) +
+						SIZE_INFO + 6)) / 2;
 			curr_y++;
 		}
 		else
@@ -202,13 +203,13 @@ int		init_ncurse(t_war *war)
 		}
 		else
 		{
-			usleep(GAME_SPEED);
+			launch_war(war);
+			//usleep(GAME_SPEED);
 			//display_main_content(MAIN_WINDOW, war);
-			mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
-			wrefresh(INFO_WINDOW);
+			//mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
+			//wrefresh(INFO_WINDOW);
 			//display_infos(INFO_WINDOW, war);
 		}
-		//launch_war(war);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 18:06:09 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 12:38:39 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ int		launch_war(t_war *war)
 			dump_war(war);
 		cycle++;
 		war->current_cycle++;
+		refresh_current_cycle(war);
+		refresh_lives_info(war);
 	}
 	//PARTIE QUI GERE LE CYCLE TO DIE A DECREMENTER OU PAS.
 	if (war->current_live_nb >= NBR_LIVE && (war->max_check = 0))
@@ -138,6 +140,7 @@ int		launch_war(t_war *war)
 		war->cycle_to_die -= CYCLE_DELTA;
 	else
 		war->max_check++;
+	refresh_info_constants(war);
 	find_dead_champs(war);
 	return (0);
 }

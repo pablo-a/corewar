@@ -6,17 +6,12 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/16 18:49:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 13:00:37 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
-
-/* On va pouvoir utiliser ERRNO c'est de la balle :
-** if (malloc(...) == -1)
-**		ft_printf("erreur : %s\n", strerror(errno)); || perror("Erreur:");
-*/
 
 # include <ncurses.h>
 # include <errno.h>
@@ -39,7 +34,7 @@
 # define BYTE_PER_LINE 64
 # define SPACE_BT_BYTE 1
 # define SIZE_INFO 50
-# define GAME_SPEED 100000
+# define GAME_SPEED 10000
 
 # define MAIN_WINDOW war->ncurse->main_window
 # define INFO_WINDOW war->ncurse->info_window
@@ -213,5 +208,11 @@ void			display_main_content(WINDOW *win, t_war *war);
 int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
 int				bad_size_window(int y, int x);
 void			draw_borders(WINDOW *screen);
+
+int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
+int				refresh_info_constants(t_war *war);
+int				refresh_lives_info(t_war *war);
+int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
+int				refresh_ram(t_war *war, int pos, int size);
 
 #endif
