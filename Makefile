@@ -29,6 +29,9 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \
 	   $(SRCSPATH)calc_pc.c\
+	   $(SRCSPATH)get_opc.c\
+	   $(SRCSPATH)get_param.c\
+	   $(SRCSPATH)define_params_types.c\
 	   $(INSTRUCTPATH)add.c \
 	   $(INSTRUCTPATH)aff.c \
 	   $(INSTRUCTPATH)and.c \

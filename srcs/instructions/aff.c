@@ -27,6 +27,7 @@ int		aff(t_war *war, t_champ *champ)
 	champ->pc = calc_pc(champ->pc, 3);
 	//TODO Remove :
 	ft_printf("aff : %#x ", content);
-	ft_printf("%hhu\n", content);
+	ft_printf("%hhu ", content);
+	ft_printf("Char is : %c\n", content);
 	return (0);
 }

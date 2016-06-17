@@ -56,9 +56,13 @@ t_champ		*init_champ(ssize_t id)
 	t_champ	*champ;
 	int		i;
 
+
+	ft_printf("id is : \n", id);
+
 	i = -1;
 	champ = (t_champ *)malloc(sizeof(t_champ));
-	champ->id = (int)id;
+	//TODO Ajout de -1 pour recuperer le bon id.
+	champ->id = (int)-id;
 	champ->pc = 0;
 	champ->carry = 0;
 	champ->cpt_interne = 1;
@@ -70,7 +74,7 @@ t_champ		*init_champ(ssize_t id)
 	champ->is_dead = 0;
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
-	champ->reg_tab[0] = -(int)id;
+	champ->reg_tab[0] = (int)-id;
 	return (champ);
 }
 

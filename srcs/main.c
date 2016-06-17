@@ -40,8 +40,8 @@ int		who_won(t_war *war)
 		node = node->next;
 		i++;
 	}
-	ft_printf("Contestant %d, \"%s\" has won!\n", winner->id,
-			winner->header->prog_name);
+	ft_printf("Contestant %d, \"%s\" has won! with %d lives\n", winner->id,
+			winner->header->prog_name, winner->cpt_live[1]);
 }
 
 int		get_args(int argc, char **argv, t_war *war)
@@ -107,5 +107,11 @@ int		main(int argc, char **argv)
 	while (war->current_live_nb > 0)
 		launch_war(war);
 	who_won(war);
+
+	display_ram(war->ram);
+
+	ft_printf("get value : %d\n", get_value(war, 20, 4));
+
+
 	return (0);
 }

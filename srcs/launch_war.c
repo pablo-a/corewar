@@ -70,6 +70,7 @@ int		execute(t_war *war, t_champ *champ)
 	int opcode;
 
 	opcode = war->ram[champ->pc];
+	//TODO chec max opcode possible and what happens if op code is wrong:
 	if (opcode < 1 || opcode > 16)
 		champ->pc = calc_pc(champ->pc, 1);
 	else
@@ -93,7 +94,7 @@ int		champ_action(t_war *war)
 		if (node->champ->is_dead)
 		{
 			node = node->prev;
-			break ;
+			continue ;
 		}
 		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
 //		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
@@ -126,7 +127,7 @@ int		launch_war(t_war *war)
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
-		if (war->args->dump > 0 && (war->current_cycle + cycle) == war->args->dump)
+		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
 			dump_war(war);
 		cycle++;
 		war->current_cycle++;

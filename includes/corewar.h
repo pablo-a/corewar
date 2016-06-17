@@ -66,7 +66,8 @@ typedef struct	s_champ
 {
 	int				id;//num du champion, a mettre peut etre dans le env;
 	int				reg_tab[REG_NUMBER];// ses registres
-	int				pc;//                  prochaine instruction
+	int				pc;////                  prochaine instruction
+	int 			tmp_pc;
 	bool			carry;//               si operation a reussi ou pas.
 	int				cpt_interne;// pour faire ses operations. (cycles).
 	int				cpt_live[2];// cpt[1] = nb_live et cpt[2] = last_live;
@@ -128,6 +129,23 @@ typedef struct	s_return
 	int value;
 	int error;
 }				t_return;
+
+
+typedef	struct s_opc
+{
+	int first;
+	int second;
+	int third;
+}				t_opc;
+
+typedef	struct s_params
+{
+	int reg;
+	int direct;
+	int indirect;
+	int is_index;
+}				t_params;
+
 /*
 ** --------------------- FONCTIONS PROTOTYPES --------------------------------
 */
@@ -161,7 +179,13 @@ int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
 int				launch_war(t_war *war);
 
+
+
+// Fonctions by Marius :
 int 			calc_pc(int pc, int value);
+t_opc 			get_opc(int value);
+t_params 		define_params_types(int type1, int type2, int type3, int is_index);
+t_return 		get_param(t_war *war, t_params params, int param_nb, t_champ *champ);
 
 int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);

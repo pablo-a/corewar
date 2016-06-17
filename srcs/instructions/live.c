@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
 
 static int	add_live(t_war *war, int id)
 {
@@ -20,12 +19,17 @@ static int	add_live(t_war *war, int id)
 	node = war->pile_champ->first;
 	while (node && node->champ->id != id)
 		node = node->next;
+	if (!node)
+		return (-1);
 	node->champ->cpt_live[0]++;
 	node->champ->cpt_live[1] = war->current_cycle;
+	return (1);
 }
 
 int		live(t_war *war, t_champ *champ)
 {
+	//TODO Check live for clones :
+
 	int id;
 
 	war->current_live_nb++;
