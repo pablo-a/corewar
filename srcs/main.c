@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 12:07:11 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 20:06:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ int		get_args(int argc, char **argv, t_war *war)
 			read_champ(argv[i], war->pile_champ->last->champ);
 			war->args->nb_champ++;
 		}
+		// ---------------- NCURSE MODE -------------------------------
+		else if (ft_strcmp("-ncurse", argv[i]) == 0)
+			war->args->ncurse = 1;
 		// --------------- WRONG COMMAND ------------------------------
 		else
 			error("Unrecognized parameter.");
@@ -98,15 +101,21 @@ int		main(int argc, char **argv)
 	t_war	*war;
 	t_args	args;
 
-	args.dump = -1;
+	args.dump = 0;
+	args.ncurse = 0;
 	args.nb_champ = 0;
 	war = init_war(&args);
 	get_args(argc, argv, war);
 	load_players_into_arena(war);
-	init_ncurse(war);
-//	display_ram(war->ram);
-	//while (war->current_live_nb > 0)
-	//	launch_war(war);
-	//who_won(war);
+	if (war->args->ncurse == 1)
+		init_ncurse(war);
+	else
+	{
+		display_ram(war->ram);
+		printf("HELLO\n");
+		while (war->current_live_nb > 0)
+			launch_war(war);
+		who_won(war);
+	}
 	return (0);
 }

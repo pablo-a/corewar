@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 14:19:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 19:47:47 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ int		refresh_info_constants(t_war *war)
 	mvwprintw(INFO_WINDOW, offset, 7, "MAX_CHECKS : %d", MAX_CHECKS);
 	offset++;
 	mvwprintw(INFO_WINDOW, offset, 11, "Current checks : %d", war->max_check);
+	offset += 3;
+	mvwprintw(INFO_WINDOW, offset, 7, "GAME_SPEED : %dcycles/sec", war->ncurse->cycle_per_sec);
+	offset += 4;
+	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d", PAUSE);
 	wattroff(INFO_WINDOW, COLOR_PAIR(3));
 	wrefresh(INFO_WINDOW);
 }

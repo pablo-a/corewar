@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/17 12:19:54 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/17 18:22:24 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)error.c \
 	   $(SRCSPATH)calc_pc.c\
 	   $(SRCSPATH)ncurse.c \
+	   $(SRCSPATH)display_ncurse.c \
+	   $(SRCSPATH)event_ncurse.c \
 	   $(SRCSPATH)refresh_ncurse.c \
 	   $(INSTRUCTPATH)add.c \
 	   $(INSTRUCTPATH)aff.c \

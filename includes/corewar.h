@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 14:30:15 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/17 20:02:54 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@
 # define SIZE_INFO 50
 # define GAME_SPEED 10000
 
-# define MAIN_WINDOW war->ncurse->main_window
-# define INFO_WINDOW war->ncurse->info_window
+# define MAIN_WINDOW	war->ncurse->main_window
+# define INFO_WINDOW	war->ncurse->info_window
+# define EVENT_WINDOW	war->ncurse->event_window
+# define PAUSE			war->ncurse->pause
+# define SCREEN_Y		war->ncurse->size_window[0]
+# define SCREEN_X		war->ncurse->size_window[1]
 
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
@@ -128,6 +132,7 @@ typedef struct	s_args
 {
 	ssize_t	dump;
 	int		nb_champ;
+	int		ncurse;
 }				t_args;
 
 
@@ -145,7 +150,11 @@ typedef struct	s_ncurse
 {
 	WINDOW *main_window;
 	WINDOW *info_window;
+	WINDOW *event_window;
+	int		size_window[2];
 	int		game_speed;
+	int		cycle_per_sec;
+	int		pause;
 }				t_ncurse;
 
 /*
@@ -202,9 +211,13 @@ int				sub(t_war *war, t_champ *champ);
 int				xor(t_war *war, t_champ *champ);
 int				zjmp(t_war *war, t_champ *champ);
 
+int				set_colors(void);
+int				put_good_color(WINDOW *win, int color);//  NCURSE.C
+int				check_size_window(t_war *war);
 int				init_ncurse_struct(t_war *war);
-int				init_ncurse(t_war *war);//               NCURSE.C
-void			display_infos(WINDOW *win, t_war *war);
+int				init_ncurse(t_war *war);
+
+void			display_infos(WINDOW *win, t_war *war);//   DISPLAY_NCURSE.C
 void			display_main_content(WINDOW *win, t_war *war);
 int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
 int				bad_size_window(int y, int x);
@@ -215,5 +228,7 @@ int				refresh_info_constants(t_war *war);
 int				refresh_lives_info(t_war *war);
 int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
 int				refresh_ram(t_war *war, int pos, int size, int color);
+
+int				event(t_war *war, int no_delay);
 
 #endif
