@@ -33,15 +33,25 @@ static void indirect(t_war *war, t_champ *champ, t_return *ret)
 {
 
 	int value;
-//	int ram_value;
 
-	value  = get_value(war, champ->tmp_pc, 2) % IDX_MOD;
+	//obtenir la valeur saisie pour indirect :
+	value  = get_value(war, champ->tmp_pc, 2);
+
+	if (value > 32768)
+	{
+		ft_printf("value : %d\n", value);
+		value = value - 65536;
+	}
+
+	value = value % IDX_MOD;
+
 	ft_printf("value : %d\n", value);
-//	ram_value = calc_pc(value, -1);
-//	ft_printf("ram_value : %d\n", ram_value);
+
 
 	ret->error = 0;
-	ret->value = war->ram[champ->tmp_pc + value];
+	ret->value = get_value(war, calc_pc(champ->pc, value), 4);
+
+
 
 	ft_printf("indirect value : %d\n", ret->value);
 

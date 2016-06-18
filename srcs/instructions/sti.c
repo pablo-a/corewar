@@ -12,6 +12,19 @@
 
 #include "corewar.h"
 
+static int		calc_dist(int adr1, int adr2)
+{
+	int dist;
+
+	dist = 0;
+	while ((calc_pc(adr1, dist) != adr2) && (calc_pc(adr1, -dist) != adr2))
+	{
+		dist++;
+	}
+	return (dist);
+}
+
+
 static void write_ram(t_war *war, int value, int address)
 {
 	int i;
@@ -55,7 +68,13 @@ int				sti(t_war *war, t_champ *champ)
 	if (val2.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
 
-	write_ram(war, reg.value, (val1.value + val2.value) % IDX_MOD);
+	ft_printf("val1 %d\n", val1.value);
+	ft_printf("val2 %d\n", val2.value);
+
+//	val2.value = val2.value % MEM_SIZE;
+
+
+	write_ram(war, reg.value, calc_pc(champ->pc, (calc_dist(champ->pc, (val1.value + val2.value) % MEM_SIZE) % IDX_MOD)));
 	champ->pc = champ->tmp_pc;
 
 	//TODO modify carry ?

@@ -42,6 +42,7 @@ int		who_won(t_war *war)
 	}
 	ft_printf("Contestant %d, \"%s\" has won! with %d lives\n", winner->id,
 			winner->header->prog_name, winner->cpt_live[1]);
+	return (0);
 }
 
 int		get_args(int argc, char **argv, t_war *war)
