@@ -14,20 +14,22 @@
 
 int		aff(t_war *war, t_champ *champ)
 {
-	int reg;
-	int content;
+	t_ocp 		ocp;
+	t_return 	reg;
+	int 		next;
 
-	reg = war->ram[calc_pc(champ->pc, 2)];
-	if (reg < 1 || reg > 16)
-	{
-		champ->pc = calc_pc(champ->pc, 3);
+	//TODO increment champ pc correctly when there is an error (now just increment by next)
+	next = 1;
+
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
+	champ->tmp_pc = calc_pc(champ->pc, 2);
+	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1)), ocp.first, champ);
+	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
-	}
-	content = champ->reg_tab[reg - 1] % 256;
-	champ->pc = calc_pc(champ->pc, 3);
-	//TODO Remove :
-	ft_printf("aff : %#x ", content);
-	ft_printf("%hhu ", content);
-	ft_printf("Char is : %c\n", content);
+	champ->pc = champ->tmp_pc;
+
+	ft_printf("AFF is : %d\n", reg.value % 256);
+
+	ft_putchar((char)(reg.value % 256));
 	return (0);
 }

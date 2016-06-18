@@ -104,7 +104,7 @@ typedef struct	s_op
 	char	name[5];
 	int		nb_params;
 	int		params[3];
-	int		opcode;
+	int		ocpode;
 	int		nb_cycle;
 	char	description[42];
 	bool	ocp;
@@ -131,19 +131,26 @@ typedef struct	s_return
 }				t_return;
 
 
-typedef	struct s_opc
+typedef	struct s_ocp
 {
 	int first;
 	int second;
 	int third;
-}				t_opc;
+}				t_ocp;
+
+
+typedef struct 	s_param_opt
+{
+	int is_index;
+	int reg_value;
+} 				t_param_opt;
 
 typedef	struct s_params
 {
 	int reg;
 	int direct;
 	int indirect;
-	int is_index;
+	struct s_param_opt opt;
 }				t_params;
 
 /*
@@ -183,9 +190,10 @@ int				launch_war(t_war *war);
 
 // Fonctions by Marius :
 int 			calc_pc(int pc, int value);
-t_opc 			get_opc(int value);
-t_params 		define_params_types(int type1, int type2, int type3, int is_index);
+t_ocp 			get_ocp(int value);
+t_params 		define_params_types(int type1, int type2, int type3, t_param_opt opt);
 t_return 		get_param(t_war *war, t_params params, int param_nb, t_champ *champ);
+t_param_opt 	def_opt(int is_index, int reg_value);
 
 int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);

@@ -53,28 +53,28 @@ int		dump_war(t_war *war)
 int		get_nbr_cycle(t_war *war, int pc)
 {
 	int result;
-	int opcode;
+	int ocpode;
 
-	opcode = war->ram[pc];
-	if (opcode < 1 || opcode > 16)
+	ocpode = war->ram[pc];
+	if (ocpode < 1 || ocpode > 16)
 	{
 		result = 1;
 		return (result);
 	}
-	result = war->op_tab[opcode - 1].nb_cycle;
+	result = war->op_tab[ocpode - 1].nb_cycle;
 	return (result);
 }
 
 int		execute(t_war *war, t_champ *champ)
 {
-	int opcode;
+	int ocpode;
 
-	opcode = war->ram[champ->pc];
-	//TODO chec max opcode possible and what happens if op code is wrong:
-	if (opcode < 1 || opcode > 16)
+	ocpode = war->ram[champ->pc];
+	//TODO chec max ocpode possible and what happens if op code is wrong:
+	if (ocpode < 1 || ocpode > 16)
 		champ->pc = calc_pc(champ->pc, 1);
 	else
-		war->op_tab[opcode - 1].associated_function(war, champ);
+		war->op_tab[ocpode - 1].associated_function(war, champ);
 	return (0);
 }
 
