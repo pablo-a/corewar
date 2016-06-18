@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:21:45 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:10:28 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 12:38:12 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		event(t_war *war, no_delay)
 	{
 		clear();
 		refresh();
+		endwin();
 		exit(0);
 	}
 	else if (ch == 32 && PAUSE == 1)

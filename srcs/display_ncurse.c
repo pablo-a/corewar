@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:18:34 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:19:54 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 12:42:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void draw_borders(WINDOW *screen)
 {
 	int x, y, i; 
-	wattron(screen, COLOR_PAIR(1));
+	wattron(screen, COLOR_PAIR(9));
 	getmaxyx(screen, y, x); // 4 corners 
 	mvwprintw(screen, 0, 0, "+"); 
 	mvwprintw(screen, y - 1, 0, "+"); 
@@ -32,7 +32,7 @@ void draw_borders(WINDOW *screen)
 		mvwprintw(screen, y - 1, i, "-"); 
 	}
 	wrefresh(screen);
-	wattroff(screen, COLOR_PAIR(1));
+	wattroff(screen, COLOR_PAIR(9));
 }
 
 int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
@@ -64,7 +64,7 @@ void	display_infos(WINDOW *win, t_war *war)
 
 	wclear(win);
 	draw_borders(win);
-	wattron(win, COLOR_PAIR(3));
+	wattron(win, COLOR_PAIR(4));
 	y = 12;
 	x = 7;
 	mvwprintw(win, 10, x, "Current Cycle : %d", war->current_cycle);
@@ -84,7 +84,7 @@ void	display_infos(WINDOW *win, t_war *war)
 	y += 4;
 	mvwprintw(win, y, x, " PAUSED : %d", PAUSE);
 	wrefresh(win);
-	wattroff(win, COLOR_PAIR(3));
+	wattroff(win, COLOR_PAIR(4));
 }
 
 void	display_main_content(WINDOW *win, t_war *war)
@@ -100,8 +100,9 @@ void	display_main_content(WINDOW *win, t_war *war)
 	getmaxyx(win, size_window[0], size_window[1]);
 	while (index < MEM_SIZE)
 	{
-		put_good_color(win, 2);
 		calc_pos_in_ram(&curr_y, &curr_x, size_window, index);
+		//put_good_color(win, war->ram2[index]);
+		put_good_color(win, 2);
 		mvwprintw(win, curr_y, curr_x, "%02.2x ", war->ram[index]);
 		index++;
 	}

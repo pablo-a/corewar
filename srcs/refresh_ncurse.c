@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:19:53 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 12:39:05 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		refresh_current_cycle(t_war *war)
 {
-	wattron(INFO_WINDOW, COLOR_PAIR(3));
+	wattron(INFO_WINDOW, COLOR_PAIR(4));
 	mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
 	wrefresh(INFO_WINDOW);
-	wattroff(INFO_WINDOW, COLOR_PAIR(3));
+	wattroff(INFO_WINDOW, COLOR_PAIR(4));
 	usleep(war->ncurse->game_speed);
 	return (1);
 }
@@ -26,7 +26,7 @@ int		refresh_info_constants(t_war *war)
 {
 	int offset;
 
-	wattron(INFO_WINDOW, COLOR_PAIR(3));
+	wattron(INFO_WINDOW, COLOR_PAIR(4));
 	offset = 12 + (war->args->nb_champ * 4) + 2;
 	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_TO_DIE : %d", war->cycle_to_die);
 	offset += 3;
@@ -41,7 +41,7 @@ int		refresh_info_constants(t_war *war)
 	mvwprintw(INFO_WINDOW, offset, 7, "GAME_SPEED : %dcycles/sec", war->ncurse->cycle_per_sec);
 	offset += 4;
 	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d", PAUSE);
-	wattroff(INFO_WINDOW, COLOR_PAIR(3));
+	wattroff(INFO_WINDOW, COLOR_PAIR(4));
 	wrefresh(INFO_WINDOW);
 }
 
@@ -54,7 +54,7 @@ int		refresh_lives_info(t_war *war)
 	cpt = 0;
 	node = war->pile_champ->first;
 	y = 12;
-	wattron(INFO_WINDOW, COLOR_PAIR(3));
+	wattron(INFO_WINDOW, COLOR_PAIR(4));
 	while (cpt < war->args->nb_champ)
 	{
 		mvwprintw(INFO_WINDOW, y + 1, 11, "Lives in current period : %d",
@@ -66,7 +66,7 @@ int		refresh_lives_info(t_war *war)
 		cpt++;
 	}
 	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d", war->current_live_nb);
-	wattroff(INFO_WINDOW, COLOR_PAIR(3));
+	wattroff(INFO_WINDOW, COLOR_PAIR(4));
 	wrefresh(INFO_WINDOW);
 }
 
@@ -88,16 +88,16 @@ int		refresh_ram(t_war *war, int pos, int size, int color)
 	int size_window[2];
 	int cpt;
 
-	wattron(MAIN_WINDOW, COLOR_PAIR(color));
 	cpt = 0;
+	color = 9;// DEFAULT GREEN, TO CHANGE
 	getmaxyx(MAIN_WINDOW, size_window[0], size_window[1]);
-	calc_pos_in_ram(&offset_y, &offset_x, size_window, pos);
 	while (cpt < size)
 	{
+		calc_pos_in_ram(&offset_y, &offset_x, size_window, pos);
+		put_good_color(MAIN_WINDOW, color);
 		mvwprintw(MAIN_WINDOW, offset_y, offset_x, "%02x", war->ram[pos]);
 		cpt++;
 		pos = (pos + 1) % MEM_SIZE;
-		calc_pos_in_ram(&offset_y, &offset_x, size_window, pos);
 	}
 	wrefresh(MAIN_WINDOW);
 	wattroff(MAIN_WINDOW, COLOR_PAIR(color));
