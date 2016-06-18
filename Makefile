@@ -6,7 +6,7 @@
 #    By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/07 15:12:46 by vbarrete          #+#    #+#              #
-#    Updated: 2016/06/17 19:48:48 by hdebard          ###   ########.fr        #
+#    Updated: 2016/06/18 18:35:09 by hdebard          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,7 +18,8 @@ SRC = 	main.c\
 		asm_check_header.c\
 		asm_check_label.c\
 		asm_check_command.c\
-		asm_check_command_2.c\
+		asm_command_1.c\
+		asm_command_2.c\
 		asm_check_arg.c\
 		asm_util.c\
 		asm_strsplit.c\

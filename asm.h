@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 17:47:41 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 18:52:01 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ void			asm_add(char **array, t_strct *strct, t_byteline *new, int l);
 /*
 ** asm_check_arg.c
 */
-int				asm_is_ind(char *str, t_byteline *new);
-int				asm_is_dir(char *str, t_byteline *new, int len);
-int				asm_is_reg(char *str, t_byteline *new);
+int				asm_is_ind(char *str, t_byteline *new, int *c);
+int				asm_is_dir(char *str, t_byteline *new, int len, int *c);
+int				asm_is_reg(char *str, t_byteline *new, int *c);
 void			asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c);
 void			asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c);
 
@@ -127,7 +127,7 @@ int				asm_parse_command(t_strct *strct);
 ** asm_find_command.c
 */
 int				asm_find_command(char *command, t_strct *strct);
-int				asm_label_size(char *command);
+int				asm_label_size(char *command, t_strct *strct);
 
 /*
 ** asm_encode.c

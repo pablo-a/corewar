@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 00:22:51 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/18 00:47:02 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 18:28:48 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,41 +25,15 @@ int		asm_find_command(char *command, t_strct *strct)
 		return (-1);
 }
 
-int		asm_label_size(char *command)
+int		asm_label_size(char *command, t_strct *strct)
 {
-	if (!ft_strcmp(command, "live"))
+	int x;
+
+	x = asm_find_command(command, strct);
+	if (x == 0 || x == 1 || x == 5 || x == 6
+		|| x == 7 || x == 12)
 		return (4);
-	else if (!ft_strcmp(command, "ld"))
-		return (4);
-	else if (!ft_strcmp(command, "st"))
-		return (2);
-	else if (!ft_strcmp(command, "add"))
-		return (2);
-	else if (!ft_strcmp(command, "sub"))
-		return (2);
-	else if (!ft_strcmp(command, "and"))
-		return (4);
-	else if (!ft_strcmp(command, "or"))
-		return (4);
-	else if (!ft_strcmp(command, "xor"))
-		return (4);
-	else if (!ft_strcmp(command, "zjmp"))
-		return (2);
-	else if (!ft_strcmp(command, "ldi"))
-		return (2);
-	else if (!ft_strcmp(command, "sti"))
-		return (2);
-	else if (!ft_strcmp(command, "fork"))
-		return (2);
-	else if (!ft_strcmp(command, "lld"))
-		return (4);
-	else if (!ft_strcmp(command, "lldi"))
-		return (2);
-	else if (!ft_strcmp(command, "lfork"))
-		return (2);
-	else if (!ft_strcmp(command, "aff"))
-		return (2);
-	else
+	if (x == -1)
 		asm_error("Apprend a ecrire petit scarabe");
-	return (-1);
+	return (2);
 }

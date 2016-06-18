@@ -6,75 +6,70 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 17:44:41 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 18:03:53 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			asm_is_ind(char *str, t_byteline *new)
+int			asm_is_ind(char *str, t_byteline *new, int *c)
 {
-	int		c;
-
-	c = 0;
-	if (!ft_isdigit(str[c]) && str[c] != '-')
+	*c = 0;
+	if (!ft_isdigit(str[*c]) && str[*c] != '-')
 		return (0);
-	if (str[c] == '-' && !ft_isdigit(str[c + 1]))
+	if (str[*c] == '-' && !ft_isdigit(str[*c + 1]))
 		return (0);
-	else if (str[c] == '-')
-		c++;
-	while (ft_isdigit(str[c]))
-		c++;
+	else if (str[*c] == '-')
+		*c += 1;
+	while (ft_isdigit(str[*c]))
+		*c += 1;
 	new->len += 2;
-	return (c);
+	return (1);
 }
 
-int			asm_is_dir(char *str, t_byteline *new, int len)
+int			asm_is_dir(char *str, t_byteline *new, int len, int *c)
 {
-	int			c;
-
-	c = 0;
+	*c = 0;
 	if (str[0] != '%')
 		return (0);
-	c++;
-	if (str[c] != ':')
+	*c += 1;
+	if (str[*c] != ':')
 	{
-		if (!ft_isdigit(str[c]) && str[c] != '-')
+		if (!ft_isdigit(str[*c]) && str[*c] != '-')
 			return (0);
-		if (str[c] == '-' && !ft_isdigit(str[c + 1]))
+		if (str[*c] == '-' && !ft_isdigit(str[*c + 1]))
 			return (0);
-		else if (str[c] == '-')
-			c++;
-		while (ft_isdigit(str[c]))
-			c++;
+		else if (str[*c] == '-')
+			*c += 1;
+		while (ft_isdigit(str[*c]))
+			*c += 1;
 	}
 	else
 	{
-		c++;
-		while (ft_strchr(LABEL_CHARS, str[c]) != NULL)
-			c++;
+		*c += 1;
+		while (ft_strchr(LABEL_CHARS, str[*c]) != NULL)
+			*c += 1;
 	}
 	new->len += len;
-	return (c);
+	return (1);
 }
 
-int			asm_is_reg(char *str, t_byteline *new)
+int			asm_is_reg(char *str, t_byteline *new, int *c)
 {
 	int			val;
-	int			c;
 
-	c = 0;
+	*c = 0;
 	if (str[0] != 'r')
 		return (0);
-	c++;
+	*c += 1;
 	if (!ft_isdigit(str[1]))
 		return (0);
 	val = ft_atoi(str + 1);
-	c += asm_intlen(val);
+	*c += asm_intlen(val);
 	if (!val || val < 0 || val > REG_NUMBER)
 		return (0);
 	new->len += 1;
-	return (c);
+	return (1);
 }
 
 void		asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c)

@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/18 17:50:56 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 18:26:50 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		asm_parse_command(t_strct *strct)
 			c++;
 			len = asm_count_arg(command[1]);
 			args = ft_strsplit(command[1], SEPARATOR_CHAR);
-			l_size = asm_label_size(command[0]);
+			l_size = asm_label_size(command[0], strct);
 			if (ft_strcmp(command[0], "live") && ft_strcmp(command[0], "zjmp") \
 				&& ft_strcmp(command[0], "fork") && ft_strcmp(command[0], "lfork"))
 			{
