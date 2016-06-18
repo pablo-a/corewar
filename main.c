@@ -6,25 +6,26 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 17:25:41 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/11 00:29:16 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 22:03:53 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+void		asm_error(char *str)
+{
+	ft_putendl(str);
+	exit(0);
+}
+
 int			main(int ac, char **av)
 {
-	int		fd;
-
 	if (ac != 2)
 	{
 		asm_error("Pas assez d'argument");
 		return (0);
 	}
-	if ((fd = open(av[1], O_RDONLY)) != -1)
-		asm_parse(fd, asm_find_file_name(av[1]));
-	else
-		asm_error("Fichier Inexistant");
-	close(fd);
+	if (asm_parse_file(av[1]) != 0)
+		return (0);
 	return (0);
 }

@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   encode.c                                           :+:      :+:    :+:   */
+/*   find_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/11 00:25:26 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/11 00:32:48 by hdebard          ###   ########.fr       */
+/*   Created: 2016/06/11 00:22:51 by hdebard           #+#    #+#             */
+/*   Updated: 2016/06/18 18:28:48 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	asm_encode(char *arg, int size, int fd)
+int		asm_find_command(char *command, t_strct *strct)
 {
-	char	*hexa;
-	char	*h0;
 	int		x;
 
-	hexa = ft_itoa_base(ft_atoi(arg), 16, BASE_MIN);
-	h0 = ft_strnew(size - ft_strlen(hexa));
 	x = 0;
-	while (x < (int)(size - ft_strlen(hexa)))
-	{
-		h0[x] = '0';
+	while (ft_strcmp(strct->tab_command[x], command))
 		x++;
-	}
-	hexa = ft_strjoin(h0, hexa);
-	x = 0;
-	while (x < size)
-	{
-		if (x % 2 == 0)
-			write(fd, ",0x", 3);
-		write(fd, &hexa[x], 1);
-		x++;
-	}
+	if (x < 17)
+		return (x);
+	else
+		return (-1);
+}
+
+int		asm_label_size(char *command, t_strct *strct)
+{
+	int x;
+
+	x = asm_find_command(command, strct);
+	if (x == 0 || x == 1 || x == 5 || x == 6
+		|| x == 7 || x == 12)
+		return (4);
+	if (x == -1)
+		asm_error("Apprend a ecrire petit scarabe");
+	return (2);
 }

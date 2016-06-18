@@ -6,41 +6,37 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:50:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/11 00:31:11 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/17 22:05:41 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			asm_is_command(char *str)
+int			asm_check_file(t_strct *strct)
 {
-	str = "";
-	return (1);
-}
+	t_str		*ptr;
 
-int			asm_is_label(char *str)
-{
-	if (ft_strchr(str, LABEL_CHAR))
-		return (1);
-	return (0);
-}
-
-int			asm_is_header(char *str)
-{
-	int			x;
-	char		*name;
-	char		*comment;
-
-	x = 0;
-	name = NAME_CMD_STRING;
-	comment = COMMENT_CMD_STRING;
-	while (str[x] == name[x] || str[x] == '\0')
-		x++;
-	if (name[x] == '\0')
-		return (1);
-	while (str[x] == comment[x] || str[x] == '\0')
-		x++;
-	if (comment[x] == '\0')
-		return (1);
+	ptr = strct->file;
+	while (ptr)
+	{
+		strct->c = asm_str_browse(ptr->str);
+		if (ptr->str[strct->c] == 0 || ptr->str[strct->c] == '#')
+		{
+			ptr = ptr->next;
+		}
+		else if (strct->name == NULL || strct->comment == NULL)
+		{
+			if (ptr->str[strct->c] != '.')
+				asm_lc_error(strct);
+			else if ((ptr = asm_check_header(ptr, strct)) == NULL)
+				exit(0);
+		}
+		else if (ft_strchr(LABEL_CHARS, ptr->str[strct->c]) != NULL)
+			ptr = asm_check_label(ptr, strct);
+		else
+			asm_lc_error(strct);
+		strct->c = 0;
+		strct->l += 1;
+	}
 	return (0);
 }
