@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 21:08:10 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 01:20:36 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "libft/includes/libft.h"
 # include "op.h"
 
-#include <stdio.h>
+# include <stdio.h>
 
 typedef struct	s_strct
 {
@@ -115,13 +115,14 @@ int				asm_is_ind(char *str, t_byteline *new, int *c);
 int				asm_is_dir(char *str, t_byteline *new, int len, int *c);
 int				asm_is_reg(char *str, t_byteline *new, int *c);
 void			asm_save_arg(char *str, t_strct *strct, t_byteline *new, int c);
-void			asm_save_arg_finish(char **array, t_strct *strct, t_byteline *new, int c);
+void			asm_save_arg_finish(char **array,\
+									t_strct *strct, t_byteline *new, int c);
 
 /*
 **  asm_parse_command.c
 */
 int				asm_count_arg(char *arg);
-int				asm_find_opc(char **arg, int l);
+int				asm_find_opc(char **arg, int l, int *c);
 int				asm_parse_command(t_strct *strct);
 
 /*
