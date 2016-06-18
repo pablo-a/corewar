@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:13:15 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 12:58:50 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ int		main(int argc, char **argv)
 	war = init_war(&args);
 	get_args(argc, argv, war);
 	load_players_into_arena(war);
+	// NCURSE MODE
 	if (war->args->ncurse == 1)
 		init_ncurse(war);
-	else
+	else//  NORMAL MODE
 	{
 		display_ram(war->ram);
 		printf("HELLO\n");

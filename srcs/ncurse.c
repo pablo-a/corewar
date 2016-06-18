@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 12:39:30 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 13:22:40 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 int		set_colors(void)
 {
-	init_pair(0, COLOR_WHITE, COLOR_BLACK);//DEFAULT COLOR
 	init_pair(1, COLOR_BLUE, COLOR_BLACK);// COLOR FOR CHAMPS
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_RED, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
-	init_pair(5, COLOR_BLUE, COLOR_YELLOW);// COLOR FOR PC
-	init_pair(6, COLOR_GREEN, COLOR_YELLOW);
-	init_pair(7, COLOR_RED, COLOR_YELLOW);
-	init_pair(8, COLOR_CYAN, COLOR_YELLOW);
+	init_pair(5, COLOR_BLACK, COLOR_BLUE);// COLOR FOR PC
+	init_pair(6, COLOR_BLACK, COLOR_GREEN);
+	init_pair(7, COLOR_BLACK, COLOR_RED);
+	init_pair(8, COLOR_BLACK, COLOR_CYAN);
 	init_pair(9, COLOR_BLUE, COLOR_RED);// BORDER
+	init_pair(10, COLOR_WHITE, COLOR_BLACK);//DEFAULT COLOR
 	return (0);
 }
 
 int		put_good_color(WINDOW *win, int color)
 {
+	if (color == 0)
+		color = 10;//WHITE AND BLACK DISPLAY
 	wattron(win, COLOR_PAIR(color));
 	return (0);
 }

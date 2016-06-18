@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:13:13 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 13:11:11 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		find_dead_champs(t_war *war)
 int		dump_war(t_war *war)
 {
 	display_ram(war->ram);
+	display_ram_info(war->ram_info);
 	exit(0);
 }
 

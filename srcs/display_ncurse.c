@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:18:34 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 12:42:14 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 13:19:22 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	display_main_content(WINDOW *win, t_war *war)
 	while (index < MEM_SIZE)
 	{
 		calc_pos_in_ram(&curr_y, &curr_x, size_window, index);
-		//put_good_color(win, war->ram2[index]);
-		put_good_color(win, 2);
+		//printf("color = %d\n", war->ram_info[index]);
+		put_good_color(win, war->ram_info[index]);
 		mvwprintw(win, curr_y, curr_x, "%02.2x ", war->ram[index]);
 		index++;
 	}

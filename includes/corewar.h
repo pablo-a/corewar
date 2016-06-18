@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:02:54 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 13:09:37 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 typedef struct	s_war
 {
 	unsigned char	ram[MEM_SIZE];
+	unsigned char	ram_info[MEM_SIZE];
 	int				cycle_to_die;
 	int				max_check;
 	int				current_cycle;
@@ -173,8 +174,7 @@ t_war			*init_war(t_args *args);
 int				read_champ(char *file, t_champ *champ);
 int				read_instructions(int fd, t_champ *champ);//  CHAMP.C
 int				load_players_into_arena(t_war *war);
-int				load_bytecode(t_champ *champ, unsigned char ram[MEM_SIZE],
-				int pos);
+int				load_bytecode(t_champ *champ, t_war *war, int pos);
 
 int				convert_to_big_endian(unsigned int data);
 int				get_args(int argc, char **argv, t_war *war);//     MAIN.C
@@ -183,6 +183,7 @@ int				main(int argc, char **argv);
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
+int				display_ram_info(unsigned char ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 
 int				reset_champ_live(t_war *war);

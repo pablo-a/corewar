@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/17 20:12:20 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 12:53:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_war		*init_war(t_args *args)
 	war = (t_war *)malloc(sizeof(t_war));
 	while (i < MEM_SIZE)
 	{
+		//added for more info on ram;
+		war->ram_info[i] = 0;
 		war->ram[i] = 0;
 		i++;
 	}
