@@ -6,13 +6,13 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 18:03:53 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 21:10:43 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			asm_is_ind(char *str, t_byteline *new, int *c)
+int		asm_is_ind(char *str, t_byteline *new, int *c)
 {
 	*c = 0;
 	if (!ft_isdigit(str[*c]) && str[*c] != '-')
@@ -27,7 +27,7 @@ int			asm_is_ind(char *str, t_byteline *new, int *c)
 	return (1);
 }
 
-int			asm_is_dir(char *str, t_byteline *new, int len, int *c)
+int		asm_is_dir(char *str, t_byteline *new, int len, int *c)
 {
 	*c = 0;
 	if (str[0] != '%')
@@ -54,7 +54,7 @@ int			asm_is_dir(char *str, t_byteline *new, int len, int *c)
 	return (1);
 }
 
-int			asm_is_reg(char *str, t_byteline *new, int *c)
+int		asm_is_reg(char *str, t_byteline *new, int *c)
 {
 	int			val;
 
@@ -72,7 +72,7 @@ int			asm_is_reg(char *str, t_byteline *new, int *c)
 	return (1);
 }
 
-void		asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c)
+void	asm_save_arg(char *str, t_strct *strct, t_byteline *new, int c)
 {
 	int			d;
 
@@ -82,23 +82,27 @@ void		asm_save_arg(char *str, t_strct *strct, char *name, int *len, int c)
 	if (str[d] != 0)
 		asm_lc_error(strct);
 	str[c] = 0;
-	ft_strcpy(name + *len, str);
+	ft_strcpy(new->name + new->name_len, str);
 	strct->c += d + 1;
-	*len = *len + c;
-	name[*len] = SEPARATOR_CHAR;
-	*len += 1;
+	new->name_len = new->name_len + c;
+	new->name[new->name_len] = SEPARATOR_CHAR;
+	new->name_len += 1;
 }
 
-void		asm_save_arg_finish(char *str, char *ptr, t_strct *strct, char *name, int *len, int c)
+void	asm_save_arg_finish(char **array, t_strct *strct, t_byteline *n, int c)
 {
 	int			d;
 	char		ch;
+	char		*str;
+	char		*ptr;
 
+	str = array[0] + n->label;
+	ptr = array[1];
 	d = c;
 	d += asm_str_browse(str + d);
 	ch = str[c];
 	str[c] = 0;
-	ft_strcpy(name + *len, str);
+	ft_strcpy(n->name + n->name_len, str);
 	str[c] = ch;
 	strct->c += d;
 	if (str[d] != COMMENT_CHAR)
