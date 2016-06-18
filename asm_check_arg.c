@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 00:34:38 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 17:44:41 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			asm_is_ind(char *str, t_byteline *new)
 		c++;
 	while (ft_isdigit(str[c]))
 		c++;
-	new->len += 1;
+	new->len += 2;
 	return (c);
 }
 

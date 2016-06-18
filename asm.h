@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 01:08:18 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 17:47:41 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "libft/includes/libft.h"
 # include "op.h"
+
+#include <stdio.h>
 
 typedef struct	s_strct
 {

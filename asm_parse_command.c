@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/18 01:10:33 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 17:50:56 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		asm_parse_command(t_strct *strct)
 				}
 				else
 				{
-					c = asm_encode(tmp->byte_line, args[x] + 1, 2, c);
+					c = asm_encode(tmp->byte_line, args[x], 2, c);
 				}
 				x++;
 			}
