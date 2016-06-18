@@ -23,12 +23,12 @@ int		st(t_war *war, t_champ *champ)
 	next = 1;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
-	reg = get_params(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0)),
+	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0)),
 			ocp.first, champ);
 	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
 
-	val = get_params(war, define_params_types(REG_CODE, -1, IND_CODE,
+	val = get_param(war, define_params_types(REG_CODE, -1, IND_CODE,
 				def_opt(0, 1)), ocp.second, champ);
 	if (val.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
