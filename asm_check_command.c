@@ -6,13 +6,13 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:07:20 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/17 22:12:35 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 01:05:26 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void		asm_check_live(char **array, t_strct *strct, t_byteline *new, int len)
+void		asm_live(char **array, t_strct *strct, t_byteline *new, int l)
 {
 	int			c;
 
@@ -21,11 +21,11 @@ void		asm_check_live(char **array, t_strct *strct, t_byteline *new, int len)
 	if (!(c = asm_is_dir(array[0], new, 4)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg_finish(array[0], array[1], strct, new->name, &len, c);
+		asm_save_arg_finish(array[0], array[1], strct, new->name, &l, c);
 	new->len += 1;
 }
 
-void		asm_check_zjmp_fork(char **array, t_strct *strct, t_byteline *new, int len)
+void		asm_zjmp(char **array, t_strct *strct, t_byteline *new, int l)
 {
 	int			c;
 
@@ -34,11 +34,11 @@ void		asm_check_zjmp_fork(char **array, t_strct *strct, t_byteline *new, int len
 	if (!(c = asm_is_dir(array[0], new, 2)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg_finish(array[0], array[1], strct, new->name, &len, c);
+		asm_save_arg_finish(array[0], array[1], strct, new->name, &l, c);
 	new->len += 1;
 }
 
-void		asm_check_ld(char **array, t_strct *strct, t_byteline *new, int len)
+void		asm_ld(char **array, t_strct *strct, t_byteline *new, int len)
 {
 	int			c;
 	int			d;
@@ -61,7 +61,7 @@ void		asm_check_ld(char **array, t_strct *strct, t_byteline *new, int len)
 	new->len += 2;
 }
 
-void		asm_check_st(char **array, t_strct *strct, t_byteline *new, int len)
+void		asm_st(char **array, t_strct *strct, t_byteline *new, int len)
 {
 	int			c;
 	int			d;
@@ -84,7 +84,7 @@ void		asm_check_st(char **array, t_strct *strct, t_byteline *new, int len)
 	new->len += 2;
 }
 
-void		asm_check_add_sub(char **array, t_strct *strct, t_byteline *new, int len)
+void		asm_add(char **array, t_strct *strct, t_byteline *new, int l)
 {
 	int			c;
 	int			d;
@@ -98,16 +98,16 @@ void		asm_check_add_sub(char **array, t_strct *strct, t_byteline *new, int len)
 	if (!(c = asm_is_reg(array[0], new)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg(array[0], strct, new->name, &len, c);
+		asm_save_arg(array[0], strct, new->name, &l, c);
 	d = asm_str_browse(array[1]);
 	if (!(c = asm_is_reg(array[1] + d, new)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg(array[1] + d, strct, new->name, &len, c);
+		asm_save_arg(array[1] + d, strct, new->name, &l, c);
 	d = asm_str_browse(array[2]);
 	if (!(c = asm_is_reg(array[2] + d, new)))
 		asm_lc_error(strct);
 	else
-		asm_save_arg_finish(array[2] + d, array[3], strct, new->name, &len, c);
+		asm_save_arg_finish(array[2] + d, array[3], strct, new->name, &l, c);
 	new->len += 2;
 }

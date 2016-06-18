@@ -1,5 +1,7 @@
-.comment "I'M ALIIIIVE"
-.name "zork"
+.comment "I'M
+	ALIIIIVE"
+.name "zo
+	rk"
 
 l1:
 l2:     sti r1, %:live, %1

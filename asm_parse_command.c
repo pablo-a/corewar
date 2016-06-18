@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/18 00:43:40 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/18 01:10:33 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		asm_parse_command(t_strct *strct)
 	int				l_size;
 	int				x;
 	int				len;
-	int				c_line;
+	int				c;
 
 	tmp = strct->bytelines;
 	while (tmp)
@@ -77,11 +77,11 @@ int		asm_parse_command(t_strct *strct)
 		if (tmp->label == 0)
 		{
 			x = 0;
-			c_line = 0;
+			c = 0;
 			tmp->byte_line = (char*)malloc(tmp->len + 1);
 			command = ft_strsplit(tmp->name, ' ');
 			tmp->byte_line[0] = asm_find_command(command[0], strct) + 1;
-			c_line++;
+			c++;
 			len = asm_count_arg(command[1]);
 			args = ft_strsplit(command[1], SEPARATOR_CHAR);
 			l_size = asm_label_size(command[0]);
@@ -89,29 +89,29 @@ int		asm_parse_command(t_strct *strct)
 				&& ft_strcmp(command[0], "fork") && ft_strcmp(command[0], "lfork"))
 			{
 				tmp->byte_line[1] = asm_find_opc(args, len);
-				c_line++;
+				c++;
 			}
 			while (x < len)
 			{
 				if (args[x][0] == 'r')
 				{
-					tmp->byte_line[c_line] = ft_atoi(args[x] + 1);
-					c_line++;
+					tmp->byte_line[c] = ft_atoi(args[x] + 1);
+					c++;
 				}
 				else if (args[x][0] == '%')
 				{
 					if (args[x][1] == ':')
-						c_line = asm_encode_label(tmp->byte_line, asm_find_label(strct, tmp, args[x] + 2), l_size, c_line);
+						c = asm_encode_label(tmp->byte_line, asm_find_label(strct, tmp, args[x] + 2), l_size, c);
 					else
-						c_line = asm_encode(tmp->byte_line, args[x] + 1, l_size, c_line);
+						c = asm_encode(tmp->byte_line, args[x] + 1, l_size, c);
 				}
 				else
 				{
-					c_line = asm_encode(tmp->byte_line, args[x] + 1, 2, c_line);
+					c = asm_encode(tmp->byte_line, args[x] + 1, 2, c);
 				}
 				x++;
 			}
-			tmp->byte_line[c_line] = 0;
+			tmp->byte_line[c] = 0;
 		}
 		tmp = tmp->next;
 	}
