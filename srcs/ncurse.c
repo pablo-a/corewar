@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 13:22:40 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 15:08:36 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ int		set_colors(void)
 int		put_good_color(WINDOW *win, int color)
 {
 	if (color == 0)
-		color = 10;//WHITE AND BLACK DISPLAY
-	wattron(win, COLOR_PAIR(color));
+	{
+		//wattron(win, A_BOLD);
+		wattron(win, COLOR_PAIR(10));
+	}
+	else
+		wattron(win, COLOR_PAIR(color));
 	return (0);
 }
 

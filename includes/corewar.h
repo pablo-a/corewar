@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 13:09:37 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 14:28:31 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,24 +212,32 @@ int				sub(t_war *war, t_champ *champ);
 int				xor(t_war *war, t_champ *champ);
 int				zjmp(t_war *war, t_champ *champ);
 
+/*
+** -------------------------- NCURSE PART -------------------------------------
+*/
+
 int				set_colors(void);
 int				put_good_color(WINDOW *win, int color);//  NCURSE.C
 int				check_size_window(t_war *war);
 int				init_ncurse_struct(t_war *war);
 int				init_ncurse(t_war *war);
 
+void			display_pc(t_war *war);
 void			display_infos(WINDOW *win, t_war *war);//   DISPLAY_NCURSE.C
 void			display_main_content(WINDOW *win, t_war *war);
 int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
-int				bad_size_window(int y, int x);
 void			draw_borders(WINDOW *screen);
 
+
 int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
+int				refresh_pc(t_war *war, t_champ *champ, int old_pc, int new_pc);
 int				refresh_info_constants(t_war *war);
 int				refresh_lives_info(t_war *war);
-int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
 int				refresh_ram(t_war *war, int pos, int size, int color);
 
-int				event(t_war *war, int no_delay);
+int				event(t_war *war, int no_delay);//     EVENT_NCURSE.C
+int				bad_size_window(int y, int x);
+int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
+int				reset_colors(WINDOW *win);
 
 #endif

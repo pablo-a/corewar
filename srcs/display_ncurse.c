@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:18:34 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 13:19:22 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 15:05:18 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
 	node = war->pile_champ->first;
 	while (cpt < war->args->nb_champ)
 	{
+		put_good_color(win, node->champ->id);
 		mvwprintw(win, *y, *x, "Champion %d : %s", -ID(node->champ),
 											NAME(node->champ));
+		reset_colors(win);
 		mvwprintw(win, *y + 1, *x + 4, "Lives in current period : %d",
 											node->champ->cpt_live[0]);
 		mvwprintw(win, *y + 2, *x + 4, "Last live :               %d",
@@ -64,10 +66,13 @@ void	display_infos(WINDOW *win, t_war *war)
 
 	wclear(win);
 	draw_borders(win);
-	wattron(win, COLOR_PAIR(4));
 	y = 12;
 	x = 7;
+	put_good_color(win, 3);
+	wattron(win, A_BOLD);
 	mvwprintw(win, 10, x, "Current Cycle : %d", war->current_cycle);
+	wattroff(win, A_BOLD);
+	reset_colors(win);
 	display_champs(war, win, &y, &x);
 	y += 2;
 	mvwprintw(win, y, x, "CYCLE_TO_DIE : %d", war->cycle_to_die);
@@ -80,11 +85,25 @@ void	display_infos(WINDOW *win, t_war *war)
 	mvwprintw(win, y, x, "MAX_CHECKS : %d", MAX_CHECKS);
 	mvwprintw(win, y + 1, x + 4, "Current checks : %d", war->max_check);
 	y += 4;
-	mvwprintw(win, y, x, "GAME_SPEED : %dcycles/sec", war->ncurse->cycle_per_sec);
+	mvwprintw(win, y, x, "GAME_SPEED : %d cycles/sec", war->ncurse->cycle_per_sec);
 	y += 4;
 	mvwprintw(win, y, x, " PAUSED : %d", PAUSE);
 	wrefresh(win);
-	wattroff(win, COLOR_PAIR(4));
+}
+
+void	display_pc(t_war *war)
+{
+	int		cpt;
+	t_node	*node;
+
+	cpt = 0;
+	node = war->pile_champ->first;
+	while (cpt < war->args->nb_champ)
+	{
+		refresh_ram(war, node->champ->pc, 1, node->champ->id + 4);
+		cpt++;
+		node = node->next;
+	}
 }
 
 void	display_main_content(WINDOW *win, t_war *war)
@@ -101,32 +120,11 @@ void	display_main_content(WINDOW *win, t_war *war)
 	while (index < MEM_SIZE)
 	{
 		calc_pos_in_ram(&curr_y, &curr_x, size_window, index);
-		//printf("color = %d\n", war->ram_info[index]);
 		put_good_color(win, war->ram_info[index]);
 		mvwprintw(win, curr_y, curr_x, "%02.2x ", war->ram[index]);
+		reset_colors(win);
 		index++;
 	}
+	display_pc(war);
 	wrefresh(win);
-	wattroff(win, COLOR_PAIR(2));
-}
-
-int		bad_size_window(int y, int x)
-{
-	wclear(stdscr);
-	mvwprintw(stdscr, y / 2, (x - 10) / 2, "THE WINDOW IS TOO SMALL.");
-	mvwprintw(stdscr, (y / 2) + 1, (x - 10) / 2, "RESIZE IT PLZ");
-	getmaxyx(stdscr, y, x);
-	while (y < MIN_HEIGHT || x < MIN_WIDTH)
-	{
-		wclear(stdscr);
-		mvwprintw(stdscr, y / 2, (x - 20) / 2, "THE WINDOW IS TOO SMALL.");
-		mvwprintw(stdscr, (y / 2) + 1, (x - 20) / 2, "RESIZE IT PLZ");
-		mvwprintw(stdscr, (y / 2) + 2, (x - 20) / 2, "%d columns < %d columns", x, MIN_WIDTH);
-		mvwprintw(stdscr, (y / 2) + 3, (x - 20) / 2, "%d rows < %d rows", y, MIN_HEIGHT);
-		refresh();
-		getmaxyx(stdscr, y, x);
-	}
-	wclear(stdscr);
-	refresh();
-	return (0);
 }

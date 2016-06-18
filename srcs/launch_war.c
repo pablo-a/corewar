@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 13:11:11 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 14:29:25 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		launch_war(t_war *war)
 		{
 			check_size_window(war);
 			refresh_info_constants(war);// REFRESH LES CONSTANTES DE JEU
-			refresh_ram(war, 4000 + cycle, 4, 1);
+			//refresh_ram(war, 4000 + cycle, 4, 9);
 			event(war, 1);
 			refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
 			refresh_lives_info(war);// REFRESH TOUTES LES VARIABLES LIVES
