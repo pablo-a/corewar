@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/14 01:29:57 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 22:11:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,13 @@ int				launch_war(t_war *war);
 // Fonctions by Marius :
 int 			calc_pc(int pc, int value);
 t_ocp 			get_ocp(int value);
-t_params 		define_params_types(int type1, int type2, int type3, t_param_opt opt);
-t_return 		get_param(t_war *war, t_params params, int param_nb, t_champ *champ);
+t_params 		define_params_types(int type1, int type2, int type3,
+									t_param_opt opt);
+t_return 		get_param(t_war *war, t_params params, int param_nb,
+									t_champ *champ);
 t_param_opt 	def_opt(int is_index, int reg_value);
+
+void			write_ram(t_war *war, int value, int address);
 
 int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);

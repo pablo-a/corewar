@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:39 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 23:21:28 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 21:57:39 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int				and(t_war *war, t_champ *champ)
 
 	//TODO increment champ pc correctly when there is an error (now just increment by next)
 	next = 1;
-
-	//TODO Check why second param can be DIR and third not,
 
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);

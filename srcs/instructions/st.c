@@ -6,101 +6,35 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:42 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 22:49:18 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 22:11:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
+int		st(t_war *war, t_champ *champ)
 {
-	int tmp;
-	t_return val;
+	t_ocp		ocp;
+	t_return	reg;
+	t_return	val;
+	int			next;
 
-	val.value = 0;
-	tmp = (ocp & 192) >> 6;//192 == 0b11000000
-	if (tmp == REG_CODE)
-	{
-		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
-			val.error = 1;
-		val.value = champ->reg_tab[val.value - 1];
-		*current_pos = calc_pc(*current_pos, 1);
-	}
-	else
-		val.error = 1;
-	return (val);
-}
-
-static t_return	get_second(int ocp, int *current_pos, t_war *war, t_champ *champ)
-{
-	int tmp;
-	t_return val;
-	int offset;
-
-	val.value = 0;
-	val.error = 0;
-	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
-	if (tmp == REG_CODE)
-	{
-		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
-			val.error = 1;
-		*current_pos = calc_pc(*current_pos, 1);
-	}
-	else if (tmp == IND_CODE)
-	{
-		offset = calc_pc(get_value(war, *current_pos, 2), champ->pc);
-		val.value = get_value(war, offset, 4);
-		*current_pos = calc_pc(*current_pos, 2);
-	}
-	else
-		val.error = 1;
-	return (val);
-}
-
-static int		go_next(int ocp)
-{
-	int result;
-	int tmp;
-
-	result = 0;
-	result++;
-	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
-	if (tmp == REG_CODE)
-		result += 1;
-	else if (tmp == IND_CODE)
-		result += 2;
-	return (result + 2);
-}
-
-static int		write_into_ram(t_war *war, int pos, int nb)
-{
-	war->ram[pos] = (unsigned char)(nb & 0xFF000000) >> 24;
-	war->ram[calc_pc(pos, 1)] = (unsigned char)(nb & 0xFF0000) >> 16;
-	war->ram[calc_pc(pos, 2)] = (unsigned char)(nb & 0xFF00) >> 8;
-	war->ram[calc_pc(pos, 3)] = (unsigned char)(nb & 0xFF);
-	return (1);
-}
-
-int				st(t_war *war, t_champ *champ)
-{
-	int			current_pos;
-	int			ocp;
-	t_return	val1;
-	t_return	val2;
-
-	current_pos = calc_pc(champ->pc, 2);
-	ocp = war->ram[calc_pc(current_pos, -1)];
-	val1 = get_first(ocp, &current_pos, war, champ);
-	val2 = get_second(ocp, &current_pos, war, champ);
-	if (val1.error == 1 || val2.error == 1)
-	{
-		champ->pc = calc_pc(champ->pc, go_next(ocp));
+	//TODO increment champ pc ...
+	next = 1;
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
+	champ->tmp_pc = calc_pc(champ->pc, 2);
+	reg = get_params(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0)),
+			ocp.first, champ);
+	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
-	}
-	if ((((ocp << 2) & 192) >> 6) == REG_CODE)
-		champ->reg_tab[val2.value] = val1.value;
-	else
-		write_into_ram(war, (val2.value % IDX_MOD), val1.value);
-	champ->pc = current_pos;
+
+	val = get_params(war, define_params_types(REG_CODE, -1, IND_CODE,
+				def_opt(0, 1)), ocp.second, champ);
+	if (val.error && (champ->pc = calc_pc(champ->pc, next)))
+		return (-1);
+	val.value = val.value % IDX_MOD;// NEED AN IDX_MOD HERE
+	write_ram(war, reg.value, val.value);
+	champ->pc = champ->tmp_pc;
+
 	return (0);
 }

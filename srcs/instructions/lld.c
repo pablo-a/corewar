@@ -6,88 +6,34 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:10 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 18:26:13 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 21:52:42 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
-
-static t_return	get_first(int ocp, int *current_pos, t_war *war, t_champ *champ)
-{
-	int tmp;
-	t_return val;
-	int offset;
-
-	val.value = 0;
-	tmp = (ocp & 192) >> 6;//192 == 0b11000000
-	if (tmp == REG_CODE)
-	{
-		if ((val.value = get_value(war, *current_pos, 1)) < 1 || val.value > 16)
-			val.error = 1;
-		val.value = champ->reg_tab[val.value - 1];
-		*current_pos = calc_pc(*current_pos, 1);
-	}
-	else if (tmp == DIR_CODE)
-	{
-		val.value = get_value(war, *current_pos, 4);
-		*current_pos = calc_pc(*current_pos, 4);
-	}
-	else if (tmp == IND_CODE)
-	{
-		offset = (get_value(war, *current_pos, 2) + champ->pc) % MEM_SIZE;
-		if (offset < 0)
-			offset = MEM_SIZE + offset;
-		val.value = get_value(war, offset, 4);
-		*current_pos = calc_pc(*current_pos, 2);
-	}
-	else
-		val.error = 1;
-	return (val);
-}
-
-static int	go_next(int ocp)
-{
-	int result;
-	int tmp;
-
-	result = 0;
-	tmp = (ocp & 192) >> 6;//192 == 0b11000000
-	if (tmp == REG_CODE)
-		result += 1;
-	else if (tmp == DIR_CODE)
-		result += 4;
-	else if (tmp == IND_CODE)
-		result += 2;
-	tmp = ((ocp << 2) & 192) >> 6;//0b11000000
-	if (tmp == REG_CODE)
-		result += 1;
-	else if (tmp == DIR_CODE)
-		result += 4;
-	else if (tmp == IND_CODE)
-		result += 2;
-	return (result + 3);
-}
-
 
 int			lld(t_war *war, t_champ *champ)
 {
 	t_return	val;
-	int			reg;
-	int			ocp;
-	int			current_pos;
+	t_return	reg;
+	t_ocp		ocp;
+	int			next;
 
-	current_pos = calc_pc(champ->pc, 2);
-	ocp = war->ram[calc_pc(current_pos, -1)];
-	val = get_first(ocp, &current_pos, war, champ);
-	reg = war->ram[current_pos];
-	current_pos = calc_pc(current_pos, 1);
-	if (val.value == 1 || reg < 1 || reg > 16)
-	{
-		champ->pc = calc_pc(champ->pc, go_next(ocp));
-		return (-1);
-	}
-	champ->reg_tab[reg - 1] = val.value;
-	champ->pc = current_pos;
+	//TODO: increment champ pc correctly when error (not just next)
+	next = 1;
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
+	champ->tmp_pc = calc_pc(champ->pc, 2);
+	val = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE, def_opt(0, 0)), ocp.first, champ);
+	if (val.error && (champ->pc = calc_pc(champ->pc, next)))
+				return (-1);
+	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0)), ocp.second, champ);
+	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
+				return (-1);
+	//ft_printf("val %d\n", val.value);
+	//ft_printf("reg %d\n\n", reg.value);
+	champ->reg_tab[reg.value - 1] = val.value;
+	champ->pc = champ->tmp_pc;
+	//TODO check carry how to change value.
+	champ->carry = 1;
 	return (0);
 }

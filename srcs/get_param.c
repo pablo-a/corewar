@@ -1,6 +1,14 @@
-//
-// Created by mcotfas on 15/06/16.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_param.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/18 19:35:49 by pabril            #+#    #+#             */
+/*   Updated: 2016/06/18 22:01:29 by pabril           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -37,23 +45,10 @@ static void indirect(t_war *war, t_champ *champ, t_return *ret)
 	//obtenir la valeur saisie pour indirect :
 	value  = get_value(war, champ->tmp_pc, 2);
 
-	if (value > 32768)
-	{
-		ft_printf("value : %d\n", value);
-		value = value - 65536;
-	}
-
 	value = value % IDX_MOD;
-
-	ft_printf("value : %d\n", value);
-
 
 	ret->error = 0;
 	ret->value = get_value(war, calc_pc(champ->pc, value), 4);
-
-
-
-	ft_printf("indirect value : %d\n", ret->value);
 
 	champ->tmp_pc = calc_pc(champ->tmp_pc, 2);
 }

@@ -6,26 +6,13 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:52 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 23:15:35 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 22:11:22 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int		calc_dist(int adr1, int adr2)
-{
-	int dist;
-
-	dist = 0;
-	while ((calc_pc(adr1, dist) != adr2) && (calc_pc(adr1, -dist) != adr2))
-	{
-		dist++;
-	}
-	return (dist);
-}
-
-
-static void write_ram(t_war *war, int value, int address)
+void write_ram(t_war *war, int value, int address)
 {
 	int i;
 	int oct;
@@ -45,7 +32,6 @@ int				sti(t_war *war, t_champ *champ)
 	t_return	val2;
 	t_return 	reg;
 
-
 	int 		next;
 
 	//TODO increment champ pc correctly when there is an error (now just increment by next)
@@ -53,7 +39,7 @@ int				sti(t_war *war, t_champ *champ)
 
 	//TODO Check why second param can be DIR and third not,
 
-	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 
 	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1)), ocp.first, champ);
@@ -68,13 +54,14 @@ int				sti(t_war *war, t_champ *champ)
 	if (val2.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
 
-	ft_printf("val1 %d\n", val1.value);
+	ft_printf("\nval1 %d\n", val1.value);
 	ft_printf("val2 %d\n", val2.value);
+	ft_printf("reg %d\n\n", reg.value);
 
-//	val2.value = val2.value % MEM_SIZE;
+	int new_pos = calc_pc(champ->pc, (val1.value + val2.value) % IDX_MOD);
+	ft_printf("new_pos = %d\n\n", new_pos);
 
-
-	write_ram(war, reg.value, calc_pc(champ->pc, (calc_dist(champ->pc, (val1.value + val2.value) % MEM_SIZE) % IDX_MOD)));
+	write_ram(war, reg.value, new_pos);
 	champ->pc = champ->tmp_pc;
 
 	//TODO modify carry ?

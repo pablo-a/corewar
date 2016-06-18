@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:46:33 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/13 23:15:51 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 20:42:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		add(t_war *war, t_champ *champ)
 	if (r3.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
 
-	champ->reg_tab[r3.value] = champ->reg_tab[r1.value] + champ->reg_tab[r2.value];
+	champ->reg_tab[r3.value - 1] = r1.value + r2.value;
 	champ->carry = 1;
 	champ->pc = champ->tmp_pc;
 
