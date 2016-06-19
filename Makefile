@@ -6,30 +6,45 @@
 #    By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/07 15:12:46 by vbarrete          #+#    #+#              #
-#    Updated: 2016/06/19 04:41:03 by hdebard          ###   ########.fr        #
+#    Updated: 2016/06/19 23:03:26 by hdebard          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME = asm
 
-SRC = 	main.c\
-		asm_parse_file.c\
-		asm_check_file.c\
-		asm_check_header.c\
-		asm_check_label.c\
-		asm_check_command.c\
-		asm_command_1.c\
-		asm_command_2.c\
-		asm_check_arg.c\
-		asm_util.c\
-		asm_strsplit.c\
-		asm_encode.c\
-		asm_find_command.c\
-		asm_parse_command.c\
-		asm_create_file.c\
-		asm_debug.c
+SRC = 	sources/main.c\
+		sources/parsing/asm_parse_file.c\
+		sources/parsing/asm_check_file.c\
+		sources/parsing/asm_check_header.c\
+		sources/parsing/asm_check_label.c\
+		sources/parsing/asm_check_command.c\
+		sources/parsing/asm_command_1.c\
+		sources/parsing/asm_command_2.c\
+		sources/parsing/asm_check_arg.c\
+		sources/util/asm_util.c\
+		sources/util/asm_strsplit.c\
+		sources/encoding/asm_encode.c\
+		sources/encoding/asm_find_command.c\
+		sources/encoding/asm_parse_command.c\
+		sources/writing/asm_create_file.c\
+		sources/util/asm_debug.c
 
-OBJ = $(SRC:.c=.o)
+OBJ = 	main.o\
+		asm_parse_file.o\
+		asm_check_file.o\
+		asm_check_header.o\
+		asm_check_label.o\
+		asm_check_command.o\
+		asm_command_1.o\
+        asm_command_2.o\
+        asm_check_arg.o\
+        asm_util.o\
+        asm_strsplit.o\
+        asm_encode.o\
+        asm_find_command.o\
+        asm_parse_command.o\
+        asm_create_file.o\
+        asm_debug.o
 
 all: $(NAME)
 
