@@ -1,1 +1,4 @@
 La ligne est encore bonne au moment du asm_is_command, mais une fois dans la structure, un bout est ecraser par la ligne suivante, je suis toujours entrain de chercher a quel moment ca arrive exactemen.
+
+#sa arrive dans la fonction asm_check_label , avant array = asm_split c bon,
+#apres sa saute, mindblow
