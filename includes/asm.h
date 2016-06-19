@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/20 00:11:25 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:46:12 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,6 @@ t_str			*asm_check_label(t_str *lst, t_strct *strct);
 char			**asm_strsplit(char const *s);
 
 /*
-** asm_util.c
-*/
-t_str			*asm_lst_browse(t_str *lst, int *l, int d);
-int				asm_str_browse(char *str);
-void			*asm_lc_error(t_strct *strct);
-char			*asm_join(char *str1, char *str2);
-int				asm_intlen(int i);
-
-/*
 ** asm_check_command.c
 */
 void			asm_and(char **array, t_strct *strct, t_byteline *new);
@@ -142,5 +133,14 @@ int				asm_encode_label(char *byte_line, int n, int l_size, int c);
 ** asm_create_file.c
 */
 int				asm_write_file(t_strct *strct, char *name);
+
+/*
+** asm_util.c
+*/
+int				asm_intlen(int i);
+int				asm_str_browse(char *str);
+void			*asm_lc_error(t_strct *strct);
+char			*asm_join(char *str1, char *str2);
+int				asm_count_arg(char *arg);
 
 #endif

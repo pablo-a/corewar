@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 21:58:45 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 22:22:44 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:45:50 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		asm_intlen(int i)
 {
-	int len;
+	int		len;
 
 	len = 0;
 	if (i < 0 || i == 0)
@@ -25,14 +25,6 @@ int		asm_intlen(int i)
 		i /= 10;
 	}
 	return (len);
-}
-
-t_str	*asm_lst_browse(t_str *lst, int *l, int d)
-{
-	*l += d;
-	while (lst && d--)
-		lst = lst->next;
-	return (lst);
 }
 
 int		asm_str_browse(char *str)
@@ -78,4 +70,20 @@ char	*asm_join(char *str1, char *str2)
 		free(str1);
 		return (new);
 	}
+}
+
+int		asm_count_arg(char *arg)
+{
+	int		x;
+	int		count;
+
+	x = 0;
+	count = 1;
+	while (arg[x] != '\0')
+	{
+		if (arg[x] == SEPARATOR_CHAR)
+			count++;
+		x++;
+	}
+	return (count);
 }

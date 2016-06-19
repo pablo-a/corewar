@@ -6,27 +6,11 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 23:05:25 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:44:14 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
-
-int		asm_count_arg(char *arg)
-{
-	int		x;
-	int		count;
-
-	x = 0;
-	count = 1;
-	while (arg[x] != '\0')
-	{
-		if (arg[x] == SEPARATOR_CHAR)
-			count++;
-		x++;
-	}
-	return (count);
-}
 
 int		asm_find_opc(char **arg, int l, int *c)
 {
@@ -57,6 +41,16 @@ int		asm_find_opc(char **arg, int l, int *c)
 	return (opc);
 }
 
+int		asm_loop_2(char *args, t_byteline *tmp, t_strct *strct, int c)
+{
+	if (args[0] == ':')
+		c = asm_encode_label(tmp->byte_line,
+			asm_find_label(strct, tmp, args + 1), 2, c);
+	else
+		c = asm_encode(tmp->byte_line, args, 2, c);
+	return (c);
+}
+
 int		asm_loop(char **args, char **command, t_byteline *tmp, t_strct *strct)
 {
 	int				l_size;
@@ -70,10 +64,7 @@ int		asm_loop(char **args, char **command, t_byteline *tmp, t_strct *strct)
 	while (args[++x])
 	{
 		if (args[x][0] == 'r')
-		{
-			tmp->byte_line[c] = ft_atoi(args[x] + 1);
-			c++;
-		}
+			tmp->byte_line[c++] = ft_atoi(args[x] + 1);
 		else if (args[x][0] == '%')
 		{
 			if (args[x][1] == ':')
@@ -82,11 +73,8 @@ int		asm_loop(char **args, char **command, t_byteline *tmp, t_strct *strct)
 			else
 				c = asm_encode(tmp->byte_line, args[x] + 1, l_size, c);
 		}
-		else if (args[x][0] == ':')
-			c = asm_encode_label(tmp->byte_line,
-				asm_find_label(strct, tmp, args[x] + 1), 2, c);
 		else
-			c = asm_encode(tmp->byte_line, args[x], 2, c);
+			c = asm_loop_2(args[x], tmp, strct, c);
 	}
 	return (c);
 }
