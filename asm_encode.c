@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 19:12:06 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/18 20:39:34 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 20:00:53 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		asm_find_label(t_strct *strct, t_byteline *ptr, char *name)
 	token = 0;
 	diff = 0;
 	tmp = strct->bytelines;
+//	printf("tmp = %s\n", tmp->name);
+//	printf("name = %s\n", name);
 	while (tmp)
 	{
 		if (tmp == ptr || (tmp->label == 1 && !ft_strcmp(tmp->name, name)))

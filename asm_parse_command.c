@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 19:01:11 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 20:39:02 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		asm_find_opc(char **arg, int l, int *c)
 			a = 1;
 		else if (arg[x][0] == DIRECT_CHAR)
 			a = 2;
-		else if (ft_isdigit(arg[x][0]) || arg[x][0] == '-')
+		else
 			a = 3;
 		if (x == 0)
 			opc = opc | (a << 6);
@@ -69,8 +69,17 @@ int		asm_loop(char **args, char **command, t_byteline *tmp, t_strct *strct)
 	l_size = asm_label_size(command[0], strct);
 	while (args[++x])
 	{
+//		if (!ft_strcmp(command[0], strct->tab_command[1]))
+//			printf("args[x] = %s\n", args[x]);
 		if (args[x][0] == 'r')
-			tmp->byte_line[c++] = ft_atoi(args[x] + 1);
+		{
+//			if (!ft_strcmp(command[0], strct->tab_command[1]))
+//				printf("{%zd}\n", ft_atoi(args[x] + 1));
+			tmp->byte_line[c] = ft_atoi(args[x] + 1);
+//			if (!ft_strcmp(command[0], strct->tab_command[1]))
+//				printf("{{{%hhx}}}\n", tmp->byte_line[c]);
+			c++;
+		}
 		else if (args[x][0] == '%')
 		{
 			if (args[x][1] == ':')
@@ -81,10 +90,23 @@ int		asm_loop(char **args, char **command, t_byteline *tmp, t_strct *strct)
 		}
 		else if (args[x][0] == ':')
 			c = asm_encode_label(tmp->byte_line,
-				asm_find_label(strct, tmp, args[x] + 2), l_size, c);
+				asm_find_label(strct, tmp, args[x] + 1), 2, c);
 		else
 			c = asm_encode(tmp->byte_line, args[x], 2, c);
 	}
+/*	if (!ft_strcmp(command[0], strct->tab_command[1]))
+	{
+		int i = 0;
+		while (i < tmp->len)
+		{
+			printf("\033[35m%hhx \033[37m",tmp->byte_line[i]);
+			fflush(stdout);
+			i++;
+		}
+		ft_putendl("");
+		}*/
+//	if (!ft_strcmp(command[0], strct->tab_command[1]))
+//		ft_putendl("");
 	return (c);
 }
 
@@ -98,6 +120,8 @@ void	asm_encode_command(t_byteline *tmp, t_strct *strct)
 	c = 1;
 	tmp->byte_line = (char*)malloc(tmp->len + 1);
 	command = ft_strsplit(tmp->name, ' ');
+//	if (!ft_strcmp(command[0], strct->tab_command[1]))
+//		printf("\033[32m%d\033[37m\n", tmp->len);
 	tmp->byte_line[0] = asm_find_command(command[0], strct) + 1;
 	args = ft_strsplit(command[1], SEPARATOR_CHAR);
 	len = asm_count_arg(command[1]);
@@ -106,6 +130,19 @@ void	asm_encode_command(t_byteline *tmp, t_strct *strct)
 		tmp->byte_line[1] = asm_find_opc(args, len, &c);
 	tmp->label = c;
 	c = asm_loop(args, command, tmp, strct);
+/*	if (!ft_strcmp(command[0], strct->tab_command[1]))
+	{
+		int i = 0;
+		while (i < tmp->len)
+		{
+			printf("%hhx ",tmp->byte_line[i]);
+			fflush(stdout);
+			i++;
+		}
+		ft_putendl("");
+		}*
+	if (!ft_strcmp(command[0], strct->tab_command[1]))
+	printf("{%hhx, %d}\n", tmp->byte_line[c - 1], c);*/
 	tmp->byte_line[c] = 0;
 }
 

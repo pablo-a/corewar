@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 17:50:58 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 18:45:25 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 20:31:11 by vbarrete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,22 @@ int				asm_write_file(t_strct *strct, char *name)
 	if ((fd = open(cor_name, O_TRUNC | O_RDWR | O_CREAT, 0666)) == -1)
 		return (-1);
 	write(fd, new, sizeof(header_t));
+//	int i;
 	while (ptr)
 	{
 		if (ptr->label == 0)
+		{
+/*			ft_putstr("\33[34m");
+			i = 0;
+			while (i < ptr->len)
+			{
+				ft_putnbr(ptr->byte_line[i]);
+				ft_putchar(' ');
+				i++;
+			}
+			ft_putendl("\033[37m");*/
 			write(fd, ptr->byte_line, ptr->len);
+		}
 		ptr = ptr->next;
 	}
 	if ((fd = close(fd)) == -1)
