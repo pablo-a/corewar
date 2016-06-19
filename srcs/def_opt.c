@@ -10,11 +10,12 @@
 ** Bla bla bla :)
 */
 
-t_param_opt def_opt(int is_index, int reg_value)
+t_param_opt def_opt(int is_index, int reg_value, int add_value)
 {
 	t_param_opt opt;
 
 	opt.is_index = is_index;
 	opt.reg_value = reg_value;
+	opt.add_value = add_value;
 	return (opt);
 }

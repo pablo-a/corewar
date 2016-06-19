@@ -19,15 +19,18 @@ int			ld(t_war *war, t_champ *champ)
 	t_ocp		ocp;
 	int			next;
 
+	//TODO CHECK LD BY MARIUS :
+
+
 	//TODO: increment champ pc correctly when error (not just next)
 	next = 1;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
-	val = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE, def_opt(0, 0)), ocp.first, champ);
+	val = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE, def_opt(0, 0, 1)), ocp.first, champ);
 	if (val.error && (champ->pc = calc_pc(champ->pc, next)))
 				return (-1);
 	val.value = val.value % IDX_MOD;//MODULO SUR FIRST PARAM
-	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0)), ocp.second, champ);
+	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0, 1)), ocp.second, champ);
 	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
 				return (-1);
 	//ft_printf("val %d\n", val.value);

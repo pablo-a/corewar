@@ -143,6 +143,7 @@ typedef struct 	s_param_opt
 {
 	int is_index;
 	int reg_value;
+	int add_value;
 } 				t_param_opt;
 
 typedef	struct s_params
@@ -195,7 +196,8 @@ t_params 		define_params_types(int type1, int type2, int type3,
 									t_param_opt opt);
 t_return 		get_param(t_war *war, t_params params, int param_nb,
 									t_champ *champ);
-t_param_opt 	def_opt(int is_index, int reg_value);
+t_param_opt 	def_opt(int is_index, int reg_value, int add_value);
+void 			write_ram(t_war *war, int value, int address);
 
 void			write_ram(t_war *war, int value, int address);
 

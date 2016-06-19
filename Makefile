@@ -33,6 +33,7 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)get_param.c\
 	   $(SRCSPATH)def_opt.c\
 	   $(SRCSPATH)define_params_types.c\
+	   $(SRCSPATH)write_ram.c\
 	   $(INSTRUCTPATH)add.c \
 	   $(INSTRUCTPATH)aff.c \
 	   $(INSTRUCTPATH)and.c \

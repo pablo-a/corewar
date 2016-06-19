@@ -57,7 +57,7 @@ t_champ		*init_champ(ssize_t id)
 	int		i;
 
 
-	ft_printf("id is : \n", id);
+	ft_printf("id is : %d\n", id);
 
 	i = -1;
 	champ = (t_champ *)malloc(sizeof(t_champ));
@@ -75,6 +75,9 @@ t_champ		*init_champ(ssize_t id)
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
 	champ->reg_tab[0] = (int)-id;
+
+	ft_printf("reg1 : %d\n", champ->reg_tab[0]);
+
 	return (champ);
 }
 

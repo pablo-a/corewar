@@ -37,18 +37,13 @@ static void direct(t_war *war, t_champ *champ, t_return *ret, int is_index)
 	champ->tmp_pc = calc_pc(champ->tmp_pc, bits);
 }
 
-static void indirect(t_war *war, t_champ *champ, t_return *ret)
+static void indirect(t_war *war, t_champ *champ, t_return *ret, int add_value)
 {
-
-	int value;
-
-	//obtenir la valeur saisie pour indirect :
-	value  = get_value(war, champ->tmp_pc, 2);
-
-	value = value % IDX_MOD;
-
 	ret->error = 0;
-	ret->value = get_value(war, calc_pc(champ->pc, value), 4);
+
+	ret->value  = get_value(war, champ->tmp_pc, 2) % IDX_MOD;
+	if (add_value)
+		ret->value = get_value(war, calc_pc(champ->pc, ret->value), 4);
 
 	champ->tmp_pc = calc_pc(champ->tmp_pc, 2);
 }
@@ -64,6 +59,6 @@ t_return get_param(t_war *war, t_params params, int param_code, t_champ *champ)
 	else if (param_code == params.direct)
 		direct(war, champ, &ret, params.opt.is_index);
 	else if (param_code == params.indirect)
-		indirect(war, champ, &ret);
+		indirect(war, champ, &ret, params.opt.add_value);
 	return (ret);
 }

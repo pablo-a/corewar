@@ -23,10 +23,15 @@ int		aff(t_war *war, t_champ *champ)
 
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
-	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1)), ocp.first, champ);
+	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0)), ocp.first, champ);
 	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
+	{
+		ft_printf("Aff fail \n");
 		return (-1);
+	}
 	champ->pc = champ->tmp_pc;
+
+	ft_printf("AFF Champ pc : %d\n", champ->pc);
 
 	ft_printf("AFF is : %d\n", reg.value % 256);
 
