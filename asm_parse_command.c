@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 04:54:18 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 18:22:03 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,7 @@ int		asm_parse_command(t_strct *strct)
 	while (tmp)
 	{
 		if (tmp->label == 0)
-		{
-			printf("[%s]\n", tmp->name);
 			asm_encode_command(tmp, strct);
-		}
 		tmp = tmp->next;
 	}
 	return (0);

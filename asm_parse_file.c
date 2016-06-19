@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/19 02:44:04 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 18:19:45 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,22 +115,22 @@ int			asm_parse_file(char *name)
 		return (1);
 	else if (!(strct->file = asm_get_file(name)))
 		return (1);
-	else
-		ft_putendl("\033[32mFile Read!\033[37m");
+//	else
+//		ft_putendl("\033[32mFile Read!\033[37m");
 	if (asm_check_file(strct) != 0)
 		return (1);
-	else
-		ft_putendl("\033[33mFile Parsed!\033[37m");
+/*	else
+//		ft_putendl("\033[33mFile Parsed!\033[37m");
 	t_byteline *ptr = strct->bytelines;
 	while (ptr)
 	{
 		ft_putendl(ptr->name);
 		ptr = ptr->next;
-	}
+		}*/
 	if (asm_parse_command(strct) != 0)
 		return (1);
-	else
-		ft_putendl("\033[34mCommand Parsed!\033[37m");
+//	else
+//		ft_putendl("\033[34mCommand Parsed!\033[37m");
 	if (asm_write_file(strct, name) != 0)
 		return (1);
 	else

@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/19 03:09:19 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 18:38:20 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 int		asm_is_ind(char *str, t_byteline *new, int *c)
 {
 	*c = 0;
-	if (!ft_isdigit(str[*c]) && str[*c] != '-')
+	if (!ft_isdigit(str[*c]) && str[*c] != '-' && str[*c] != ':')
 		return (0);
-	if (str[*c] == '-' && !ft_isdigit(str[*c + 1]))
-		return (0);
-	else if (str[*c] == '-')
-		*c += 1;
-	while (ft_isdigit(str[*c]))
-		*c += 1;
+	if (str[*c] != ':')
+	{
+		if (str[*c] == '-' && !ft_isdigit(str[*c + 1]))
+			return (0);
+		else if (str[*c] == '-')
+			*c += 1;
+		while (ft_isdigit(str[*c]))
+			*c += 1;
+	}
+	else
+	{
+        *c += 1;
+        while (ft_strchr(LABEL_CHARS, str[*c]) != NULL)
+            *c += 1;
+	}
 	new->len += 2;
 	return (1);
 }
