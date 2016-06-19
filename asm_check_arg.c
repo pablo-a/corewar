@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/18 21:10:43 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 03:09:19 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	asm_save_arg_finish(char **array, t_strct *strct, t_byteline *n, int c)
 	ch = str[c];
 	str[c] = 0;
 	ft_strcpy(n->name + n->name_len, str);
+	n->name[n->name_len + ft_strlen(str)] = 0;
 	str[c] = ch;
 	strct->c += d;
 	if (str[d] != COMMENT_CHAR)

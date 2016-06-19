@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/19 01:20:36 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 03:51:48 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct	s_byteline
 	int					len;
 	char				*byte_line;
 }				t_byteline;
-
+void check_list(t_byteline *ptr, int i);
 /*
 **	main.c
 */
