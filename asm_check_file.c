@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:50:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/19 02:25:30 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 18:53:58 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int			asm_check_file(t_strct *strct)
 	ptr = strct->file;
 	while (ptr)
 	{
+//		printf("{%d}[%s]\n", strct->l, ptr->str);
 		strct->c = asm_str_browse(ptr->str);
 		if (ptr->str[strct->c] == 0 || ptr->str[strct->c] == '#')
 		{

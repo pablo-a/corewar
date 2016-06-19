@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 17:50:58 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 02:27:59 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 18:45:25 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,20 @@ header_t		*asm_create_header(t_strct *strct)
 
 char			*asm_find_file_name(char *file)
 {
-	char	**split;
 	char	*new;
+	int		i;
 
-	split = ft_strsplit(file, '.');
-	new = split[0];
-	new = ft_strjoin(new, ".cor");
-	free(split);
-	return (new);
+	i = ft_strlen(file) - 1;
+	while (file[i] && file[i] != '.')
+		i--;
+	if (file[i])
+	{
+		file[i] = 0;
+		new = ft_strjoin(file, ".cor");
+		file[i] = '.';
+		return (new);
+	}
+	return (NULL);
 }
 
 int				asm_write_file(t_strct *strct, char *name)
@@ -63,7 +69,8 @@ int				asm_write_file(t_strct *strct, char *name)
 
 	ptr = strct->bytelines;
 	new = asm_create_header(strct);
-	cor_name = asm_find_file_name(name);
+	if ((cor_name = asm_find_file_name(name)) == NULL)
+		return (-1);
 	if ((fd = open(cor_name, O_TRUNC | O_RDWR | O_CREAT, 0666)) == -1)
 		return (-1);
 	write(fd, new, sizeof(header_t));

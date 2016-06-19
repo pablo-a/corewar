@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/18 02:04:54 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 18:56:13 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			asm_check_endquote(char *str)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 char		*asm_save_endquote(char *str1, char *str2, t_strct *strct)
@@ -57,7 +57,7 @@ t_str		*asm_header_loop(t_str *lst, t_strct *strct, char **start, int i)
 	*start = asm_join(*start, "\n");
 	while (lst)
 	{
-		if (asm_check_endquote(lst->str) > 0)
+		if (asm_check_endquote(lst->str) >= 0)
 		{
 			if (i == 1)
 				strct->comment = asm_save_endquote(*start, lst->str, strct);
@@ -88,7 +88,7 @@ t_str		*asm_save_header_part(t_str *lst, t_strct *strct, int i)
 	else
 		strct->c += 1;
 	start = ft_strdup(lst->str + strct->c);
-	if (asm_check_endquote(start) > 0)
+	if (asm_check_endquote(start) >= 0)
 	{
 		if (i == 1)
 			strct->comment = asm_save_endquote(NULL, start, strct);

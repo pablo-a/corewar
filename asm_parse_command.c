@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 16:49:59 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 18:22:03 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/19 19:01:11 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ int		asm_loop(char **args, char **command, t_byteline *tmp, t_strct *strct)
 			else
 				c = asm_encode(tmp->byte_line, args[x] + 1, l_size, c);
 		}
+		else if (args[x][0] == ':')
+			c = asm_encode_label(tmp->byte_line,
+				asm_find_label(strct, tmp, args[x] + 2), l_size, c);
 		else
 			c = asm_encode(tmp->byte_line, args[x], 2, c);
 	}
