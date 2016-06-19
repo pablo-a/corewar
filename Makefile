@@ -6,7 +6,7 @@
 #    By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/07 15:12:46 by vbarrete          #+#    #+#              #
-#    Updated: 2016/06/19 23:03:26 by hdebard          ###   ########.fr        #
+#    Updated: 2016/06/20 00:34:41 by hdebard          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -26,8 +26,7 @@ SRC = 	sources/main.c\
 		sources/encoding/asm_encode.c\
 		sources/encoding/asm_find_command.c\
 		sources/encoding/asm_parse_command.c\
-		sources/writing/asm_create_file.c\
-		sources/util/asm_debug.c
+		sources/writing/asm_create_file.c
 
 OBJ = 	main.o\
 		asm_parse_file.o\
@@ -43,8 +42,7 @@ OBJ = 	main.o\
         asm_encode.o\
         asm_find_command.o\
         asm_parse_command.o\
-        asm_create_file.o\
-        asm_debug.o
+        asm_create_file.o
 
 all: $(NAME)
 

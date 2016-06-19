@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/19 22:23:37 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:12:21 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,11 @@ int		asm_check_command(int i, char *str, t_strct *strct)
 	int			ret;
 
 	new = (t_byteline*)malloc(sizeof(t_byteline));
-	bzero(new, sizeof(t_byteline));
+	ft_bzero(new, sizeof(t_byteline));
 	new->next = NULL;
 	new->len = 0;
 	new->label = i;
 	array = ft_strsplit(str + strct->c, ',');
-//	printf("{LEN: %lu, STR: %s}\n", ft_strlen(str + strct->c) + 7, str + strct->c);
 	new->name = (char*)malloc(ft_strlen(str + strct->c) + 7);
 	ft_bzero(new->name, ft_strlen(str + strct->c) + 1);
 	ft_strcpy(new->name, strct->tab_command[i]);
@@ -91,8 +90,5 @@ int		asm_check_command(int i, char *str, t_strct *strct)
 		asm_command_2(array, new, strct, str);
 	new->label = 0;
 	ret = asm_save_command(new, strct);
-//	free(array);
-//	array = NULL;
-//	printf("\033[32m[%s,%zu]\n\033[37m", new->name,ft_strlen(new->name));
 	return (0);
 }

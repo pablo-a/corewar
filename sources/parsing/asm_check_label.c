@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 03:35:54 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 22:24:18 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:31:30 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_str	*asm_check_label(t_str *lst, t_strct *strct)
 	char	**array;
 	int		ret;
 
-	array = asm_strsplit(lst->str + strct->c); /// WTF
+	array = asm_strsplit(lst->str + strct->c);
 	if ((ret = asm_is_label(array[0])) == 0)
 	{
 		if (asm_is_command(lst, array, strct) == 0)
@@ -93,8 +93,6 @@ t_str	*asm_check_label(t_str *lst, t_strct *strct)
 	else
 	{
 		strct->c += asm_save_label(array[0], strct, ret) + 1;
-//		free(array);
-//		array = NULL;
 		strct->c += asm_str_browse(lst->str + strct->c);
 		if (!lst->str[strct->c] || lst->str[strct->c] == '#')
 			return (lst->next);
@@ -102,7 +100,5 @@ t_str	*asm_check_label(t_str *lst, t_strct *strct)
 		if (asm_is_command(lst, array, strct) == 0)
 			asm_error("EROOOOOR");
 	}
-//	free(array);
-//	array = NULL;
 	return (lst->next);
 }

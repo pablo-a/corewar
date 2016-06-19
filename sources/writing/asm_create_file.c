@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 17:50:58 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/19 22:22:17 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:32:27 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ header_t		*asm_create_header(t_strct *strct)
 	ptr = strct->bytelines;
 	if ((header = (header_t*)malloc(sizeof(header_t))) == NULL)
 		return (NULL);
-	bzero(header, sizeof(header_t));
+	ft_bzero(header, sizeof(header_t));
 	strcpy(header->prog_name, strct->name);
 	strcpy(header->comment, strct->comment);
 	header->magic = asm_rev_int(COREWAR_EXEC_MAGIC);
@@ -74,22 +74,10 @@ int				asm_write_file(t_strct *strct, char *name)
 	if ((fd = open(cor_name, O_TRUNC | O_RDWR | O_CREAT, 0666)) == -1)
 		return (-1);
 	write(fd, new, sizeof(header_t));
-//	int i;
 	while (ptr)
 	{
 		if (ptr->label == 0)
-		{
-/*			ft_putstr("\33[34m");
-			i = 0;
-			while (i < ptr->len)
-			{
-				ft_putnbr(ptr->byte_line[i]);
-				ft_putchar(' ');
-				i++;
-			}
-			ft_putendl("\033[37m");*/
 			write(fd, ptr->byte_line, ptr->len);
-		}
 		ptr = ptr->next;
 	}
 	if ((fd = close(fd)) == -1)

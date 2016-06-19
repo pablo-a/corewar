@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 11:37:21 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/19 22:23:23 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/20 00:33:43 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		asm_is_ind(char *str, t_byteline *new, int *c)
 	}
 	else
 	{
-        *c += 1;
-        while (ft_strchr(LABEL_CHARS, str[*c]) != NULL)
-            *c += 1;
+		*c += 1;
+		while (ft_strchr(LABEL_CHARS, str[*c]) != NULL)
+			*c += 1;
 	}
 	new->len += 2;
 	return (1);
@@ -86,7 +86,6 @@ void	asm_save_arg(char *str, t_strct *strct, t_byteline *new, int c)
 	int			d;
 
 	d = c;
-	ft_putstr(str + d);
 	d += asm_str_browse(str + d);
 	if (str[d] != 0)
 		asm_lc_error(strct);
