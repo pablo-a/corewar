@@ -56,12 +56,8 @@ t_champ		*init_champ(ssize_t id)
 	t_champ	*champ;
 	int		i;
 
-
-	ft_printf("id is : %d\n", id);
-
 	i = -1;
 	champ = (t_champ *)malloc(sizeof(t_champ));
-	//TODO Ajout de -1 pour recuperer le bon id.
 	champ->id = (int)-id;
 	champ->pc = 0;
 	champ->carry = 0;
@@ -75,9 +71,6 @@ t_champ		*init_champ(ssize_t id)
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
 	champ->reg_tab[0] = (int)-id;
-
-	ft_printf("reg1 : %d\n", champ->reg_tab[0]);
-
 	return (champ);
 }
 
@@ -104,7 +97,7 @@ t_war		*init_war(t_args *args)
 		i++;
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;
-	war->current_cycle = 0;
+	war->current_cycle = 1;
 	war->current_live_nb = 1;
 	war->max_check = 0;
 	war->op_tab = init_op_tab();

@@ -27,24 +27,32 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->cpt_live[1] = 0;
 	son->header = father->header;
 	son->instructions = NULL;
+
+	//TODO PUTAIN DE IS DEAD !!!
+	son->is_dead = 0;
+
 	if (father->father != NULL)
 		son->father = father->father;
 	else
 		son->father = father;
+
 	return (0);
 }
 
 int			cor_fork(t_war *war, t_champ *champ)
 {
+	ft_printf("FORK\n");
+
 	t_champ	*son;
 
 	if ((son = (t_champ *)malloc(sizeof(t_champ))) == NULL)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
-	son->pc = get_value(war, champ->pc + 1, 2) % IDX_MOD;
-	if (son->pc < 0)
-		son->pc = MEM_SIZE + son->pc;
+	son->pc = calc_pc(champ->pc ,get_value(war, champ->pc + 1, 2) % IDX_MOD);
 	pile_append(war->pile_champ, son);
+	//update pc after fork :
+	champ->pc = calc_pc(champ->pc, 3);
+	//TODO Handle carry :
 	champ->carry = 1;
 	return (0);
 }

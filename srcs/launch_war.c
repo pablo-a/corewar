@@ -29,13 +29,18 @@ int		reset_champ_live(t_war *war)
 int		find_dead_champs(t_war *war)
 {
 	t_node *node;
+	int i = 1;
 
 	node = war->pile_champ->first;
 	while (node)
 	{
-		if (node->champ->cpt_live[0] == 0)
+		if (!node->champ->is_dead && node->champ->cpt_live[0] == 0)
+		{
+			ft_printf("process %d is dead at cycle %d\n", i, war->current_cycle);
 			node->champ->is_dead = 1;
+		}
 		node = node->next;
+		i++;
 	}
 	return (0);
 }
@@ -67,14 +72,14 @@ int		get_nbr_cycle(t_war *war, int pc)
 
 int		execute(t_war *war, t_champ *champ)
 {
-	int ocpode;
+	int ocpcode;
 
-	ocpode = war->ram[champ->pc];
-	//TODO chec max ocpode possible and what happens if op code is wrong:
-	if (ocpode < 1 || ocpode > 16)
+	ocpcode = war->ram[champ->pc];
+	//TODO How increment when op code wrong ?
+	if (ocpcode < 1 || ocpcode > 16)
 		champ->pc = calc_pc(champ->pc, 1);
 	else
-		war->op_tab[ocpode - 1].associated_function(war, champ);
+		war->op_tab[ocpcode - 1].associated_function(war, champ);
 	return (0);
 }
 
@@ -97,6 +102,7 @@ int		champ_action(t_war *war)
 			continue ;
 		}
 		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
+
 //		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
 		if (node->champ->cpt_interne < cycle_necessaires)
 			node->champ->cpt_interne++;
@@ -121,7 +127,7 @@ int		launch_war(t_war *war)
 	war->current_live_nb = 0;
 	cycle = 1;
 	reset_champ_live(war);
-	while (cycle < CYCLE_TO_DIE)
+	while (cycle < war->cycle_to_die)
 	{
 //		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
@@ -132,13 +138,26 @@ int		launch_war(t_war *war)
 		cycle++;
 		war->current_cycle++;
 	}
+
 	//PARTIE QUI GERE LE CYCLE TO DIE A DECREMENTER OU PAS.
-	if (war->current_live_nb >= NBR_LIVE && (war->max_check = 0))
+	//TODO probleme de compte de cycles, on en fait plus que normalement :
+
+	war->max_check++;
+	if (war->current_live_nb >= NBR_LIVE)
+	{
+		war->max_check = 0;
+
 		war->cycle_to_die -= CYCLE_DELTA;
-	else if (war->max_check >= MAX_CHECKS && (war->max_check = 0))
+	}
+	else if (war->max_check > MAX_CHECKS)
+	{
+		ft_printf("*****************************Current cycle %d\n", war->current_cycle);
+		war->max_check = 0;
 		war->cycle_to_die -= CYCLE_DELTA;
-	else
-		war->max_check++;
+	}
+
+	ft_printf("Cycle to die %d\n", war->cycle_to_die);
+
 	find_dead_champs(war);
 	return (0);
 }

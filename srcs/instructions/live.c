@@ -14,6 +14,8 @@
 
 static int	add_live(t_war *war, int id)
 {
+	//TODO Find logic on what to do when the live is not by the process :
+
 	t_node *node;
 
 	node = war->pile_champ->first;
@@ -21,6 +23,8 @@ static int	add_live(t_war *war, int id)
 		node = node->next;
 	if (!node)
 		return (-1);
+
+	//TODO This should be the parent for the live :
 	node->champ->cpt_live[0]++;
 	node->champ->cpt_live[1] = war->current_cycle;
 	return (1);
@@ -28,12 +32,16 @@ static int	add_live(t_war *war, int id)
 
 int		live(t_war *war, t_champ *champ)
 {
-	//TODO Check live for clones :
+	//TODO Print message to say champ is alive :
+
+	ft_printf("LIVE\n");
+	ft_printf("Current cycle : %d\n", war->current_cycle);
 
 	int id;
 
+	champ->tmp_pc = calc_pc(champ->pc, 1);
 	war->current_live_nb++;
-	id = get_value(war, champ->pc + 1, 4);
+	id = get_value(war, champ->tmp_pc, 4);
 	if (id == champ->id)
 	{
 		champ->cpt_live[0]++;

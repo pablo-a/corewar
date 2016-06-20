@@ -70,7 +70,7 @@ typedef struct	s_champ
 	int 			tmp_pc;
 	bool			carry;//               si operation a reussi ou pas.
 	int				cpt_interne;// pour faire ses operations. (cycles).
-	int				cpt_live[2];// cpt[1] = nb_live et cpt[2] = last_live;
+	int				cpt_live[2];// cpt[0] = nb_live et cpt[1] = last_live;
 	unsigned char	*instructions;
 	t_header		*header;
 	struct s_champ	*father;

@@ -40,7 +40,7 @@ int		who_won(t_war *war)
 		node = node->next;
 		i++;
 	}
-	ft_printf("Contestant %d, \"%s\" has won! with %d lives\n", winner->id,
+	ft_printf("Contestant %d, \"%s\" has won! Last live : %d \n", winner->id,
 			winner->header->prog_name, winner->cpt_live[1]);
 	return (0);
 }
@@ -106,13 +106,14 @@ int		main(int argc, char **argv)
 	load_players_into_arena(war);
 //	display_ram(war->ram);
 	while (war->current_live_nb > 0)
+	{
+		ft_printf("Launch War\n");
 		launch_war(war);
+	}
 	who_won(war);
 
-	display_ram(war->ram);
+//	display_ram(war->ram);
 
-	ft_printf("get value : %d\n", get_value(war, 20, 4));
-
-
+	ft_printf("Cycles total : %d\n", war->current_cycle);
 	return (0);
 }

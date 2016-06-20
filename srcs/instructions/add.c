@@ -22,6 +22,10 @@ int		add(t_war *war, t_champ *champ)
 	int 	next;
 
 	//TODO increment champ pc correctly when there is an error (now just increment by next)
+	//TODO HANDLE CARRY !
+
+	ft_printf("ADD\n");
+
 	next = 1;
 
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
