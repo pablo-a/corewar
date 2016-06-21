@@ -36,7 +36,7 @@ int		find_dead_champs(t_war *war)
 	{
 		if (!node->champ->is_dead && node->champ->cpt_live[0] == 0)
 		{
-			ft_printf("process %d is dead at cycle %d\n", i, war->current_cycle);
+			ft_printf("process %d no live since : %d - CTD : %d\n", i, war->current_cycle - node->champ->cpt_live[1], war->cycle_to_die);
 			node->champ->is_dead = 1;
 		}
 		node = node->next;
@@ -96,20 +96,16 @@ int		champ_action(t_war *war)
 	node = war->pile_champ->last;// le dernier processus commence
 	while (node)
 	{
-		if (node->champ->is_dead)
+		if (!node->champ->is_dead)
 		{
-			node = node->prev;
-			continue ;
-		}
-		cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
-
-//		ft_printf("cycles_necessaire a \"%s\" : %d\ncompteur interne vaut : %d\n\n", NAME(node->champ), cycle_necessaires, node->champ->cpt_interne);
-		if (node->champ->cpt_interne < cycle_necessaires)
-			node->champ->cpt_interne++;
-		else
-		{
-			execute(war, node->champ);
-			node->champ->cpt_interne = 1;
+			cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
+			if (node->champ->cpt_interne < cycle_necessaires)
+				node->champ->cpt_interne++;
+			else
+			{
+				execute(war, node->champ);
+				node->champ->cpt_interne = 1;
+			}
 		}
 		node = node->prev;
 	}
@@ -124,40 +120,33 @@ int		launch_war(t_war *war)
 {
 	int cycle;
 
+	cycle = -1;
+
+
+	//TODO Move this into another fct :
 	war->current_live_nb = 0;
-	cycle = 1;
-	reset_champ_live(war);
-	while (cycle < war->cycle_to_die)
+	war->max_check = war->max_check + 1;
+	if (war->current_live_nb >= NBR_LIVE)
 	{
+		war->max_check = 0;
+		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;;
+	}
+	else if (war->max_check >= MAX_CHECKS)
+	{
+		war->max_check = 0;
+		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
+	}
+	while (++cycle < war->cycle_to_die)
+	{
+		++war->current_cycle;
 //		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
 		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
 			dump_war(war);
-		cycle++;
-		war->current_cycle++;
 	}
-
-	//PARTIE QUI GERE LE CYCLE TO DIE A DECREMENTER OU PAS.
-	//TODO probleme de compte de cycles, on en fait plus que normalement :
-
-	war->max_check++;
-	if (war->current_live_nb >= NBR_LIVE)
-	{
-		war->max_check = 0;
-
-		war->cycle_to_die -= CYCLE_DELTA;
-	}
-	else if (war->max_check > MAX_CHECKS)
-	{
-		ft_printf("*****************************Current cycle %d\n", war->current_cycle);
-		war->max_check = 0;
-		war->cycle_to_die -= CYCLE_DELTA;
-	}
-
-	ft_printf("Cycle to die %d\n", war->cycle_to_die);
-
 	find_dead_champs(war);
+	reset_champ_live(war);
 	return (0);
 }

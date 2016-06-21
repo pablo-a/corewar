@@ -71,6 +71,10 @@ t_champ		*init_champ(ssize_t id)
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
 	champ->reg_tab[0] = (int)-id;
+
+	//born at first cicle :
+	champ->born = 1;
+
 	return (champ);
 }
 
@@ -97,9 +101,9 @@ t_war		*init_war(t_args *args)
 		i++;
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;
-	war->current_cycle = 1;
+	war->current_cycle = 0;
 	war->current_live_nb = 1;
-	war->max_check = 0;
+	war->max_check = -1;
 	war->op_tab = init_op_tab();
 	war->args = args;
 	war->pile_champ = new_pile();

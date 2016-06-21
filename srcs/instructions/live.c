@@ -33,10 +33,6 @@ static int	add_live(t_war *war, int id)
 int		live(t_war *war, t_champ *champ)
 {
 	//TODO Print message to say champ is alive :
-
-	ft_printf("LIVE\n");
-	ft_printf("Current cycle : %d\n", war->current_cycle);
-
 	int id;
 
 	champ->tmp_pc = calc_pc(champ->pc, 1);
@@ -46,11 +42,14 @@ int		live(t_war *war, t_champ *champ)
 	{
 		champ->cpt_live[0]++;
 		champ->cpt_live[1] = war->current_cycle;
-		if (champ->father != NULL)
-			champ->father->cpt_live[1] = war->current_cycle;
+//		if (champ->father != NULL)
+//			champ->father->cpt_live[1] = war->current_cycle;
 	}
 	else
 		add_live(war, id);
+
+//	ft_printf("Live at cycle %d\n",war->current_cycle);
+
 	champ->pc = calc_pc(champ->pc, 5);
 	return (0);
 }

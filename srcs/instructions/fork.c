@@ -23,14 +23,16 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->id = father->id;
 	son->carry = father->carry;
 	son->cpt_interne = 1;
+
+	//TODO check that :
+	son->is_dead = 0;
 	son->cpt_live[0] = 0;
 	son->cpt_live[1] = 0;
+//	son->cpt_live[0] = father->cpt_live[0];
+//	son->cpt_live[1] = father->cpt_live[1];
+
 	son->header = father->header;
 	son->instructions = NULL;
-
-	//TODO PUTAIN DE IS DEAD !!!
-	son->is_dead = 0;
-
 	if (father->father != NULL)
 		son->father = father->father;
 	else
@@ -41,17 +43,20 @@ static int	copy_father(t_champ *father, t_champ *son)
 
 int			cor_fork(t_war *war, t_champ *champ)
 {
-	ft_printf("FORK\n");
-
 	t_champ	*son;
 
 	if ((son = (t_champ *)malloc(sizeof(t_champ))) == NULL)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
 	son->pc = calc_pc(champ->pc ,get_value(war, champ->pc + 1, 2) % IDX_MOD);
+
+//	ft_printf("FORK at cycle %d AND clone pc is at pc %d\n",war->current_cycle, son->pc);
+
 	pile_append(war->pile_champ, son);
 	//update pc after fork :
 	champ->pc = calc_pc(champ->pc, 3);
+	champ->born = war->current_cycle;
+
 	//TODO Handle carry :
 	champ->carry = 1;
 	return (0);

@@ -107,7 +107,6 @@ int		main(int argc, char **argv)
 //	display_ram(war->ram);
 	while (war->current_live_nb > 0)
 	{
-		ft_printf("Launch War\n");
 		launch_war(war);
 	}
 	who_won(war);
