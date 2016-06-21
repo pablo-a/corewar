@@ -22,7 +22,7 @@ t_ocp get_ocp(int value)
 	ocp.third = (value ^ (ocp.first << 6) ^ (ocp.second << 4)) >> 2;
 	ocp.fourth = value & 3;
 
-	ft_printf("value : %d // 1 : %d // 2 : %d // 3 : %d // 4 : %d\n", value, ocp.first, ocp.second, ocp.third, ocp.fourth);
+	//ft_printf("value : %d // 1 : %d // 2 : %d // 3 : %d // 4 : %d\n", value, ocp.first, ocp.second, ocp.third, ocp.fourth);
 
 
 

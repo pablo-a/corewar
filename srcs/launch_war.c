@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 00:39:56 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 01:22:37 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int		launch_war(t_war *war)
 	//TODO Move this into another fct :
 	war->current_live_nb = 0;
 	war->max_check = war->max_check + 1;
+	ft_printf("cycles numero  %d\n", war->current_cycle);
 	if (war->current_live_nb >= NBR_LIVE)
 	{
 		war->max_check = 0;
@@ -136,12 +137,11 @@ int		launch_war(t_war *war)
 	while (++cycle < war->cycle_to_die)
 	{
 		++war->current_cycle;
-//		ft_printf("cycles numero  %d\n", cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
-		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
-			dump_war(war);
+		//if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
+		//	dump_war(war);
 	}
 	find_dead_champs(war);
 	reset_champ_live(war);

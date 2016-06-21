@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 00:42:16 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 01:11:18 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_champ		*init_champ(ssize_t id)
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
 	champ->reg_tab[0] = (int)-id;
+	champ->player = (t_player *)malloc(sizeof(t_player));
 	champ->player->id = -id;
 	champ->player->last_live = 0;
 	champ->player->nbr_live = 0;

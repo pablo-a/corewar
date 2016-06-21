@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 00:26:22 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 01:10:03 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,19 @@ typedef struct	s_war
 	struct s_op		*op_tab;
 	struct s_args	*args;
 	struct s_pile	*pile_champ;
-	struct s_player	*p1;
-	struct s_player	*p2;
-	struct s_player	*p3;
-	struct s_player	*p4;
 }				t_war;
 
 /* ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
 **       16 registres, un PC, un carry, son numero de joueur
 */
+typedef struct	s_player
+{
+	int		is_dead;
+	int		last_live;
+	int		nbr_live;
+	int		id;
+}				t_player;
+
 typedef struct	s_champ
 {
 	struct s_player	*player;
@@ -81,14 +85,6 @@ typedef struct	s_champ
 	struct s_champ	*father;
 	int				is_dead;
 }				t_champ;
-
-typedef struct	s_player
-{
-	int		is_dead;
-	int		last_live;
-	int		nbr_live;
-	int		id;
-}				t_player;
 
 /* ----------------------- STRUCTURE D'UNE PILE -------------------------------
 **

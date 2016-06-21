@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 00:41:46 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 01:12:06 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		main(int argc, char **argv)
 	}
 	who_won(war);
 
-	display_ram(war->ram);
+	//display_ram(war->ram);
 
 
 //	get_ocp(255);
