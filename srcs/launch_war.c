@@ -35,10 +35,7 @@ int		find_dead_champs(t_war *war)
 	while (node)
 	{
 		if (!node->champ->is_dead && node->champ->cpt_live[0] == 0)
-		{
-			ft_printf("process %d no live since : %d - CTD : %d\n", i, war->current_cycle - node->champ->cpt_live[1], war->cycle_to_die);
 			node->champ->is_dead = 1;
-		}
 		node = node->next;
 		i++;
 	}

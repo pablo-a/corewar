@@ -111,7 +111,7 @@ int		main(int argc, char **argv)
 	}
 	who_won(war);
 
-//	display_ram(war->ram);
+	display_ram(war->ram);
 
 	ft_printf("Cycles total : %d\n", war->current_cycle);
 	return (0);

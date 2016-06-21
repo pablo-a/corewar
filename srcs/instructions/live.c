@@ -42,8 +42,8 @@ int		live(t_war *war, t_champ *champ)
 	{
 		champ->cpt_live[0]++;
 		champ->cpt_live[1] = war->current_cycle;
-//		if (champ->father != NULL)
-//			champ->father->cpt_live[1] = war->current_cycle;
+		if (champ->father != NULL)
+			champ->father->cpt_live[1] = war->current_cycle;
 	}
 	else
 		add_live(war, id);

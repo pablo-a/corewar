@@ -25,7 +25,10 @@ int		get_value(t_war *war, int pos, int size)
 		result = (war->ram[(pos + i) % MEM_SIZE]) | result;
 		i++;
 	}
-	if (result > 32767)
-		result -= 65536;
+	//TODO CHECK :
+	if (size == 2 && result > SHRT_MAX)
+		result -= USHRT_MAX + 1;
+	if (size == 4 && result > INT_MAX)
+		result -= UINT_MAX + 1;
 	return (result);
 }

@@ -18,8 +18,6 @@ int		aff(t_war *war, t_champ *champ)
 	t_return 	reg;
 	int 		next;
 
-	ft_printf("AFF\n");
-
 	//TODO increment champ pc correctly when there is an error (now just increment by next)
 	next = 1;
 
@@ -32,6 +30,9 @@ int		aff(t_war *war, t_champ *champ)
 		return (-1);
 	}
 	champ->pc = champ->tmp_pc;
+
+	ft_printf("AFF reg.value is : %d\n", reg.value);
+
 	ft_putchar((char)(reg.value % 256));
 	return (0);
 }

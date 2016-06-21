@@ -18,9 +18,9 @@ int		sub(t_war *war, t_champ *champ)
 	t_return r1;
 	t_return r2;
 	t_return r3;
-	int 	next;
 
 	//TODO increment champ pc correctly when there is an error (now just increment by next)
+	int 	next;
 	next = 1;
 
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);

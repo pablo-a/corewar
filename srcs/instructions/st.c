@@ -17,12 +17,11 @@ int		st(t_war *war, t_champ *champ)
 	t_ocp		ocp;
 	t_return	reg;
 	t_return	val;
-	int			next;
-
-	ft_printf("ST\n");
 
 	//TODO pc value if error and carry to solve :
+	int			next;
 	next = 1;
+
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0)),
@@ -35,5 +34,8 @@ int		st(t_war *war, t_champ *champ)
 		return (-1);
 	write_ram(war, reg.value, calc_pc(champ->pc, (val.value % IDX_MOD)));
 	champ->pc = champ->tmp_pc;
+
+	//TODO CARRY ?
+
 	return (0);
 }

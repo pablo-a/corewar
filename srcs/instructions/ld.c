@@ -21,7 +21,6 @@ int			ld(t_war *war, t_champ *champ)
 
 	//TODO CHECK LD BY MARIUS :
 
-
 	//TODO: increment champ pc correctly when error (not just next)
 	next = 1;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
