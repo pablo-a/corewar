@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:50:10 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 21:58:47 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/21 19:45:18 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		xor(t_war *war, t_champ *champ)
 	//TODO increment champ pc correctly when there is an error (now just increment by next)
 	next = 1;
 
+	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	champ->carry = 0;
@@ -41,8 +42,9 @@ int		xor(t_war *war, t_champ *champ)
 	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
 
+	if (val1.value ^ val2.value == 0)
+		champ->carry = 1;
 	champ->reg_tab[reg.value - 1] = val1.value ^ val2.value;
 	champ->pc = champ->tmp_pc;
-	champ->carry = 1;
 	return (0);
 }

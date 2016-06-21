@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:46:33 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 20:42:07 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/21 19:41:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		add(t_war *war, t_champ *champ)
 
 	next = 1;
 
+	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 
@@ -43,8 +44,9 @@ int		add(t_war *war, t_champ *champ)
 	if (r3.error && (champ->pc = calc_pc(champ->pc, next)))
 		return (-1);
 
+	if (r1.value + r2.value == 0)
+		champ->carry = 1;
 	champ->reg_tab[r3.value - 1] = r1.value + r2.value;
-	champ->carry = 1;
 	champ->pc = champ->tmp_pc;
 
 	return (0);
