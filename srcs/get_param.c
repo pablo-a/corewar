@@ -51,6 +51,7 @@ static void indirect(t_war *war, t_champ *champ, t_return *ret, int add_value)
 t_return get_param(t_war *war, t_params params, int param_code, t_champ *champ)
 {
 	t_return ret;
+	int 	nb_oct;
 
 	ret.error = 1;
 	ret.value = 0;
@@ -60,5 +61,13 @@ t_return get_param(t_war *war, t_params params, int param_code, t_champ *champ)
 		direct(war, champ, &ret, params.opt.is_index);
 	else if (param_code == params.indirect)
 		indirect(war, champ, &ret, params.opt.add_value);
+
+	nb_oct = 2;
+	if (ret.error)
+		if (param_code == DIR_CODE && !params.opt.is_index)
+			nb_oct = 4;
+		if (param_code == REG_CODE)
+			nb_oct = 1;
+	champ->tmp_pc = calc_pc(champ->tmp_pc, nb_oct);
 	return (ret);
 }

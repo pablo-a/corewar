@@ -19,29 +19,15 @@ int				sti(t_war *war, t_champ *champ)
 	t_return	val2;
 	t_return 	reg;
 
-	//TODO increment champ pc correctly when there is an error (now just increment by next)
-	int next;
-	next = 1;
+	//TODO OK ?
 
-	ocp = get_ocp(war->ram[calc_pc(champ->pc, next)]);
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0)), ocp.first, champ);
-	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
-		return (-1);
 	val1 = get_param(war, define_params_types(REG_CODE, DIR_CODE, IND_CODE, def_opt(1, 1, 1)), ocp.second, champ);
-	if (val1.error && (champ->pc = calc_pc(champ->pc, next)))
-		return (-1);
 	val2 = get_param(war, define_params_types(REG_CODE, DIR_CODE, -1, def_opt(1, 1, 0)), ocp.third, champ);
-	if (val2.error && (champ->pc = calc_pc(champ->pc, next)))
-		return (-1);
-
-	int value1 = (val1.value + val2.value) % IDX_MOD;
-	int value2 = calc_pc(champ->pc, value1);
-
-	write_ram(war, reg.value, value2);
+	if (!reg.error && !val1.error && !val2.error)
+		write_ram(war, reg.value, calc_pc(champ->pc, (val1.value + val2.value) % IDX_MOD));
 	champ->pc = champ->tmp_pc;
-
-	//TODO modify carry ?
-	champ->carry = 1;
 	return (0);
 }

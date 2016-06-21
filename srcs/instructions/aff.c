@@ -16,23 +16,17 @@ int		aff(t_war *war, t_champ *champ)
 {
 	t_ocp 		ocp;
 	t_return 	reg;
-	int 		next;
 
-	//TODO increment champ pc correctly when there is an error (now just increment by next)
-	next = 1;
+	//TODO ok ?
 
-	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, + 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0)), ocp.first, champ);
-	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
+	if (!reg.error)
 	{
-		ft_printf("Aff fail \n");
-		return (-1);
+		ft_printf("AFF reg.value is : %d\n", reg.value);
+		ft_putchar((char)(reg.value % 256));
 	}
 	champ->pc = champ->tmp_pc;
-
-	ft_printf("AFF reg.value is : %d\n", reg.value);
-
-	ft_putchar((char)(reg.value % 256));
 	return (0);
 }

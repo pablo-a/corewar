@@ -15,36 +15,24 @@
 int		xor(t_war *war, t_champ *champ)
 {
 	t_ocp 		ocp;
-	t_return	val1;
-	t_return	val2;
-	t_return 	reg;
-	int 		next;
+	t_return	p1;
+	t_return	p2;
+	t_return 	p3;
 
-
-	//TODO CHECK BY MARIUS
-
-	//TODO increment champ pc correctly when there is an error (now just increment by next)
-	next = 1;
+	//TODO ok ?
 
 	champ->carry = 0;
-	ocp = get_ocp(war->ram[calc_pc(champ->pc, + next)]);
+	ocp = get_ocp(war->ram[calc_pc(champ->pc, + 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
-	champ->carry = 0;
-	val1 = get_param(war, define_params_types(REG_CODE, DIR_CODE, IND_CODE, def_opt(0, 1, 1)), ocp.first, champ);
-	if (val1.error && (champ->pc = calc_pc(champ->pc, next)))
-		return (-1);
-
-	val2 = get_param(war, define_params_types(REG_CODE, DIR_CODE, IND_CODE, def_opt(0, 1, 1)), ocp.second, champ);
-	if (val2.error && (champ->pc = calc_pc(champ->pc, next)))
-		return (-1);
-
-	reg = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0, 1)), ocp.third, champ);
-	if (reg.error && (champ->pc = calc_pc(champ->pc, next)))
-		return (-1);
-
-	if (val1.value ^ val2.value == 0)
-		champ->carry = 1;
-	champ->reg_tab[reg.value - 1] = val1.value ^ val2.value;
+	p1 = get_param(war, define_params_types(REG_CODE, DIR_CODE, IND_CODE, def_opt(0, 1, 1)), ocp.first, champ);
+	p2 = get_param(war, define_params_types(REG_CODE, DIR_CODE, IND_CODE, def_opt(0, 1, 1)), ocp.second, champ);
+	p3 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0, 1)), ocp.third, champ);
+	if (!p1.error && !p2.error && !p3.error)
+	{
+		if (p1.value ^ p2.value == 0)
+			champ->carry = 1;
+		champ->reg_tab[p3.value - 1] = p1.value ^ p2.value;
+	}
 	champ->pc = champ->tmp_pc;
 	return (0);
 }

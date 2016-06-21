@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
 
 int		convert_to_big_endian(unsigned int data)
 {
@@ -113,6 +112,14 @@ int		main(int argc, char **argv)
 
 	display_ram(war->ram);
 
-	ft_printf("Cycles total : %d\n", war->current_cycle);
+
+//	get_ocp(255);
+//	get_ocp(80);
+//	get_ocp(42);
+//	get_ocp(104);
+//	get_ocp(120);
+//	get_ocp(61);
+
+//	ft_printf("Cycles total : %d\n", war->current_cycle);
 	return (0);
 }

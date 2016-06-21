@@ -19,6 +19,6 @@ int		zjmp(t_war *war, t_champ *champ)
 		champ->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2));
 		return (0);
 	}
-	champ->pc = calc_pc(champ->pc, 1);
+	champ->pc = calc_pc(champ->pc, 3);
 	return (-1);
 }

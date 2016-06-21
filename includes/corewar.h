@@ -75,7 +75,6 @@ typedef struct	s_champ
 	t_header		*header;
 	struct s_champ	*father;
 	int				is_dead;
-	int 			born;
 }				t_champ;
 
 /* ----------------------- STRUCTURE D'UNE PILE -------------------------------
@@ -137,6 +136,7 @@ typedef	struct s_ocp
 	int first;
 	int second;
 	int third;
+	int fourth;
 }				t_ocp;
 
 
