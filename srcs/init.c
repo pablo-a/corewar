@@ -98,6 +98,8 @@ t_war		*init_war(t_args *args)
 	war = (t_war *)malloc(sizeof(t_war));
 	while (i < MEM_SIZE)
 	{
+		//added for more info on ram;
+		war->ram_info[i] = 0;
 		war->ram[i] = 0;
 		i++;
 	}
@@ -108,5 +110,6 @@ t_war		*init_war(t_args *args)
 	war->op_tab = init_op_tab();
 	war->args = args;
 	war->pile_champ = new_pile();
+	war->ncurse = NULL;
 	return (war);
 }

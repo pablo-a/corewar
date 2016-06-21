@@ -13,10 +13,7 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
-/* On va pouvoir utiliser ERRNO c'est de la balle :
-** if (malloc(...) == -1)
-**		ft_printf("erreur : %s\n", strerror(errno)); || perror("Erreur:");
-*/
+# include <ncurses.h>
 # include <errno.h>
 # include <string.h>
 # include <fcntl.h>
@@ -31,6 +28,20 @@
 # define GRAY "\033[37m"
 # define YELLOW "\033[33m"
 # define END "\033[0m"
+
+# define MIN_HEIGHT 70
+# define MIN_WIDTH 270
+# define BYTE_PER_LINE 64
+# define SPACE_BT_BYTE 1
+# define SIZE_INFO 50
+# define GAME_SPEED 10000
+
+# define MAIN_WINDOW	war->ncurse->main_window
+# define INFO_WINDOW	war->ncurse->info_window
+# define EVENT_WINDOW	war->ncurse->event_window
+# define PAUSE			war->ncurse->pause
+# define SCREEN_Y		war->ncurse->size_window[0]
+# define SCREEN_X		war->ncurse->size_window[1]
 
 # define NAME(champ) champ->header->prog_name
 # define COMMENT(champ) champ->header->comment
@@ -50,6 +61,7 @@
 typedef struct	s_war
 {
 	unsigned char	ram[MEM_SIZE];
+	unsigned char	ram_info[MEM_SIZE];
 	int				cycle_to_die;
 	int				max_check;
 	int				current_cycle;
@@ -57,6 +69,7 @@ typedef struct	s_war
 	struct s_op		*op_tab;
 	struct s_args	*args;
 	struct s_pile	*pile_champ;
+	struct s_ncurse	*ncurse;
 }				t_war;
 
 /* ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
@@ -130,6 +143,7 @@ typedef struct	s_args
 {
 	ssize_t	dump;
 	int		nb_champ;
+	int		ncurse;
 }				t_args;
 
 
@@ -138,6 +152,22 @@ typedef struct	s_return
 	int value;
 	int error;
 }				t_return;
+
+/* ------------------ NCURSE STRUCT -----------------------------------------
+**
+*/
+
+typedef struct	s_ncurse
+{
+	WINDOW *main_window;
+	WINDOW *info_window;
+	WINDOW *event_window;
+	int		size_window[2];
+	int		game_speed;
+	int		cycle_per_sec;
+	int		pause;
+}				t_ncurse;
+
 
 
 typedef	struct s_ocp
@@ -180,8 +210,7 @@ t_war			*init_war(t_args *args);
 int				read_champ(char *file, t_champ *champ);
 int				read_instructions(int fd, t_champ *champ);//  CHAMP.C
 int				load_players_into_arena(t_war *war);
-int				load_bytecode(t_champ *champ, unsigned char ram[MEM_SIZE],
-				int pos);
+int				load_bytecode(t_champ *champ, t_war *war, int pos);
 
 int				convert_to_big_endian(unsigned int data);
 int				get_args(int argc, char **argv, t_war *war);//     MAIN.C
@@ -190,6 +219,8 @@ int				main(int argc, char **argv);
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
+int				display_ram_info(unsigned char ram_info[MEM_SIZE]);
+int				display_reg(t_champ *champ);
 
 int				reset_champ_live(t_war *war);
 int				find_dead_champs(t_war *war);
@@ -228,5 +259,33 @@ int				sti(t_war *war, t_champ *champ);
 int				sub(t_war *war, t_champ *champ);
 int				xor(t_war *war, t_champ *champ);
 int				zjmp(t_war *war, t_champ *champ);
+
+/*
+** -------------------------- NCURSE PART -------------------------------------
+*/
+
+int				set_colors(void);
+int				put_good_color(WINDOW *win, int color);//  NCURSE.C
+int				check_size_window(t_war *war);
+int				init_ncurse_struct(t_war *war);
+int				init_ncurse(t_war *war);
+
+void			display_pc(t_war *war);
+void			display_infos(WINDOW *win, t_war *war);//   DISPLAY_NCURSE.C
+void			display_main_content(WINDOW *win, t_war *war);
+int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
+void			draw_borders(WINDOW *screen);
+
+
+int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
+int				refresh_pc(t_war *war, t_champ *champ, int old_pc, int new_pc);
+int				refresh_info_constants(t_war *war);
+int				refresh_lives_info(t_war *war);
+int				refresh_ram(t_war *war, int pos, int size, int color);
+
+int				event(t_war *war, int no_delay);//     EVENT_NCURSE.C
+int				bad_size_window(int y, int x);
+int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
+int				reset_colors(WINDOW *win);
 
 #endif

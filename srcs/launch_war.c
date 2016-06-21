@@ -49,6 +49,7 @@ int		find_dead_champs(t_war *war)
 int		dump_war(t_war *war)
 {
 	display_ram(war->ram);
+	display_ram_info(war->ram_info);
 	exit(0);
 }
 
@@ -140,8 +141,17 @@ int		launch_war(t_war *war)
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
-		//if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
-		//	dump_war(war);
+		if (war->args->dump > 0 && (war->current_cycle + cycle) == war->args->dump)
+			dump_war(war);
+		if (war->args->ncurse == 1)
+		{
+			check_size_window(war);
+			refresh_info_constants(war);// REFRESH LES CONSTANTES DE JEU
+			//refresh_ram(war, 4000 + cycle, 4, 9);
+			event(war, 1);
+			refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
+			refresh_lives_info(war);// REFRESH TOUTES LES VARIABLES LIVES
+		}
 	}
 	find_dead_champs(war);
 	reset_champ_live(war);

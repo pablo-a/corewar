@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/13 23:03:48 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/17 18:22:24 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra
 
 OBJS = $(SRCS:.c=.o)
 
-INCLUDES = ./includes/
+INCLUDES =  -I ./includes/ -I ./libft/includes/
 FTPATH = ./libft/
 SRCSPATH = ./srcs/
 INSTRUCTPATH = $(SRCSPATH)instructions/
@@ -29,6 +29,10 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \
 	   $(SRCSPATH)calc_pc.c\
+	   $(SRCSPATH)ncurse.c \
+	   $(SRCSPATH)display_ncurse.c \
+	   $(SRCSPATH)event_ncurse.c \
+	   $(SRCSPATH)refresh_ncurse.c \
 	   $(SRCSPATH)get_ocp.c\
 	   $(SRCSPATH)get_param.c\
 	   $(SRCSPATH)def_opt.c\
@@ -58,9 +62,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft re
-	$(CC) -o $(NAME) $(OBJS) -L$(FTPATH) -lft 
+	$(CC) -o $(NAME) $(OBJS) -L$(FTPATH) -lft -lncurses
+
 %.o: %.c
-		@$(CC) -o $@ -c $< $(CFLAGS) -I $(INCLUDES) -I ./libft/includes/
+		@$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDES)
 
 
 clean :

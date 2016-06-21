@@ -6,12 +6,11 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/11 15:02:05 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/18 13:44:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "libftprintf.h"
+#include "corewar.h"
 
 int		read_instructions(int fd, t_champ *champ)
 {
@@ -52,14 +51,16 @@ int		read_champ(char *file, t_champ *champ)
 	return (0);
 }
 
-int		load_bytecode(t_champ *champ, unsigned char ram[MEM_SIZE], int pos)
+int		load_bytecode(t_champ *champ, t_war *war, int pos)
 {
 	unsigned int i;
 
 	i = 0;
-	while (i < champ->header->prog_size)
+	while (i < champ->header->prog_size)// if prog_size too big ?
 	{
-		ram[i + pos] = champ->instructions[i];
+		//replace by -id ?
+		war->ram_info[i + pos] = (champ->id);
+		war->ram[i + pos] = champ->instructions[i];
 		i++;
 	}
 	return (0);
@@ -74,13 +75,15 @@ int		load_players_into_arena(t_war *war)
 	pos = 0;
 	node = war->pile_champ->first;
 	space = MEM_SIZE / war->pile_champ->nb_elem;
-	ft_printf("Introducing contestants :\n");
+	if (!war->args->ncurse)
+		ft_printf("Introducing contestants :\n");
 	while (node)
 	{
 		node->champ->pc = pos;
-		load_bytecode(node->champ, war->ram, pos);
-		ft_printf("* Player %d, weighing %d bytes, %s (%s) !\n", ID(node->champ)
-			, SIZE(node->champ), NAME(node->champ), COMMENT(node->champ));
+		load_bytecode(node->champ, war, pos);
+		if (!war->args->ncurse)
+			ft_printf("* Player %d, weighing %d bytes, %s (%s) !\n",
+ID(node->champ), SIZE(node->champ), NAME(node->champ), COMMENT(node->champ));
 		node = node->next;
 		pos += space;
 	}
