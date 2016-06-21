@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/14 02:02:00 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 00:41:46 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int		get_args(int argc, char **argv, t_war *war)
 		// ---------------- CHAMP.COR ONLY ---------------------------
 		else if (ft_strstr(argv[i], ".cor") != NULL)
 		{
-			pile_append(war->pile_champ, init_champ(war->pile_champ->nb_elem + 1
-						));
+			pile_append(war->pile_champ, init_champ(war->pile_champ->nb_elem + 1));
 			read_champ(argv[i], war->pile_champ->last->champ);
 			war->args->nb_champ++;
 		}

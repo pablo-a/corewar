@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:33 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/21 19:45:24 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 00:42:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		or(t_war *war, t_champ *champ)
 	p3 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0, 0)), ocp.third, champ);
 	if (!p3.error && !p1.error && !p2.error)
 	{
-		if (p1.value | p2.value == 0)
+		if ((p1.value | p2.value) == 0)
 			champ->carry = 1;
 		champ->reg_tab[p3.value - 1] = p1.value | p2.value;
 	}
