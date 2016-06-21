@@ -71,10 +71,6 @@ t_champ		*init_champ(ssize_t id)
 	while (i++ < REG_NUMBER)
 		champ->reg_tab[i] = 0;
 	champ->reg_tab[0] = (int)-id;
-
-	//born at first cicle :
-	champ->born = 1;
-
 	return (champ);
 }
 

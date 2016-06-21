@@ -29,7 +29,7 @@ int		xor(t_war *war, t_champ *champ)
 	p3 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0, 1)), ocp.third, champ);
 	if (!p1.error && !p2.error && !p3.error)
 	{
-		if (p1.value ^ p2.value == 0)
+		if ((p1.value ^ p2.value) == 0)
 			champ->carry = 1;
 		champ->reg_tab[p3.value - 1] = p1.value ^ p2.value;
 	}

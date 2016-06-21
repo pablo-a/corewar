@@ -52,6 +52,5 @@ int			cor_fork(t_war *war, t_champ *champ)
 	son->pc = calc_pc(champ->pc ,get_value(war, champ->pc + 1, 2) % IDX_MOD);
 	pile_append(war->pile_champ, son);
 	champ->pc = calc_pc(champ->pc, 3);
-	champ->born = war->current_cycle;
 	return (0);
 }
