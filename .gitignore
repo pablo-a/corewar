@@ -1,3 +1,6 @@
 *.o
+*.a
+*.s
+*.cor
 CMakeLists.txt
 build/

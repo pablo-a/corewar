@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 05:04:50 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:02:17 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,9 @@ int		launch_war(t_war *war)
 		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
 	}
 	war->current_live_nb = 0;
-	while (++cycle < war->cycle_to_die)
+	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{
-		++war->current_cycle;
+		//++war->current_cycle;
 //		ft_printf("cycles numero  %d\n", war->current_cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
@@ -156,6 +156,7 @@ int		launch_war(t_war *war)
 			refresh_lives_info(war);// REFRESH TOUTES LES VARIABLES LIVES
 		}
 	}
+	refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
 	find_dead_champs(war);
 	reset_champ_live(war);
 	return (0);

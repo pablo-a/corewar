@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 19:36:21 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 13:14:55 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:04:30 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ int		display_reg(t_champ *champ)
 		i++;
 	}
 	ft_putstr("\n");
+	return (0);
 }
 
-int		display_ram_info(unsigned char ram_info[MEM_SIZE])
+int		display_ram_info(int ram_info[MEM_SIZE])
 {
 	int i;
 

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 03:42:17 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:03:28 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,13 +213,14 @@ int				load_players_into_arena(t_war *war);
 int				load_bytecode(t_champ *champ, t_war *war, int pos);
 
 int				convert_to_big_endian(unsigned int data);
+int				who_won(t_war *war);
 int				get_args(int argc, char **argv, t_war *war);//     MAIN.C
 int				main(int argc, char **argv);
 
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE]);
-int				display_ram_info(unsigned char ram_info[MEM_SIZE]);
+int				display_ram_info(int ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 
 int				reset_champ_live(t_war *war);

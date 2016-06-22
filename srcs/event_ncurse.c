@@ -6,13 +6,13 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:21:45 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 14:28:47 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:04:43 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		event(t_war *war, no_delay)
+int		event(t_war *war, int no_delay)
 {
 	int ch;
 

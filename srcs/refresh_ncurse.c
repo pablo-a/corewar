@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 04:43:24 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:03:39 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		refresh_current_cycle(t_war *war)
 {
 	wattron(INFO_WINDOW, COLOR_PAIR(3));
 	wattron(INFO_WINDOW, A_BOLD);
-	mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d", war->current_cycle);
+	mvwprintw(INFO_WINDOW, 10, 7, "Current Cycle : %d  ", war->current_cycle);
 	wrefresh(INFO_WINDOW);
 	wattroff(INFO_WINDOW, A_BOLD);
 	wattroff(INFO_WINDOW, COLOR_PAIR(3));
@@ -29,19 +29,19 @@ int		refresh_info_constants(t_war *war)
 	int offset;
 
 	offset = 12 + (war->args->nb_champ * 4) + 2;
-	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_TO_DIE : %d", war->cycle_to_die);
+	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_TO_DIE : %d   ", war->cycle_to_die);
 	offset += 3;
-	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_DELTA : %d", CYCLE_DELTA);
+	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
 	offset += 3;
-	mvwprintw(INFO_WINDOW, offset, 7, "NBR_LIVE : %d", NBR_LIVE);
+	mvwprintw(INFO_WINDOW, offset, 7, "NBR_LIVE : %d   ", NBR_LIVE);
 	offset += 4;
-	mvwprintw(INFO_WINDOW, offset, 7, "MAX_CHECKS : %d", MAX_CHECKS);
+	mvwprintw(INFO_WINDOW, offset, 7, "MAX_CHECKS : %d   ", MAX_CHECKS);
 	offset++;
-	mvwprintw(INFO_WINDOW, offset, 11, "Current checks : %d ", war->max_check);
+	mvwprintw(INFO_WINDOW, offset, 11, "Current checks : %d  ", war->max_check);
 	offset += 3;
-	mvwprintw(INFO_WINDOW, offset, 7, "GAME_SPEED : %d cycles/sec", war->ncurse->cycle_per_sec);
+	mvwprintw(INFO_WINDOW, offset, 7, "GAME_SPEED : %d cycles/sec  ", war->ncurse->cycle_per_sec);
 	offset += 4;
-	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d", PAUSE);
+	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d  ", PAUSE);
 	wrefresh(INFO_WINDOW);
 	return (0);
 }
@@ -57,16 +57,17 @@ int		refresh_lives_info(t_war *war)
 	y = 12;
 	while (cpt < war->args->nb_champ)
 	{
-		mvwprintw(INFO_WINDOW, y + 1, 11, "Total lives since begin : %d",
+		mvwprintw(INFO_WINDOW, y + 1, 11, "Total lives since begin : %d  ",
 				node->champ->player->nbr_live);
-		mvwprintw(INFO_WINDOW, y + 2, 11, "Last live :               %d",
+		mvwprintw(INFO_WINDOW, y + 2, 11, "Last live :               %d  ",
 				node->champ->player->last_live);
 		y += 4;
 		node = node->next;
 		cpt++;
 	}
-	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d", war->current_live_nb);
+	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d  ", war->current_live_nb);
 	wrefresh(INFO_WINDOW);
+	return (0);
 }
 
 int		refresh_pc(t_war *war, t_champ *champ, int old_pc, int new_pc)

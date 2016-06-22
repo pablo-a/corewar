@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 01:12:06 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 17:49:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,24 @@ int		who_won(t_war *war)
 	winner = war->pile_champ->first->champ;
 	while (i < war->args->nb_champ)
 	{
-		if (node->champ->cpt_live[1] > winner->cpt_live[1])
+		if (node->champ->player->last_live > winner->player->last_live)
 			winner = node->champ;
 		node = node->next;
 		i++;
 	}
+	if (war->args->ncurse)
+	{
+		mvwprintw(INFO_WINDOW, 4, 5, "Contestant %d, ", winner->id);
+		put_good_color(INFO_WINDOW, -winner->id);
+		mvwprintw(INFO_WINDOW, 4, 20, "%s", winner->header->prog_name);
+		reset_colors(INFO_WINDOW);
+		mvwprintw(INFO_WINDOW, 5, 5, "has won! Last live : %d ", winner->player->last_live);
+		mvwprintw(INFO_WINDOW, 6, 5, "Press escape to leave");
+		wrefresh(INFO_WINDOW);
+		return (0);
+	}
 	ft_printf("Contestant %d, \"%s\" has won! Last live : %d \n", winner->id,
-			winner->header->prog_name, winner->cpt_live[1]);
+			winner->header->prog_name, winner->player->last_live);
 	return (0);
 }
 

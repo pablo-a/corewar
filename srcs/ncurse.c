@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 15:08:36 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:04:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,6 @@ int		check_size_window(t_war *war)
 
 int		init_ncurse(t_war *war)
 {
-	int		tmp_x;
-	int		tmp_y;
-	char	ch;
-
 	//keypad(stdscr, TRUE);
 	//raw();
 	init_ncurse_struct(war);
@@ -102,9 +98,7 @@ int		init_ncurse(t_war *war)
 		event(war, 0);
 	while (war->current_live_nb > 0)
 		launch_war(war);
-	mvwprintw(MAIN_WINDOW, 3, 50, "Corewar has ended");
-	mvwprintw(MAIN_WINDOW, 4, 50,  "touch any key to leave");
-	wrefresh(MAIN_WINDOW);
+	who_won(war);
 	event(war, 0);
 	clear();
 	refresh();
