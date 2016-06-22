@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 01:22:37 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 05:04:50 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int		execute(t_war *war, t_champ *champ)
 	ocpcode = war->ram[champ->pc];
 	//TODO How increment when op code wrong ?
 	if (ocpcode < 1 || ocpcode > 16)
+	{
+		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc, 1));
 		champ->pc = calc_pc(champ->pc, 1);
+	}
 	else
 		war->op_tab[ocpcode - 1].associated_function(war, champ);
 	return (0);
@@ -122,9 +125,9 @@ int		launch_war(t_war *war)
 
 
 	//TODO Move this into another fct :
-	war->current_live_nb = 0;
-	war->max_check = war->max_check + 1;
-	ft_printf("cycles numero  %d\n", war->current_cycle);
+	war->max_check++;
+	//ft_printf("cycles numero  %d\n", war->current_cycle);
+	//ft_printf("check = %d\n", war->max_check);
 	if (war->current_live_nb >= NBR_LIVE)
 	{
 		war->max_check = 0;
@@ -135,6 +138,7 @@ int		launch_war(t_war *war)
 		war->max_check = 0;
 		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
 	}
+	war->current_live_nb = 0;
 	while (++cycle < war->cycle_to_die)
 	{
 		++war->current_cycle;

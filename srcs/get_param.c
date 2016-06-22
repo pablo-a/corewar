@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/18 19:35:49 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 22:01:29 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 03:40:11 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,20 @@ t_return get_param(t_war *war, t_params params, int param_code, t_champ *champ)
 
 	ret.error = 1;
 	ret.value = 0;
+	nb_oct = 2;
 	if (param_code == params.reg)
 		reg(war, champ, &ret, params.opt.reg_value);
 	else if (param_code == params.direct)
 		direct(war, champ, &ret, params.opt.is_index);
 	else if (param_code == params.indirect)
 		indirect(war, champ, &ret, params.opt.add_value);
-
-	nb_oct = 2;
-	if (ret.error)
+	else if (ret.error)
+	{
 		if (param_code == DIR_CODE && !params.opt.is_index)
 			nb_oct = 4;
 		if (param_code == REG_CODE)
 			nb_oct = 1;
-	champ->tmp_pc = calc_pc(champ->tmp_pc, nb_oct);
+		champ->tmp_pc = calc_pc(champ->tmp_pc, nb_oct);
+	}
 	return (ret);
 }

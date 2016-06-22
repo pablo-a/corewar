@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:18:34 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 15:05:18 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 04:17:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
 		mvwprintw(win, *y, *x, "Champion %d : %s", -ID(node->champ),
 											NAME(node->champ));
 		reset_colors(win);
-		mvwprintw(win, *y + 1, *x + 4, "Lives in current period : %d",
-											node->champ->cpt_live[0]);
+		//TODO add period life
+		mvwprintw(win, *y + 1, *x + 4, "Total lives since begin : %d",
+									node->champ->player->nbr_live);
 		mvwprintw(win, *y + 2, *x + 4, "Last live :               %d",
-											node->champ->cpt_live[1]);
+											node->champ->player->last_live);
 		*y += 4;
 		cpt++;
 		node = node->next;
@@ -100,7 +101,7 @@ void	display_pc(t_war *war)
 	node = war->pile_champ->first;
 	while (cpt < war->args->nb_champ)
 	{
-		refresh_ram(war, node->champ->pc, 1, node->champ->id + 4);
+		refresh_ram(war, node->champ->pc, 1, -node->champ->id + 4);
 		cpt++;
 		node = node->next;
 	}
@@ -112,7 +113,7 @@ void	display_main_content(WINDOW *win, t_war *war)
 	int		curr_x;
 	int		curr_y;
 	int		size_window[2];
-\
+
 	wclear(win);
 	draw_borders(win);
 	index = 0;

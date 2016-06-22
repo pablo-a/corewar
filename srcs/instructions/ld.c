@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/21 19:40:15 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 03:35:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			ld(t_war *war, t_champ *champ)
 		p1.value = p1.value % IDX_MOD;
 		champ->reg_tab[p2.value - 1] = p1.value;
 	}
+	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
 	champ->pc = champ->tmp_pc;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 01:10:03 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 03:42:17 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,9 +238,7 @@ t_params 		define_params_types(int type1, int type2, int type3,
 t_return 		get_param(t_war *war, t_params params, int param_nb,
 									t_champ *champ);
 t_param_opt 	def_opt(int is_index, int reg_value, int add_value);
-void 			write_ram(t_war *war, int value, int address);
-
-void			write_ram(t_war *war, int value, int address);
+void 			write_ram(t_war *war, t_champ *champ, int value, int address);
 
 int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);

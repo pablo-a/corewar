@@ -4,7 +4,7 @@
 
 #include "corewar.h"
 
-void write_ram(t_war *war, int value, int address)
+void write_ram(t_war *war, t_champ *champ, int value, int address)
 {
 	int i;
 	int j;
@@ -16,5 +16,7 @@ void write_ram(t_war *war, int value, int address)
 	{
 		oct = (value >> ( 8 * (j--))) & 0xff;
   		war->ram[(address + i) % MEM_SIZE] = (unsigned char)oct;
+  		war->ram_info[(address + i) % MEM_SIZE] = -champ->id;
 	}
+	refresh_ram(war, address, 4, -champ->id);
 }

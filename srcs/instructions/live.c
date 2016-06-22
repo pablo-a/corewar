@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:59 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 00:39:05 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 03:56:49 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,18 @@ int		live(t_war *war, t_champ *champ)
 			champ->father->player->last_live= war->current_cycle;
 			champ->father->player->nbr_live++;
 		}
+		else
+		{
+			champ->player->last_live= war->current_cycle;
+			champ->player->nbr_live++;
+		}
 	}
 	else
 		add_live(war, id);
 
 //	ft_printf("Live at cycle %d\n",war->current_cycle);
 
+	refresh_pc(war, champ, champ->pc, champ->pc + 5);
 	champ->pc = calc_pc(champ->pc, 5);
 	return (0);
 }

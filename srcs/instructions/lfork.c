@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:36 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/14 02:00:51 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 03:36:04 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int			lfork(t_war *war, t_champ *champ)
 	copy_father(champ, son);
 	son->pc = calc_pc(champ->pc ,get_value(war, champ->pc + 1, 2));
 	pile_append(war->pile_champ, son);
+	refresh_pc(war, champ, champ->pc, champ->pc + 3);
 	champ->pc = calc_pc(champ->pc, 3);
 	return (0);
 }

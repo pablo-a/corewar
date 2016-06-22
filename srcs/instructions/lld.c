@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:10 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/21 19:40:03 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 03:36:32 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			lld(t_war *war, t_champ *champ)
 			champ->carry = 1;
 		champ->reg_tab[p2.value - 1] = p1.value;
 	}
+	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
 	champ->pc = champ->tmp_pc;
 	return (0);
 }
