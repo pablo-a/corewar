@@ -59,7 +59,7 @@ int		load_bytecode(t_champ *champ, t_war *war, int pos)
 	while (i < champ->header->prog_size)// if prog_size too big ?
 	{
 		//replace by -id ?
-		war->ram_info[i + pos] = (champ->id);
+		war->ram_info[i + pos] = -(champ->id);
 		war->ram[i + pos] = champ->instructions[i];
 		i++;
 	}

@@ -29,12 +29,12 @@ int		set_colors(void)
 
 int		put_good_color(WINDOW *win, int color)
 {
-	if (color == 0)
-	{
-		//wattron(win, A_BOLD);
-		wattron(win, COLOR_PAIR(10));
-	}
-	else
+//	if (color == 0)
+//	{
+//		//wattron(win, A_BOLD);
+//		wattron(win, COLOR_PAIR(10));
+//	}
+//	else
 		wattron(win, COLOR_PAIR(color));
 	return (0);
 }

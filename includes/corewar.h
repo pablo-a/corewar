@@ -29,8 +29,8 @@
 # define YELLOW "\033[33m"
 # define END "\033[0m"
 
-# define MIN_HEIGHT 70
-# define MIN_WIDTH 270
+# define MIN_HEIGHT 40
+# define MIN_WIDTH 150
 # define BYTE_PER_LINE 64
 # define SPACE_BT_BYTE 1
 # define SIZE_INFO 50
@@ -49,7 +49,7 @@
 # define ID(champ) champ->id
 
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
-# define bool	int
+# define mybool	int
 # define true	1
 # define false	0
 
@@ -61,7 +61,7 @@
 typedef struct	s_war
 {
 	unsigned char	ram[MEM_SIZE];
-	unsigned char	ram_info[MEM_SIZE];
+	int				ram_info[MEM_SIZE];
 	int				cycle_to_die;
 	int				max_check;
 	int				current_cycle;
@@ -90,7 +90,7 @@ typedef struct	s_champ
 	int				reg_tab[REG_NUMBER];// ses registres
 	int				pc;////                  prochaine instruction
 	int 			tmp_pc;
-	bool			carry;//               si operation a reussi ou pas.
+	mybool			carry;//               si operation a reussi ou pas.
 	int				cpt_interne;// pour faire ses operations. (cycles).
 	int				cpt_live[2];// cpt[0] = nb_live et cpt[1] = last_live;
 	unsigned char	*instructions;
@@ -129,8 +129,8 @@ typedef struct	s_op
 	int		ocpode;
 	int		nb_cycle;
 	char	description[42];
-	bool	ocp;
-	bool	modify_carry;
+	mybool	ocp;
+	mybool	modify_carry;
 	int		(*associated_function)(t_war *war, t_champ *champ);
 }				t_op;
 

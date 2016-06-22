@@ -44,7 +44,7 @@ int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
 	node = war->pile_champ->first;
 	while (cpt < war->args->nb_champ)
 	{
-		put_good_color(win, node->champ->id);
+		put_good_color(win, -node->champ->id);
 		mvwprintw(win, *y, *x, "Champion %d : %s", -ID(node->champ),
 											NAME(node->champ));
 		reset_colors(win);
@@ -112,7 +112,7 @@ void	display_main_content(WINDOW *win, t_war *war)
 	int		curr_x;
 	int		curr_y;
 	int		size_window[2];
-
+\
 	wclear(win);
 	draw_borders(win);
 	index = 0;
