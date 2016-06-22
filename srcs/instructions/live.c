@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:59 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 03:56:49 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:59:45 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ static int	add_live(t_war *war, int id)
 	{
 		node->champ->player->nbr_live++;
 		node->champ->player->last_live = war->current_cycle;
+		if (!war->args->ncurse && war->args->live)
+			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+					-id, node->champ->header->prog_name);
 	}
 	return (1);
 }
@@ -53,11 +56,14 @@ int		live(t_war *war, t_champ *champ)
 			champ->player->last_live= war->current_cycle;
 			champ->player->nbr_live++;
 		}
+		if (!war->args->ncurse && war->args->live)
+			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+					-champ->id, champ->header->prog_name);
+//	ft_printf("Live at cycle %d\n",war->current_cycle);
 	}
 	else
 		add_live(war, id);
 
-//	ft_printf("Live at cycle %d\n",war->current_cycle);
 
 	refresh_pc(war, champ, champ->pc, champ->pc + 5);
 	champ->pc = calc_pc(champ->pc, 5);

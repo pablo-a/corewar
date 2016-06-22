@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:02:17 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 19:03:25 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		find_dead_champs(t_war *war)
 
 int		dump_war(t_war *war)
 {
-	display_ram(war->ram);
+	display_ram(war->ram, war->ram_info);
 	display_ram_info(war->ram_info);
 	exit(0);
 }
@@ -144,7 +144,7 @@ int		launch_war(t_war *war)
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE
-		if (war->args->dump > 0 && (war->current_cycle + cycle) == war->args->dump)
+		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
 			dump_war(war);
 		if (war->args->ncurse == 1)
 		{
@@ -156,7 +156,7 @@ int		launch_war(t_war *war)
 			refresh_lives_info(war);// REFRESH TOUTES LES VARIABLES LIVES
 		}
 	}
-	refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
+	//refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
 	find_dead_champs(war);
 	reset_champ_live(war);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:03:28 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 19:03:52 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct	s_args
 	ssize_t	dump;
 	int		nb_champ;
 	int		ncurse;
+	int		live;
 }				t_args;
 
 
@@ -219,7 +220,7 @@ int				main(int argc, char **argv);
 
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
-int				display_ram(unsigned char ram[MEM_SIZE]);
+int				display_ram(unsigned char ram[MEM_SIZE], int ram_info[MEM_SIZE]);
 int				display_ram_info(int ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 

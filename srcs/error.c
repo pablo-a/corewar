@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 19:36:21 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:04:30 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 19:03:05 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		perror_exit(char *error)
 	exit(0);
 }
 
-int		display_ram(unsigned char ram[MEM_SIZE])
+int		display_ram(unsigned char ram[MEM_SIZE], int ram_info[MEM_SIZE])
 {
 	int i;
 
@@ -35,7 +35,7 @@ int		display_ram(unsigned char ram[MEM_SIZE])
 	ft_printf("MEMORY :\n");
 	while (i < MEM_SIZE)
 	{
-		if (ram[i] != 0)
+		if (ram_info[i] != 0)
 			ft_putstr(RED);
 		if (ram[i] == 0)
 			ft_putstr(END);

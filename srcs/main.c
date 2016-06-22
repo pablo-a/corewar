@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 17:49:35 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 18:58:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ int		get_args(int argc, char **argv, t_war *war)
 		// ---------------- NCURSE MODE -------------------------------
 		else if (ft_strcmp("-ncurse", argv[i]) == 0)
 			war->args->ncurse = 1;
+		// ---------------- LIVE MODE ---------------------------------
+		else if (ft_strcmp("-live", argv[i]) == 0)
+			war->args->live = 1;
 		// --------------- WRONG COMMAND ------------------------------
 		else
 			error("Unrecognized parameter.");
@@ -114,6 +117,7 @@ int		main(int argc, char **argv)
 	args.dump = 0;
 	args.ncurse = 0;
 	args.nb_champ = 0;
+	args.live = 0;
 	war = init_war(&args);
 	get_args(argc, argv, war);
 	load_players_into_arena(war);
@@ -127,7 +131,7 @@ int		main(int argc, char **argv)
 			launch_war(war);
 		}
 		who_won(war);
-		display_ram(war->ram);
+		//display_ram(war->ram);
 	}
 	return (0);
 }
