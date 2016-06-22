@@ -111,11 +111,12 @@ int		main(int argc, char **argv)
 		init_ncurse(war);
 	else//  NORMAL MODE
 	{
-		display_ram(war->ram);
-		printf("HELLO\n");
 		while (war->current_live_nb > 0)
+		{
 			launch_war(war);
+		}
 		who_won(war);
+		display_ram(war->ram);
 	}
 	return (0);
 }

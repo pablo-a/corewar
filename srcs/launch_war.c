@@ -122,11 +122,9 @@ int		launch_war(t_war *war)
 	int cycle;
 
 	cycle = -1;
-
-
 	//TODO Move this into another fct :
 	war->max_check++;
-	//ft_printf("cycles numero  %d\n", war->current_cycle);
+//	ft_printf("cycles numero  %d\n", war->current_cycle);
 	//ft_printf("check = %d\n", war->max_check);
 	if (war->current_live_nb >= NBR_LIVE)
 	{
@@ -142,6 +140,7 @@ int		launch_war(t_war *war)
 	while (++cycle < war->cycle_to_die)
 	{
 		++war->current_cycle;
+//		ft_printf("cycles numero  %d\n", war->current_cycle);
 		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
 		// CAS OU DUMP EST SPECIFIE

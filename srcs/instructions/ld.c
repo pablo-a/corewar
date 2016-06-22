@@ -30,7 +30,7 @@ int			ld(t_war *war, t_champ *champ)
 	{
 		if (p1.value == 0)
 			champ->carry = 1;
-		p1.value = p1.value % IDX_MOD;
+		p1.value = p1.value;
 		champ->reg_tab[p2.value - 1] = p1.value;
 	}
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);

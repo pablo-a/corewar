@@ -43,6 +43,7 @@ int		refresh_info_constants(t_war *war)
 	offset += 4;
 	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d", PAUSE);
 	wrefresh(INFO_WINDOW);
+	return (0);
 }
 
 int		refresh_lives_info(t_war *war)
