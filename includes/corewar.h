@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 19:37:54 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 20:46:41 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define ID(champ) champ->id
 
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number]champion1.cor]"
-# define mybool	int
+# define MYBOOL	int
 # define TRUE	1
 # define FALSE	0
 
@@ -94,7 +94,7 @@ typedef struct	s_champ
 	int				reg_tab[REG_NUMBER];
 	int				pc;
 	int				tmp_pc;
-	mybool			carry;
+	MYBOOL			carry;
 	int				cpt_interne;
 	int				cpt_live[2];
 	unsigned char	*instructions;
@@ -133,8 +133,8 @@ typedef struct	s_op
 	int		ocpode;
 	int		nb_cycle;
 	char	description[42];
-	mybool	ocp;
-	mybool	modify_carry;
+	MYBOOL	ocp;
+	MYBOOL	modify_carry;
 	int		(*associated_function)(t_war *war, t_champ *champ);
 }				t_op;
 
@@ -202,24 +202,25 @@ typedef struct	s_params
 
 t_pile			*new_pile(void);
 int				pile_append(t_pile *pile, t_champ *champ);
-int				pile_prepend(t_pile *pile, t_champ *champ);//     PILE.C
+int				pile_prepend(t_pile *pile, t_champ *champ);
 int				free_pile(t_pile **pile);
 
 t_champ			*init_champ(ssize_t id);
-t_op			*init_op_tab(void);//                            INIT.C
+t_op			*init_op_tab(void);
 t_war			*init_war(t_args *args);
 
 int				read_champ(char *file, t_champ *champ);
-int				read_instructions(int fd, t_champ *champ);//  CHAMP.C
+int				read_instructions(int fd, t_champ *champ);
 int				load_players_into_arena(t_war *war);
 int				load_bytecode(t_champ *champ, t_war *war, int pos);
 
 int				convert_to_big_endian(unsigned int data);
 int				who_won(t_war *war);
-int				get_args(int argc, char **argv, t_war *war);//     MAIN.C
+int				sub_get_args(int argc, char **argv, t_war *war, int i);
+int				get_args(int argc, char **argv, t_war *war);
 int				main(int argc, char **argv);
 
-int				error(char *str);//                                  ERROR.C
+int				error(char *str);
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE],
 														int ram_info[MEM_SIZE]);
@@ -227,16 +228,16 @@ int				display_ram_info(int ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 
 int				reset_champ_live(t_war *war);
-int				find_dead_champs(t_war *war);// HANDLE_WAR.c
+int				find_dead_champs(t_war *war);
 int				dump_war(t_war *war);
 int				get_nbr_cycle(t_war *war, int pc);
 int				handle_cycle_to_die(t_war *war);
 
 int				execute(t_war *war, t_champ *champ);
-int				champ_action(t_war *war);//      LAUNCH_WAR.C
+int				champ_action(t_war *war);
 int				launch_war(t_war *war);
 
-int			calc_pc(int pc, int value);
+int				calc_pc(int pc, int value);
 t_ocp			get_ocp(int value);
 t_params		define_params_types(int type1, int type2, int type3,
 									t_param_opt opt);
@@ -268,25 +269,27 @@ int				zjmp(t_war *war, t_champ *champ);
 */
 
 int				set_colors(void);
-int				put_good_color(WINDOW *win, int color);//  NCURSE.C
+int				put_good_color(WINDOW *win, int color);
 int				check_size_window(t_war *war);
 int				init_ncurse_struct(t_war *war);
 int				init_ncurse(t_war *war);
 
 void			display_pc(t_war *war);
-void			display_infos(WINDOW *win, t_war *war);//   DISPLAY_NCURSE.C
+void			display_infos(WINDOW *win, t_war *war);
 void			display_main_content(WINDOW *win, t_war *war);
 int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
 void			draw_borders(WINDOW *screen);
 
-int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
+int				refresh_current_cycle(t_war *war);
 int				refresh_pc(t_war *war, t_champ *champ, int old_pc, int new_pc);
 int				erase_pc(t_war *war, t_champ *champ, int pc);
 int				refresh_info_constants(t_war *war);
 int				refresh_lives_info(t_war *war);
 int				refresh_ram(t_war *war, int pos, int size, int color);
 
-int				event(t_war *war, int no_delay);//     EVENT_NCURSE.C
+int				event_ncurse2(t_war *war, int ch);
+
+int				event(t_war *war, int no_delay);
 int				bad_size_window(int y, int x);
 int				calc_pos_in_ram(int *y, int *x, int size_window[2], int pos);
 int				reset_colors(WINDOW *win);

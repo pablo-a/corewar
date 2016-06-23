@@ -6,14 +6,14 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/23 19:22:35 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/23 20:01:57 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
@@ -33,6 +33,7 @@ SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)ncurse.c \
 	   $(SRCSPATH)display_ncurse.c \
 	   $(SRCSPATH)event_ncurse.c \
+	   $(SRCSPATH)event_ncurse2.c \
 	   $(SRCSPATH)refresh_ncurse.c \
 	   $(SRCSPATH)get_ocp.c\
 	   $(SRCSPATH)get_param.c\
@@ -66,7 +67,7 @@ $(NAME): $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) -L$(FTPATH) -lft -lncurses
 
 %.o: %.c
-		@$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDES)
+	@$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDES)
 
 
 clean :
