@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 17:30:19 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 19:37:54 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,9 +227,13 @@ int				display_ram_info(int ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 
 int				reset_champ_live(t_war *war);
-int				find_dead_champs(t_war *war);
-int				champ_action(t_war *war);//      LAUNCH_WAR.C
+int				find_dead_champs(t_war *war);// HANDLE_WAR.c
 int				dump_war(t_war *war);
+int				get_nbr_cycle(t_war *war, int pc);
+int				handle_cycle_to_die(t_war *war);
+
+int				execute(t_war *war, t_champ *champ);
+int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				launch_war(t_war *war);
 
 int			calc_pc(int pc, int value);

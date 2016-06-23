@@ -6,7 +6,7 @@
 #    By: mcotfas <mcotfas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:38:06 by mcotfas           #+#    #+#              #
-#    Updated: 2016/06/17 18:22:24 by pabril           ###   ########.fr        #
+#    Updated: 2016/06/23 19:22:35 by pabril           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ INSTRUCTPATH = $(SRCSPATH)instructions/
 SRCS = $(SRCSPATH)main.c \
 	   $(SRCSPATH)champ.c \
 	   $(SRCSPATH)launch_war.c \
+	   $(SRCSPATH)handle_war.c \
 	   $(SRCSPATH)pile.c \
 	   $(SRCSPATH)init.c \
 	   $(SRCSPATH)error.c \

@@ -6,73 +6,16 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:52:48 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 19:41:11 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
 
-int		reset_champ_live(t_war *war)
-{
-	t_node *node;
-
-	node = war->pile_champ->first;
-	while (node)
-	{
-		node->champ->cpt_live[0] = 0;
-		node->champ->player->current_nbr_live = 0;
-		node = node->next;
-	}
-	return (0);
-}
-
-int		find_dead_champs(t_war *war)
-{
-	t_node	*node;
-	int		i;
-
-	i = 1;
-	node = war->pile_champ->first;
-	while (node)
-	{
-		if (!node->champ->is_dead && node->champ->cpt_live[0] == 0)
-		{
-			node->champ->is_dead = 1;
-			erase_pc(war, node->champ, node->champ->pc);
-		}
-		node = node->next;
-		i++;
-	}
-	return (0);
-}
-
 /*
-** ------- OPTION -DUMP NB --------------------
-**   arrete la partie au bout de NB cycles.
+** EXECUTE THE GOOD INSTRUCTION FROM A PROCESS WITH THE OPCODE
 */
-
-int		dump_war(t_war *war)
-{
-	display_ram(war->ram, war->ram_info);
-	display_ram_info(war->ram_info);
-	exit(0);
-}
-
-int		get_nbr_cycle(t_war *war, int pc)
-{
-	int result;
-	int ocpode;
-
-	ocpode = war->ram[pc];
-	if (ocpode < 1 || ocpode > 16)
-	{
-		result = 1;
-		return (result);
-	}
-	result = war->op_tab[ocpode - 1].nb_cycle;
-	return (result);
-}
 
 int		execute(t_war *war, t_champ *champ)
 {
@@ -126,18 +69,8 @@ int		launch_war(t_war *war)
 	int cycle;
 
 	cycle = -1;
-	//TODO Move this into another fct :
 	war->max_check++;
-	if (war->current_live_nb >= NBR_LIVE)
-	{
-		war->max_check = 0;
-		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
-	}
-	else if (war->max_check >= MAX_CHECKS)
-	{
-		war->max_check = 0;
-		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
-	}
+	handle_cycle_to_die(war);
 	war->current_live_nb = 0;
 	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{

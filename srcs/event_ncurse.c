@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:21:45 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:40:37 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 19:44:58 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,16 @@ int		reset_colors(WINDOW *win)
 		wattroff(win, COLOR_PAIR(i));
 		i++;
 	}
+	return (0);
+}
+
+int		erase_pc(t_war *war, t_champ *champ, int pc)
+{
+	if (!war->args->ncurse)
+		return (0);
+	if (war->ram_info[pc] == -champ->id)
+		refresh_ram(war, pc, 1, -champ->id);
+	else
+		refresh_ram(war, pc, 1, war->ram_info[pc]);
 	return (0);
 }

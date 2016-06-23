@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:18:34 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:37:37 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 19:41:45 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,15 @@ void	display_infos(WINDOW *win, t_war *war)
 	wattroff(win, A_BOLD);
 	reset_colors(win);
 	display_champs(war, win, &y, &x);
-	y += 2;
-	mvwprintw(win, y, x, "CYCLE_TO_DIE : %d", war->cycle_to_die);
-	y += 3;
-	mvwprintw(win, y, x, "CYCLE_DELTA : %d", CYCLE_DELTA);
-	y += 3;
-	mvwprintw(win, y, x, "NBR_LIVE : %d", NBR_LIVE);
-	mvwprintw(win, y + 1, x + 4, "Current Lives : %d", war->current_live_nb);
-	y += 4;
-	mvwprintw(win, y, x, "MAX_CHECKS : %d", MAX_CHECKS);
-	mvwprintw(win, y + 1, x + 4, "Current checks : %d", war->max_check);
-	y += 4;
-	mvwprintw(win, y, x, "GAME_SPEED : %d cycles/sec",
+	mvwprintw(win, y + 2, x, "CYCLE_TO_DIE : %d", war->cycle_to_die);
+	mvwprintw(win, y + 5, x, "CYCLE_DELTA : %d", CYCLE_DELTA);
+	mvwprintw(win, y + 8, x, "NBR_LIVE : %d", NBR_LIVE);
+	mvwprintw(win, y + 9, x + 4, "Current Lives : %d", war->current_live_nb);
+	mvwprintw(win, y + 12, x, "MAX_CHECKS : %d", MAX_CHECKS);
+	mvwprintw(win, y + 13, x + 4, "Current checks : %d", war->max_check);
+	mvwprintw(win, y + 16, x, "GAME_SPEED : %d cycles/sec",
 				war->ncurse->cycle_per_sec);
-	y += 4;
-	mvwprintw(win, y, x, " PAUSED : %d", PAUSE);
+	mvwprintw(win, y + 20, x, " PAUSED : %d", PAUSE);
 	wrefresh(win);
 }
 

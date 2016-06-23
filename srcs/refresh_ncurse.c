@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:58:41 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 19:44:57 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,6 @@ int		refresh_lives_info(t_war *war)
 	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d  ",
 			war->current_live_nb);
 	wrefresh(INFO_WINDOW);
-	return (0);
-}
-
-int		erase_pc(t_war *war, t_champ *champ, int pc)
-{
-	if (!war->args->ncurse)
-		return (0);
-	if (war->ram_info[pc] == -champ->id)
-		refresh_ram(war, pc, 1, -champ->id);
-	else
-		refresh_ram(war, pc, 1, war->ram_info[pc]);
 	return (0);
 }
 
