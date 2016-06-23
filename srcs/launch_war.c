@@ -24,6 +24,7 @@ int		execute(t_war *war, t_champ *champ)
 	ocpcode = war->ram[champ->pc];
 	if (ocpcode < 1 || ocpcode > 16)
 	{
+		ft_printf("Bad ocp code at cycle : %d\n", war->current_cycle);
 		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc, 1));
 		champ->pc = calc_pc(champ->pc, 1);
 	}

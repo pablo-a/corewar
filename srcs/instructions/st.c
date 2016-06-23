@@ -24,9 +24,12 @@ int		st(t_war *war, t_champ *champ)
 			ocp.first, champ);
 	p2 = get_param(war, define_params_types(REG_CODE, -1, IND_CODE,
 				def_opt(1, 0, 0)), ocp.second, champ);
-	if (!p1.error && !p2.error)
+	if (!p1.error && !p2.error && ocp.second == IND_CODE)
 		write_ram(war, champ, p1.value, calc_pc(champ->pc,
 					(p2.value % IDX_MOD)));
+	else if (!p1.error && !p2.error && ocp.second == REG_CODE)
+		champ->reg_tab[p2.value -1] = champ->reg_tab[p1.value -1];
+
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
 	champ->pc = champ->tmp_pc;
 	return (0);

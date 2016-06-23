@@ -31,6 +31,9 @@ int				sti(t_war *war, t_champ *champ)
 		write_ram(war, champ, reg.value, calc_pc(champ->pc,
 					(val1.value + val2.value) % IDX_MOD));
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
+
+	ft_printf("STI pc change by %d\n", champ->tmp_pc - champ->pc);
+
 	champ->pc = champ->tmp_pc;
 	return (0);
 }
