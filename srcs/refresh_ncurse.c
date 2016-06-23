@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 19:44:57 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 00:32:34 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int		refresh_info_constants(t_war *war)
 			war->ncurse->cycle_per_sec);
 	offset += 4;
 	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d  ", PAUSE);
+	offset += 4;
+	mvwprintw(INFO_WINDOW, offset, 7, "process number : %d  ",
+			war->pile_champ->nb_elem);
 	wrefresh(INFO_WINDOW);
 	return (0);
 }
