@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 17:50:58 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/20 00:32:27 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/23 23:57:55 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int				asm_rev_int(int i)
 				((i & 0xff000000) >> 24)));
 }
 
-header_t		*asm_create_header(t_strct *strct)
+t_header		*asm_create_header(t_strct *strct)
 {
-	header_t		*header;
+	t_header		*header;
 	t_byteline		*ptr;
 
 	ptr = strct->bytelines;
-	if ((header = (header_t*)malloc(sizeof(header_t))) == NULL)
+	if ((header = (t_header*)malloc(sizeof(t_header))) == NULL)
 		return (NULL);
-	ft_bzero(header, sizeof(header_t));
+	ft_bzero(header, sizeof(t_header));
 	strcpy(header->prog_name, strct->name);
 	strcpy(header->comment, strct->comment);
 	header->magic = asm_rev_int(COREWAR_EXEC_MAGIC);
@@ -63,7 +63,7 @@ char			*asm_find_file_name(char *file)
 int				asm_write_file(t_strct *strct, char *name)
 {
 	char		*cor_name;
-	header_t	*new;
+	t_header	*new;
 	t_byteline	*ptr;
 	int			fd;
 
@@ -73,7 +73,7 @@ int				asm_write_file(t_strct *strct, char *name)
 		return (-1);
 	if ((fd = open(cor_name, O_TRUNC | O_RDWR | O_CREAT, 0666)) == -1)
 		return (-1);
-	write(fd, new, sizeof(header_t));
+	write(fd, new, sizeof(t_header));
 	while (ptr)
 	{
 		if (ptr->label == 0)
@@ -82,5 +82,7 @@ int				asm_write_file(t_strct *strct, char *name)
 	}
 	if ((fd = close(fd)) == -1)
 		return (-1);
+	free(cor_name);
+	free(new);
 	return (0);
 }

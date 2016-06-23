@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 00:57:40 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/23 19:44:08 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/23 23:40:33 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ t_str		*asm_check_header(t_str *lst, t_strct *strct)
 {
 	t_str *ptr;
 
-	if (!ft_strncmp(lst->str + strct->c, NAME_CMD_STRING, 5) && strct->name == NULL)
+	if (!ft_strncmp(lst->str + strct->c, NAME_CMD_STRING, 5)
+		&& strct->name == NULL)
 	{
 		strct->c += 5;
 		if (!lst->str[strct->c] || (lst->str[strct->c]
@@ -115,16 +116,15 @@ t_str		*asm_check_header(t_str *lst, t_strct *strct)
 			asm_error("Champion name too long (Max length 128)");
 		return (ptr);
 	}
-	else if (!ft_strncmp(lst->str + strct->c, COMMENT_CMD_STRING, 8) && strct->comment == NULL)
-	{
-		strct->c += 8;
-		if (!lst->str[strct->c] || (lst->str[strct->c]
-				!= ' ' && lst->str[strct->c] != '\t'))
-			asm_lc_error(strct);
-		ptr = asm_save_header_part(lst, strct, 1);
-		if (ft_strlen(strct->comment) > COMMENT_LENGTH - 1)
-			asm_error("Champion comment too long (Max length 2048)");
-		return (ptr);
-	}
-	return (NULL);
+	if (ft_strncmp(lst->str + strct->c, COMMENT_CMD_STRING, 8)
+			&& strct->comment != NULL)
+		return (NULL);
+	strct->c += 8;
+	if (!lst->str[strct->c] || (lst->str[strct->c]
+			!= ' ' && lst->str[strct->c] != '\t'))
+		asm_lc_error(strct);
+	ptr = asm_save_header_part(lst, strct, 1);
+	if (ft_strlen(strct->comment) > COMMENT_LENGTH - 1)
+		asm_error("Champion comment too long (Max length 2048)");
+	return (ptr);
 }
