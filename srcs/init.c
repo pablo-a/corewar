@@ -6,20 +6,23 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:07:56 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:50:08 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/* Les deux fonctions load servent a charger notre tableau d'instruction 
+/*
+** Les deux fonctions load servent a charger notre tableau d'instruction
 ** dans notre structure principale.
 */
+
 static int	load_1(t_op *op_tab)
 {
 	op_tab[0] = (t_op){"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, live};
 	op_tab[1] = (t_op){"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, ld};
-	op_tab[2] = (t_op){"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0, st};
+	op_tab[2] = (t_op){"st", 2, {T_REG, T_IND | T_REG}, 3, 5,
+														"store", 1, 0, st};
 	op_tab[3] = (t_op){"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1,
 		0, add};
 	op_tab[4] = (t_op){"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction",
@@ -45,7 +48,8 @@ static int	load_2(t_op *op_tab)
 		1, 0, lld};
 	op_tab[13] = (t_op){"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}
 		, 14, 50, "long load index", 1, 1, lldi};
-	op_tab[14] = (t_op){"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, lfork};
+	op_tab[14] = (t_op){"lfork", 1, {T_DIR}, 15, 1000,
+													"long fork", 0, 1, lfork};
 	op_tab[15] = (t_op){"aff", 1, {T_REG}, 16, 2, "aff", 1, 0, aff};
 	op_tab[16] = (t_op){"\0", 0, {0}, 0, 0, "\0", 0, 0, NULL};
 	return (0);
@@ -98,7 +102,6 @@ t_war		*init_war(t_args *args)
 	war = (t_war *)malloc(sizeof(t_war));
 	while (i < MEM_SIZE)
 	{
-		//added for more info on ram;
 		war->ram_info[i] = 0;
 		war->ram[i] = 0;
 		i++;

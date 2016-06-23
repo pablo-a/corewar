@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:21:45 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:04:43 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:40:37 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int		event(t_war *war, int no_delay)
 			check_size_window(war);
 		}
 	}
-	else if (ch == 43 && war->ncurse->cycle_per_sec < 500)// '+'
+	else if (ch == 43 && war->ncurse->cycle_per_sec < 700)
 	{
 			war->ncurse->cycle_per_sec += 10;
 			war->ncurse->game_speed = (1000000 / war->ncurse->cycle_per_sec);
 	}
-	else if (ch == 45 && war->ncurse->game_speed < 50000)// '-'
+	else if (ch == 45 && war->ncurse->cycle_per_sec > 10)
 	{
 			war->ncurse->cycle_per_sec -= 10;
 			war->ncurse->game_speed = (1000000 / war->ncurse->cycle_per_sec);
@@ -65,8 +65,10 @@ int		bad_size_window(int y, int x)
 		wclear(stdscr);
 		mvwprintw(stdscr, y / 2, (x - 20) / 2, "THE WINDOW IS TOO SMALL.");
 		mvwprintw(stdscr, (y / 2) + 1, (x - 20) / 2, "RESIZE IT PLZ");
-		mvwprintw(stdscr, (y / 2) + 2, (x - 20) / 2, "%d columns < %d columns", x, MIN_WIDTH);
-		mvwprintw(stdscr, (y / 2) + 3, (x - 20) / 2, "%d rows < %d rows", y, MIN_HEIGHT);
+		mvwprintw(stdscr, (y / 2) + 2, (x - 20) / 2, "%d columns < %d columns",
+					x, MIN_WIDTH);
+		mvwprintw(stdscr, (y / 2) + 3, (x - 20) / 2, "%d rows < %d rows", y,
+				MIN_HEIGHT);
 		refresh();
 		getmaxyx(stdscr, y, x);
 	}

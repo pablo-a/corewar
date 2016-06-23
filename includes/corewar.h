@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:24:24 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 17:30:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@
 # define SIZE(champ) champ->header->prog_size
 # define ID(champ) champ->id
 
-# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
+# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number]champion1.cor]"
 # define mybool	int
-# define true	1
-# define false	0
+# define TRUE	1
+# define FALSE	0
 
-/* --------------------- STRUCTURE PRINCIPALE ---------------------------------
+/*
+** --------------------- STRUCTURE PRINCIPALE ---------------------------------
 ** CYCLE_TO_DIE est une variable centrale du jeu, on en aura besoin.
 ** les autres peuvent rester des define dans le op.h je pense
 */
@@ -72,9 +73,11 @@ typedef struct	s_war
 	struct s_ncurse	*ncurse;
 }				t_war;
 
-/* ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
+/*
+** ------------------- STRUCTURE PROPRES AUX CHAMPIONS ------------------------
 **       16 registres, un PC, un carry, son numero de joueur
 */
+
 typedef struct	s_player
 {
 	int		is_dead;
@@ -87,20 +90,20 @@ typedef struct	s_player
 typedef struct	s_champ
 {
 	struct s_player	*player;
-	int				id;//num du champion, a mettre peut etre dans le env;
-	int				reg_tab[REG_NUMBER];// ses registres
-	int				pc;////                  prochaine instruction
-	int 			tmp_pc;
-	mybool			carry;//               si operation a reussi ou pas.
-	int				cpt_interne;// pour faire ses operations. (cycles).
-	int				cpt_live[2];// cpt[0] = nb_live et cpt[1] = last_live;
+	int				id;
+	int				reg_tab[REG_NUMBER];
+	int				pc;
+	int				tmp_pc;
+	mybool			carry;
+	int				cpt_interne;
+	int				cpt_live[2];
 	unsigned char	*instructions;
 	t_header		*header;
 	int				is_dead;
 }				t_champ;
 
-/* ----------------------- STRUCTURE D'UNE PILE -------------------------------
-**
+/*
+** ----------------------- STRUCTURE D'UNE PILE -------------------------------
 */
 
 typedef struct	s_pile
@@ -117,7 +120,8 @@ typedef struct	s_node
 	struct s_node	*prev;
 }				t_node;
 
-/* --------------------- STRUCTURE DES INSTRUCTIONS AUTORISEES ----------------
+/*
+** --------------------- STRUCTURE DES INSTRUCTIONS AUTORISEES ----------------
 ** contient toutes les infos liees a chaque instructions. ptr sur fct a rajouter
 */
 
@@ -134,7 +138,8 @@ typedef struct	s_op
 	int		(*associated_function)(t_war *war, t_champ *champ);
 }				t_op;
 
-/* ------------------ STRUCTURE DES PARAMETRES --------------------------------
+/*
+** ------------------ STRUCTURE DES PARAMETRES --------------------------------
 ** va permettre de stocker les valeurs des parametres, si on veut ajouter des
 **                        options ce sera ici
 */
@@ -147,52 +152,48 @@ typedef struct	s_args
 	int		live;
 }				t_args;
 
-
 typedef struct	s_return
 {
 	int value;
 	int error;
 }				t_return;
 
-/* ------------------ NCURSE STRUCT -----------------------------------------
-**
+/*
+** ------------------ NCURSE STRUCT -----------------------------------------
 */
 
 typedef struct	s_ncurse
 {
-	WINDOW *main_window;
-	WINDOW *info_window;
-	WINDOW *event_window;
+	WINDOW	*main_window;
+	WINDOW	*info_window;
+	WINDOW	*event_window;
 	int		size_window[2];
 	int		game_speed;
 	int		cycle_per_sec;
 	int		pause;
 }				t_ncurse;
 
-
-
-typedef	struct s_ocp
+typedef struct	s_ocp
 {
-	int first;
-	int second;
-	int third;
-	int fourth;
+	int		first;
+	int		second;
+	int		third;
+	int		fourth;
 }				t_ocp;
 
-
-typedef struct 	s_param_opt
+typedef struct	s_param_opt
 {
-	int is_index;
-	int reg_value;
-	int add_value;
-} 				t_param_opt;
+	int		is_index;
+	int		reg_value;
+	int		add_value;
+}				t_param_opt;
 
-typedef	struct s_params
+typedef struct	s_params
 {
-	int reg;
-	int direct;
-	int indirect;
-	struct s_param_opt opt;
+	int					reg;
+	int					direct;
+	int					indirect;
+	struct s_param_opt	opt;
 }				t_params;
 
 /*
@@ -220,7 +221,8 @@ int				main(int argc, char **argv);
 
 int				error(char *str);//                                  ERROR.C
 int				perror_exit(char *error);
-int				display_ram(unsigned char ram[MEM_SIZE], int ram_info[MEM_SIZE]);
+int				display_ram(unsigned char ram[MEM_SIZE],
+														int ram_info[MEM_SIZE]);
 int				display_ram_info(int ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 
@@ -230,17 +232,14 @@ int				champ_action(t_war *war);//      LAUNCH_WAR.C
 int				dump_war(t_war *war);
 int				launch_war(t_war *war);
 
-
-
-// Fonctions by Marius :
-int 			calc_pc(int pc, int value);
-t_ocp 			get_ocp(int value);
-t_params 		define_params_types(int type1, int type2, int type3,
+int			calc_pc(int pc, int value);
+t_ocp			get_ocp(int value);
+t_params		define_params_types(int type1, int type2, int type3,
 									t_param_opt opt);
-t_return 		get_param(t_war *war, t_params params, int param_nb,
+t_return		get_param(t_war *war, t_params params, int param_nb,
 									t_champ *champ);
-t_param_opt 	def_opt(int is_index, int reg_value, int add_value);
-void 			write_ram(t_war *war, t_champ *champ, int value, int address);
+t_param_opt		def_opt(int is_index, int reg_value, int add_value);
+void			write_ram(t_war *war, t_champ *champ, int value, int address);
 
 int				get_value(t_war *war, int pos, int size);
 int				add(t_war *war, t_champ *champ);
@@ -275,7 +274,6 @@ void			display_infos(WINDOW *win, t_war *war);//   DISPLAY_NCURSE.C
 void			display_main_content(WINDOW *win, t_war *war);
 int				display_champs(t_war *war, WINDOW *win, int *y, int *x);
 void			draw_borders(WINDOW *screen);
-
 
 int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
 int				refresh_pc(t_war *war, t_champ *champ, int old_pc, int new_pc);

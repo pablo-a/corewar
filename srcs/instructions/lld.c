@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:10 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 03:36:32 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 17:17:17 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int			lld(t_war *war, t_champ *champ)
 	t_return	p2;
 	t_ocp		ocp;
 
-	//TODO Ok ?
-
 	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
-	p1 = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE, def_opt(0, 0, 1)), ocp.first, champ);
-	p2 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 0, 1)), ocp.second, champ);
+	p1 = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE,
+				def_opt(0, 0, 1)), ocp.first, champ);
+	p2 = get_param(war, define_params_types(REG_CODE, -1, -1,
+				def_opt(0, 0, 1)), ocp.second, champ);
 	if (!p1.error && !p2.error)
 	{
 		if (p1.value == 0)

@@ -6,44 +6,45 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:04:07 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:57:48 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+/*
+** COLORS FROM 1 TO 4 = COLORS FOR CHAMPS
+** COLORS FROM 5 TO 9 = COLORS FOR CHAMP PC
+** COLOR 9 = BORDER COLOR
+** COLOR 10 = DEFAULT COLOR
+*/
+
 int		set_colors(void)
 {
-	init_pair(1, COLOR_BLUE, COLOR_BLACK);// COLOR FOR CHAMPS
+	init_pair(1, COLOR_BLUE, COLOR_BLACK);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_RED, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
-	init_pair(5, COLOR_BLACK, COLOR_BLUE);// COLOR FOR PC
+	init_pair(5, COLOR_BLACK, COLOR_BLUE);
 	init_pair(6, COLOR_BLACK, COLOR_GREEN);
 	init_pair(7, COLOR_BLACK, COLOR_RED);
 	init_pair(8, COLOR_BLACK, COLOR_CYAN);
-	init_pair(9, COLOR_BLUE, COLOR_RED);// BORDER
-	init_pair(10, COLOR_WHITE, COLOR_BLACK);//DEFAULT COLOR
+	init_pair(9, COLOR_BLUE, COLOR_RED);
+	init_pair(10, COLOR_WHITE, COLOR_BLACK);
 	return (0);
 }
 
 int		put_good_color(WINDOW *win, int color)
 {
-//	if (color == 0)
-//	{
-//		//wattron(win, A_BOLD);
-//		wattron(win, COLOR_PAIR(10));
-//	}
-//	else
-		wattron(win, COLOR_PAIR(color));
+	wattron(win, COLOR_PAIR(color));
 	return (0);
 }
 
 int		init_ncurse_struct(t_war *war)
 {
 	t_ncurse	*ncurse;
-	int		screen_x;
-	int		screen_y;
+	int			screen_x;
+	int			screen_y;
 
 	initscr();
 	start_color();
@@ -85,8 +86,6 @@ int		check_size_window(t_war *war)
 
 int		init_ncurse(t_war *war)
 {
-	//keypad(stdscr, TRUE);
-	//raw();
 	init_ncurse_struct(war);
 	keypad(EVENT_WINDOW, TRUE);
 	curs_set(0);

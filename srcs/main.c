@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:58:14 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:54:57 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int		who_won(t_war *war)
 		put_good_color(INFO_WINDOW, -winner->id);
 		mvwprintw(INFO_WINDOW, 4, 20, "%s", winner->header->prog_name);
 		reset_colors(INFO_WINDOW);
-		mvwprintw(INFO_WINDOW, 5, 5, "has won! Last live : %d ", winner->player->last_live);
+		mvwprintw(INFO_WINDOW, 5, 5, "has won! Last live : %d ",
+				winner->player->last_live);
 		mvwprintw(INFO_WINDOW, 6, 5, "Press escape to leave");
 		wrefresh(INFO_WINDOW);
 		return (0);
@@ -89,7 +90,8 @@ int		get_args(int argc, char **argv, t_war *war)
 		// ---------------- CHAMP.COR ONLY ---------------------------
 		else if (ft_strstr(argv[i], ".cor") != NULL)
 		{
-			pile_append(war->pile_champ, init_champ(war->pile_champ->nb_elem + 1));
+			pile_append(war->pile_champ, init_champ(war->pile_champ->nb_elem
+						+ 1));
 			read_champ(argv[i], war->pile_champ->last->champ);
 			war->args->nb_champ++;
 		}
@@ -121,17 +123,15 @@ int		main(int argc, char **argv)
 	war = init_war(&args);
 	get_args(argc, argv, war);
 	load_players_into_arena(war);
-	// NCURSE MODE
 	if (war->args->ncurse == 1)
 		init_ncurse(war);
-	else//  NORMAL MODE
+	else
 	{
 		while (war->current_live_nb > 0)
 		{
 			launch_war(war);
 		}
 		who_won(war);
-		//display_ram(war->ram);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:36 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 20:52:43 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 17:18:28 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ int			lfork(t_war *war, t_champ *champ)
 {
 	t_champ	*son;
 
-	//TODO ok ?
-
 	if ((son = (t_champ *)malloc(sizeof(t_champ))) == NULL)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
-	son->pc = calc_pc(champ->pc ,get_value(war, champ->pc + 1, 2));
+	son->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2));
 	pile_append(war->pile_champ, son);
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);
 	champ->pc = calc_pc(champ->pc, 3);

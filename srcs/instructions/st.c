@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:42 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 03:44:39 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 17:20:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int		st(t_war *war, t_champ *champ)
 	t_return	p1;
 	t_return	p2;
 
-	//TODO ok ?
-
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	p1 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0)),
@@ -27,7 +25,8 @@ int		st(t_war *war, t_champ *champ)
 	p2 = get_param(war, define_params_types(REG_CODE, -1, IND_CODE,
 				def_opt(1, 0, 0)), ocp.second, champ);
 	if (!p1.error && !p2.error)
-		write_ram(war, champ, p1.value, calc_pc(champ->pc, (p2.value % IDX_MOD)));
+		write_ram(war, champ, p1.value, calc_pc(champ->pc,
+					(p2.value % IDX_MOD)));
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
 	champ->pc = champ->tmp_pc;
 	return (0);

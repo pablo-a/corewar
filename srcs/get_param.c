@@ -6,13 +6,13 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/18 19:35:49 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 03:40:11 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:48:02 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void reg(t_war *war, t_champ *champ, t_return *ret, int reg_value)
+static void	reg(t_war *war, t_champ *champ, t_return *ret, int reg_value)
 {
 	ret->error = 1;
 	ret->value = war->ram[champ->tmp_pc];
@@ -25,7 +25,7 @@ static void reg(t_war *war, t_champ *champ, t_return *ret, int reg_value)
 	}
 }
 
-static void direct(t_war *war, t_champ *champ, t_return *ret, int is_index)
+static void	direct(t_war *war, t_champ *champ, t_return *ret, int is_index)
 {
 	int bits;
 
@@ -37,21 +37,20 @@ static void direct(t_war *war, t_champ *champ, t_return *ret, int is_index)
 	champ->tmp_pc = calc_pc(champ->tmp_pc, bits);
 }
 
-static void indirect(t_war *war, t_champ *champ, t_return *ret, int add_value)
+static void	indirect(t_war *war, t_champ *champ, t_return *ret, int add_value)
 {
 	ret->error = 0;
-
-	ret->value  = get_value(war, champ->tmp_pc, 2) % IDX_MOD;
+	ret->value = get_value(war, champ->tmp_pc, 2) % IDX_MOD;
 	if (add_value)
 		ret->value = get_value(war, calc_pc(champ->pc, ret->value), 4);
-
 	champ->tmp_pc = calc_pc(champ->tmp_pc, 2);
 }
 
-t_return get_param(t_war *war, t_params params, int param_code, t_champ *champ)
+t_return	get_param(t_war *war, t_params params, int param_code,
+		t_champ *champ)
 {
-	t_return ret;
-	int 	nb_oct;
+	t_return	ret;
+	int			nb_oct;
 
 	ret.error = 1;
 	ret.value = 0;

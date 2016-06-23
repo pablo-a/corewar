@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:09:19 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:52:48 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ int		reset_champ_live(t_war *war)
 
 int		find_dead_champs(t_war *war)
 {
-	t_node *node;
-	int i = 1;
+	t_node	*node;
+	int		i;
 
+	i = 1;
 	node = war->pile_champ->first;
 	while (node)
 	{
@@ -46,7 +47,8 @@ int		find_dead_champs(t_war *war)
 	return (0);
 }
 
-/* ------- OPTION -DUMP NB --------------------
+/*
+** ------- OPTION -DUMP NB --------------------
 **   arrete la partie au bout de NB cycles.
 */
 
@@ -77,7 +79,6 @@ int		execute(t_war *war, t_champ *champ)
 	int ocpcode;
 
 	ocpcode = war->ram[champ->pc];
-	//TODO How increment when op code wrong ?
 	if (ocpcode < 1 || ocpcode > 16)
 	{
 		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc, 1));
@@ -99,7 +100,7 @@ int		champ_action(t_war *war)
 	t_node	*node;
 	int		cycle_necessaires;
 
-	node = war->pile_champ->last;// le dernier processus commence
+	node = war->pile_champ->last;
 	while (node)
 	{
 		if (!node->champ->is_dead)
@@ -115,7 +116,8 @@ int		champ_action(t_war *war)
 	return (0);
 }
 
-/* MAIN FUNCTION WHICH MAKE CHAMPS PLAY DURING ONE TURN OF 'CYCLE_TO_DIE'.
+/*
+** MAIN FUNCTION WHICH MAKE CHAMPS PLAY DURING ONE TURN OF 'CYCLE_TO_DIE'.
 ** HANDLE THE 'CYCLE_TO_DIE' VARIABLE.
 */
 
@@ -126,12 +128,10 @@ int		launch_war(t_war *war)
 	cycle = -1;
 	//TODO Move this into another fct :
 	war->max_check++;
-//	ft_printf("cycles numero  %d\n", war->current_cycle);
-	//ft_printf("check = %d\n", war->max_check);
 	if (war->current_live_nb >= NBR_LIVE)
 	{
 		war->max_check = 0;
-		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;;
+		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
 	}
 	else if (war->max_check >= MAX_CHECKS)
 	{
@@ -141,24 +141,18 @@ int		launch_war(t_war *war)
 	war->current_live_nb = 0;
 	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{
-		//++war->current_cycle;
-//		ft_printf("cycles numero  %d\n", war->current_cycle);
-		// GERER TOUTES LES ACTIONS DES CHAMPIONS.
 		champ_action(war);
-		// CAS OU DUMP EST SPECIFIE
 		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
 			dump_war(war);
 		if (war->args->ncurse == 1)
 		{
 			check_size_window(war);
-			refresh_info_constants(war);// REFRESH LES CONSTANTES DE JEU
-			//refresh_ram(war, 4000 + cycle, 4, 9);
+			refresh_info_constants(war);
 			event(war, 1);
-			refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
-			refresh_lives_info(war);// REFRESH TOUTES LES VARIABLES LIVES
+			refresh_current_cycle(war);
+			refresh_lives_info(war);
 		}
 	}
-	//refresh_current_cycle(war);// REFRESH LE COMPTEUR DE CYCLE
 	find_dead_champs(war);
 	reset_champ_live(war);
 	return (0);

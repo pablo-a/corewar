@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 17:59:49 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/18 20:32:18 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:48:29 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		get_value(t_war *war, int pos, int size)
 		result = (war->ram[(pos + i) % MEM_SIZE]) | result;
 		i++;
 	}
-	//TODO CHECK :
 	if (size == 2 && result > SHRT_MAX)
 		result -= USHRT_MAX + 1;
 	if (size == 4 && result > INT_MAX)

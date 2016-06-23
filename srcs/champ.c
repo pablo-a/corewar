@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 05:04:53 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:29:04 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ int		load_bytecode(t_champ *champ, t_war *war, int pos)
 	unsigned int i;
 
 	i = 0;
-	while (i < champ->header->prog_size)// if prog_size too big ?
+	while (i < champ->header->prog_size)
 	{
-		//replace by -id ?
 		war->ram_info[i + pos] = -(champ->id);
 		war->ram[i + pos] = champ->instructions[i];
 		i++;

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:14:07 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:58:41 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		refresh_info_constants(t_war *war)
 	int offset;
 
 	offset = 12 + (war->args->nb_champ * 5) + 2;
-	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_TO_DIE : %d   ", war->cycle_to_die);
+	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_TO_DIE : %d   ",
+			war->cycle_to_die);
 	offset += 3;
 	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
 	offset += 3;
@@ -39,7 +40,8 @@ int		refresh_info_constants(t_war *war)
 	offset++;
 	mvwprintw(INFO_WINDOW, offset, 11, "Current checks : %d  ", war->max_check);
 	offset += 3;
-	mvwprintw(INFO_WINDOW, offset, 7, "GAME_SPEED : %d cycles/sec  ", war->ncurse->cycle_per_sec);
+	mvwprintw(INFO_WINDOW, offset, 7, "GAME_SPEED : %d cycles/sec  ",
+			war->ncurse->cycle_per_sec);
 	offset += 4;
 	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d  ", PAUSE);
 	wrefresh(INFO_WINDOW);
@@ -59,7 +61,7 @@ int		refresh_lives_info(t_war *war)
 	{
 		mvwprintw(INFO_WINDOW, y + 1, 11, "Total lives since begin : %d  ",
 				node->champ->player->nbr_live);
-		mvwprintw(INFO_WINDOW, y + 2, 11, "current lives:            %d  ",
+		mvwprintw(INFO_WINDOW, y + 2, 11, "current live :            %d  ",
 				node->champ->player->current_nbr_live);
 		mvwprintw(INFO_WINDOW, y + 3, 11, "Last live :               %d  ",
 				node->champ->player->last_live);
@@ -67,7 +69,8 @@ int		refresh_lives_info(t_war *war)
 		node = node->next;
 		cpt++;
 	}
-	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d  ", war->current_live_nb);
+	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d  ",
+			war->current_live_nb);
 	wrefresh(INFO_WINDOW);
 	return (0);
 }

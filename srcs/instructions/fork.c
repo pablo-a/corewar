@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:58 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 20:51:43 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 17:16:00 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,12 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->id = father->id;
 	son->carry = father->carry;
 	son->cpt_interne = 1;
-
-	//TODO check that :
 	son->is_dead = 0;
 	son->cpt_live[0] = 0;
 	son->cpt_live[1] = 0;
-//	son->cpt_live[0] = father->cpt_live[0];
-//	son->cpt_live[1] = father->cpt_live[1];
-
 	son->header = father->header;
 	son->instructions = NULL;
 	son->player = father->player;
-
 	return (0);
 }
 
@@ -41,12 +35,10 @@ int			cor_fork(t_war *war, t_champ *champ)
 {
 	t_champ	*son;
 
-	//TODO ok ?
-
 	if ((son = (t_champ *)malloc(sizeof(t_champ))) == NULL)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
-	son->pc = calc_pc(champ->pc ,get_value(war, champ->pc + 1, 2) % IDX_MOD);
+	son->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2) % IDX_MOD);
 	pile_append(war->pile_champ, son);
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);
 	champ->pc = calc_pc(champ->pc, 3);
