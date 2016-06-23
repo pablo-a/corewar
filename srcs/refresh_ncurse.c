@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:03:39 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:14:07 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		refresh_info_constants(t_war *war)
 {
 	int offset;
 
-	offset = 12 + (war->args->nb_champ * 4) + 2;
+	offset = 12 + (war->args->nb_champ * 5) + 2;
 	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_TO_DIE : %d   ", war->cycle_to_die);
 	offset += 3;
 	mvwprintw(INFO_WINDOW, offset, 7, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
@@ -59,14 +59,27 @@ int		refresh_lives_info(t_war *war)
 	{
 		mvwprintw(INFO_WINDOW, y + 1, 11, "Total lives since begin : %d  ",
 				node->champ->player->nbr_live);
-		mvwprintw(INFO_WINDOW, y + 2, 11, "Last live :               %d  ",
+		mvwprintw(INFO_WINDOW, y + 2, 11, "current lives:            %d  ",
+				node->champ->player->current_nbr_live);
+		mvwprintw(INFO_WINDOW, y + 3, 11, "Last live :               %d  ",
 				node->champ->player->last_live);
-		y += 4;
+		y += 5;
 		node = node->next;
 		cpt++;
 	}
 	mvwprintw(INFO_WINDOW, y + 9, 11, "Current lives : %d  ", war->current_live_nb);
 	wrefresh(INFO_WINDOW);
+	return (0);
+}
+
+int		erase_pc(t_war *war, t_champ *champ, int pc)
+{
+	if (!war->args->ncurse)
+		return (0);
+	if (war->ram_info[pc] == -champ->id)
+		refresh_ram(war, pc, 1, -champ->id);
+	else
+		refresh_ram(war, pc, 1, war->ram_info[pc]);
 	return (0);
 }
 

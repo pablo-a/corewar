@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 19:03:25 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:09:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		reset_champ_live(t_war *war)
 	while (node)
 	{
 		node->champ->cpt_live[0] = 0;
+		node->champ->player->current_nbr_live = 0;
 		node = node->next;
 	}
 	return (0);
@@ -35,7 +36,10 @@ int		find_dead_champs(t_war *war)
 	while (node)
 	{
 		if (!node->champ->is_dead && node->champ->cpt_live[0] == 0)
+		{
 			node->champ->is_dead = 1;
+			erase_pc(war, node->champ, node->champ->pc);
+		}
 		node = node->next;
 		i++;
 	}
@@ -81,6 +85,7 @@ int		execute(t_war *war, t_champ *champ)
 	}
 	else
 		war->op_tab[ocpcode - 1].associated_function(war, champ);
+	champ->cpt_interne = 1;
 	return (0);
 }
 
@@ -103,10 +108,7 @@ int		champ_action(t_war *war)
 			if (node->champ->cpt_interne < cycle_necessaires)
 				node->champ->cpt_interne++;
 			else
-			{
 				execute(war, node->champ);
-				node->champ->cpt_interne = 1;
-			}
 		}
 		node = node->prev;
 	}

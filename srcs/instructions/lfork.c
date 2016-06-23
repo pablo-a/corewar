@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:36 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 03:36:04 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/22 20:52:43 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->cpt_live[0] = 0;
 	son->cpt_live[1] = 0;
 	son->header = father->header;
-	if (father->father != NULL)
-		son->father = father->father;
-	else
-		son->father = father;
+	son->player = father->player;
 	son->instructions = NULL;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:18:34 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:00:20 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:24:20 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ int		display_champs(t_war *war, WINDOW *win, int *y, int *x)
 											NAME(node->champ));
 		reset_colors(win);
 		//TODO add period life
-		mvwprintw(win, *y + 1, *x + 4, "Total lives since begin : %d",
+		mvwprintw(win, *y + 1, *x + 4, "Total lives since begin : %d   ",
 									node->champ->player->nbr_live);
-		mvwprintw(win, *y + 2, *x + 4, "Last live :               %d",
+		mvwprintw(win, *y + 2, *x + 4, "current owned live:       %d   ",
+									node->champ->player->current_nbr_live);
+		mvwprintw(win, *y + 3, *x + 4, "Last live :               %d   ",
 											node->champ->player->last_live);
-		*y += 4;
+		*y += 6;
 		cpt++;
 		node = node->next;
 	}

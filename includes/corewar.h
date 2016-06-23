@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 19:03:52 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:24:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct	s_player
 	int		is_dead;
 	int		last_live;
 	int		nbr_live;
+	int		current_nbr_live;
 	int		id;
 }				t_player;
 
@@ -95,7 +96,6 @@ typedef struct	s_champ
 	int				cpt_live[2];// cpt[0] = nb_live et cpt[1] = last_live;
 	unsigned char	*instructions;
 	t_header		*header;
-	struct s_champ	*father;
 	int				is_dead;
 }				t_champ;
 
@@ -279,6 +279,7 @@ void			draw_borders(WINDOW *screen);
 
 int				refresh_current_cycle(t_war *war);//       REFRESH_NCURSE.C
 int				refresh_pc(t_war *war, t_champ *champ, int old_pc, int new_pc);
+int				erase_pc(t_war *war, t_champ *champ, int pc);
 int				refresh_info_constants(t_war *war);
 int				refresh_lives_info(t_war *war);
 int				refresh_ram(t_war *war, int pos, int size, int color);

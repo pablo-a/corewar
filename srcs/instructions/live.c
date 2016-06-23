@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:59 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/22 18:59:45 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 16:07:33 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ static int	add_live(t_war *war, int id)
 		node = node->next;
 	if (!node)
 		return (-1);
-	if (!node->champ->is_dead)
-	{
-		node->champ->player->nbr_live++;
-		node->champ->player->last_live = war->current_cycle;
-		if (!war->args->ncurse && war->args->live)
-			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
-					-id, node->champ->header->prog_name);
-	}
+	node->champ->player->nbr_live++;
+	node->champ->player->last_live = war->current_cycle;
+	node->champ->player->current_nbr_live++;
+	if (!war->args->ncurse && war->args->live)
+		ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+				-id, node->champ->header->prog_name);
 	return (1);
 }
 
@@ -46,20 +44,12 @@ int		live(t_war *war, t_champ *champ)
 	if (id == champ->id)
 	{
 		champ->cpt_live[1] = war->current_cycle;
-		if (champ->father != NULL)
-		{
-			champ->father->player->last_live= war->current_cycle;
-			champ->father->player->nbr_live++;
-		}
-		else
-		{
-			champ->player->last_live= war->current_cycle;
-			champ->player->nbr_live++;
-		}
+		champ->player->last_live= war->current_cycle;
+		champ->player->nbr_live++;
+		champ->player->current_nbr_live++;
 		if (!war->args->ncurse && war->args->live)
 			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
 					-champ->id, champ->header->prog_name);
-//	ft_printf("Live at cycle %d\n",war->current_cycle);
 	}
 	else
 		add_live(war, id);
