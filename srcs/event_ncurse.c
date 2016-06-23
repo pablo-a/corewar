@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 20:02:24 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 20:13:31 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/23 20:54:36 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int		bad_size_window(int y, int x)
 int		calc_pos_in_ram(int *y, int *x, int size_window[2], int pos)
 {
 	pos = pos % MEM_SIZE;
-	*x = (size_window[1] - ((BYTE_PER_LINE * 2) + (34 * SPACE_BT_BYTE) + SIZE_INFO + 6)) / 2;
+	*x = (size_window[1] - ((2 * BYTE_PER_LINE) + (34 * SPACE_BT_BYTE) + 6 +
+				SIZE_INFO)) / 2;
 	*x += ((pos % BYTE_PER_LINE) * (SPACE_BT_BYTE + 2));
 	*y = (size_window[0] - (MEM_SIZE / BYTE_PER_LINE)) / 2;
 	*y += (pos / BYTE_PER_LINE);
