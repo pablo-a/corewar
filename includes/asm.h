@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:31:03 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/20 00:46:12 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/23 19:58:44 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_byteline
 */
 int				main(int argc, char **argv);
 void			asm_error(char *str);
+void			asm_clean_memory(t_strct *strct);
 
 /*
 ** asm_parse_file.c

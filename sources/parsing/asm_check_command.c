@@ -6,13 +6,13 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:58:49 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/20 00:12:21 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/23 19:37:01 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-int		asm_save_command(t_byteline *new, t_strct *strct)
+void	asm_save_command(t_byteline *new, t_strct *strct)
 {
 	t_byteline	*ptr;
 
@@ -25,7 +25,6 @@ int		asm_save_command(t_byteline *new, t_strct *strct)
 			ptr = ptr->next;
 		ptr->next = new;
 	}
-	return (0);
 }
 
 void	asm_command_2(char **array, t_byteline *new, t_strct *strct, char *str)
@@ -70,7 +69,6 @@ int		asm_check_command(int i, char *str, t_strct *strct)
 {
 	t_byteline	*new;
 	char		**array;
-	int			ret;
 
 	new = (t_byteline*)malloc(sizeof(t_byteline));
 	ft_bzero(new, sizeof(t_byteline));
@@ -89,6 +87,6 @@ int		asm_check_command(int i, char *str, t_strct *strct)
 	else if (i > 7)
 		asm_command_2(array, new, strct, str);
 	new->label = 0;
-	ret = asm_save_command(new, strct);
+	asm_save_command(new, strct);
 	return (0);
 }

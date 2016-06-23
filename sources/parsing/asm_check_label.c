@@ -6,7 +6,7 @@
 /*   By: hdebard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 03:35:54 by hdebard           #+#    #+#             */
-/*   Updated: 2016/06/20 00:31:30 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/23 19:56:42 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,16 @@ int		asm_is_command(t_str *lst, char **array, t_strct *strct)
 	int x;
 
 	x = 0;
-	while (strct->tab_command[x])
-	{
-		if (!ft_strcmp(array[0], strct->tab_command[x]))
-		{
-			strct->c += ft_strlen(array[0]);
-			if (lst->str[strct->c] != ' ' && lst->str[strct->c] != '\t')
-				return (0);
-			strct->c += asm_str_browse(lst->str + strct->c);
-			if (asm_check_command(x, lst->str, strct) == 0)
-				return (1);
-			else
-				asm_error("Erreur, moi pas comprendre!");
-		}
-		x++;
-	}
+	if ((x = asm_find_command(array[0], strct)) == -1)
+		return (0);
+	strct->c += ft_strlen(array[0]);
+	if (lst->str[strct->c] != ' ' && lst->str[strct->c] != '\t')
+		return (0);
+	strct->c += asm_str_browse(lst->str + strct->c);
+	if (asm_check_command(x, lst->str, strct) == 0)
+		return (1);
+	else
+		asm_lc_error(strct);
 	return (0);
 }
 
@@ -59,7 +54,7 @@ int		asm_save_label(char *str, t_strct *strct, int ret)
 	{
 		if ((strct->bytelines =
 			(t_byteline*)malloc(sizeof(t_byteline))) == NULL)
-			asm_error("Malloc Fail");
+			asm_lc_error(strct);
 		ptr = strct->bytelines;
 	}
 	else
@@ -68,7 +63,7 @@ int		asm_save_label(char *str, t_strct *strct, int ret)
 		while (ptr->next)
 			ptr = ptr->next;
 		if ((ptr->next = (t_byteline*)malloc(sizeof(t_byteline))) == NULL)
-			asm_error("Malloc Fail");
+			asm_lc_error(strct);
 		ptr = ptr->next;
 	}
 	str[ret] = 0;
@@ -88,17 +83,19 @@ t_str	*asm_check_label(t_str *lst, t_strct *strct)
 	if ((ret = asm_is_label(array[0])) == 0)
 	{
 		if (asm_is_command(lst, array, strct) == 0)
-			asm_error("EROOOOOR");
+			asm_lc_error(strct);
 	}
 	else
 	{
 		strct->c += asm_save_label(array[0], strct, ret) + 1;
 		strct->c += asm_str_browse(lst->str + strct->c);
+		free(array);
 		if (!lst->str[strct->c] || lst->str[strct->c] == '#')
 			return (lst->next);
 		array = asm_strsplit(lst->str + strct->c);
 		if (asm_is_command(lst, array, strct) == 0)
-			asm_error("EROOOOOR");
+			asm_lc_error(strct);
 	}
+	free(array);
 	return (lst->next);
 }

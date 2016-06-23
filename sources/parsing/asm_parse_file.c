@@ -6,7 +6,7 @@
 /*   By: vbarrete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:44:44 by vbarrete          #+#    #+#             */
-/*   Updated: 2016/06/20 00:31:51 by hdebard          ###   ########.fr       */
+/*   Updated: 2016/06/23 19:57:33 by hdebard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ int			asm_parse_file(char *name)
 		return (1);
 	else
 		ft_putendl("\033[35mFile writed!\033[37m");
+	asm_clean_memory(strct);
 	return (0);
 }
