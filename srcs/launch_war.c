@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 19:41:11 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 01:37:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		execute(t_war *war, t_champ *champ)
 	ocpcode = war->ram[champ->pc];
 	if (ocpcode < 1 || ocpcode > 16)
 	{
-		ft_printf("Bad ocp code at cycle : %d\n", war->current_cycle);
 		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc, 1));
 		champ->pc = calc_pc(champ->pc, 1);
 	}

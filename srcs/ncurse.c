@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 17:10:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:57:48 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 02:08:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int		check_size_window(t_war *war)
 
 int		init_ncurse(t_war *war)
 {
+	int ch;
+
+	ch = 0;
 	init_ncurse_struct(war);
 	keypad(EVENT_WINDOW, TRUE);
 	curs_set(0);
@@ -98,6 +101,9 @@ int		init_ncurse(t_war *war)
 	while (war->current_live_nb > 0)
 		launch_war(war);
 	who_won(war);
+	nodelay(EVENT_WINDOW, FALSE);
+	while (ch != 27)
+		ch = wgetch(EVENT_WINDOW);
 	event(war, 0);
 	clear();
 	refresh();

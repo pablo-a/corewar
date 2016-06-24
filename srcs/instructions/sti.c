@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:49:52 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 17:20:48 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 01:36:41 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ int				sti(t_war *war, t_champ *champ)
 		write_ram(war, champ, reg.value, calc_pc(champ->pc,
 					(val1.value + val2.value) % IDX_MOD));
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
-
-	ft_printf("STI pc change by %d\n", champ->tmp_pc - champ->pc);
-
 	champ->pc = champ->tmp_pc;
 	return (0);
 }
