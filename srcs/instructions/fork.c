@@ -23,7 +23,7 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->carry = father->carry;
 	son->cpt_interne = 1;
 	son->is_dead = 0;
-	son->cpt_live[0] = 0;
+	son->cpt_live[0] = father->cpt_live[0];
 	son->cpt_live[1] = 0;
 	son->header = father->header;
 	son->instructions = NULL;
