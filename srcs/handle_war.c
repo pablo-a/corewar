@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 19:20:44 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 05:25:04 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 19:24:21 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ int		find_dead_champs(t_war *war)
 int		dump_war(t_war *war)
 {
 	display_ram(war->ram, war->ram_info);
-	t_node *node = war->pile_champ->first;
-	while (node)
-	{
-		ft_printf("at : %d\n", node->champ->pc);
-		node = node->next;
-	}
 	exit(0);
 }
 

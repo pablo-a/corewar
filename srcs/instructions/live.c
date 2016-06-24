@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:48:59 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 04:51:03 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 20:01:44 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ static int	add_live(t_war *war, int id)
 int			live(t_war *war, t_champ *champ)
 {
 	int id;
-
-//	if (champ->id_process == 8)
-//		ft_printf("live at cycle : %d and pc : %d\n", war->current_cycle, champ->pc);
 
 	champ->tmp_pc = calc_pc(champ->pc, 1);
 	war->current_live_nb++;

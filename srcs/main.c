@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 00:15:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 20:44:00 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 20:02:56 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		who_won(t_war *war)
 		wrefresh(INFO_WINDOW);
 		return (0);
 	}
-	ft_printf("Contestant %d, \"%s\" has won! Last live : %d \n", winner->id,
+	ft_printf("Contestant %d, \"%s\" has won! Last live : %d \n", -winner->id,
 			winner->header->prog_name, winner->player->last_live);
 	return (0);
 }

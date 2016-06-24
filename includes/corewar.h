@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 06:41:53 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 19:23:24 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct	s_champ
 	unsigned char	*instructions;
 	t_header		*header;
 	int				is_dead;
-	int 			op_cycles;
+	int				op_cycles;
 }				t_champ;
 
 /*
