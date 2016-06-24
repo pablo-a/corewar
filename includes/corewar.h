@@ -101,6 +101,7 @@ typedef struct	s_champ
 	unsigned char	*instructions;
 	t_header		*header;
 	int				is_dead;
+	int 			op_cycles;
 }				t_champ;
 
 /*

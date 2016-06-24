@@ -34,6 +34,9 @@ int			live(t_war *war, t_champ *champ)
 {
 	int id;
 
+//	if (champ->id_process == 8)
+//		ft_printf("live at cycle : %d and pc : %d\n", war->current_cycle, champ->pc);
+
 	champ->tmp_pc = calc_pc(champ->pc, 1);
 	war->current_live_nb++;
 	id = get_value(war, champ->tmp_pc, 4);
@@ -46,7 +49,7 @@ int			live(t_war *war, t_champ *champ)
 		champ->player->current_nbr_live++;
 		if (!war->args->ncurse && war->args->live)
 			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
-					-champ->id, champ->header->prog_name);
+							-champ->id, champ->header->prog_name);
 	}
 	else
 		add_live(war, id);

@@ -78,6 +78,7 @@ int		load_bytecode(t_champ *champ, t_war *war, int pos)
 		war->ram[i + pos] = champ->instructions[i];
 		i++;
 	}
+	champ->op_cycles = get_nbr_cycle(war, pos);
 	return (0);
 }
 

@@ -24,7 +24,7 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->cpt_interne = 1;
 	son->is_dead = 0;
 	son->cpt_live[0] = father->cpt_live[0];
-	son->cpt_live[1] = 0;
+	son->cpt_live[1] = father->cpt_live[1];
 	son->header = father->header;
 	son->player = father->player;
 	son->instructions = NULL;
@@ -39,6 +39,7 @@ int			lfork(t_war *war, t_champ *champ)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
 	son->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2));
+	son->op_cycles = get_nbr_cycle(war, son->pc);
 	son->id_process = war->pile_champ->nb_elem + 1;
 	pile_append(war->pile_champ, son);
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);

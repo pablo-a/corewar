@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libftprintf.h"
 
 int		get_proc_alive(t_war *war)
 {
@@ -45,6 +44,7 @@ int		execute(t_war *war, t_champ *champ)
 	}
 	else
 		war->op_tab[ocpcode - 1].associated_function(war, champ);
+	champ->op_cycles = get_nbr_cycle(war, champ->pc);
 	champ->cpt_interne = 1;
 	return (0);
 }
@@ -57,15 +57,13 @@ int		execute(t_war *war, t_champ *champ)
 int		champ_action(t_war *war)
 {
 	t_node	*node;
-	int		cycle_necessaires;
 
 	node = war->pile_champ->last;
 	while (node)
 	{
 		if (!node->champ->is_dead)
 		{
-			cycle_necessaires = get_nbr_cycle(war, node->champ->pc);
-			if (node->champ->cpt_interne < cycle_necessaires)
+			if (node->champ->cpt_interne < node->champ->op_cycles)
 				node->champ->cpt_interne++;
 			else
 				execute(war, node->champ);
