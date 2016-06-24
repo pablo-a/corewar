@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 05:48:57 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 06:41:53 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct	s_champ
 {
 	struct s_player	*player;
 	int				id;
+	int				id_process;
 	int				reg_tab[REG_NUMBER];
 	int				pc;
 	int				tmp_pc;

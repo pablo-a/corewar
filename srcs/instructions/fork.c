@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 13:47:58 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 00:30:41 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 06:42:54 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int			cor_fork(t_war *war, t_champ *champ)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
 	son->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2) % IDX_MOD);
+	son->id_process = war->pile_champ->nb_elem + 1;
 	pile_append(war->pile_champ, son);
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);
 	refresh_pc(war, champ, son->pc, son->pc);

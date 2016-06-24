@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 12:07:29 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 05:49:27 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 06:15:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int		refresh_info_constants(t_war *war)
 	offset += 4;
 	mvwprintw(INFO_WINDOW, offset, 7, " PAUSED : %d  ", PAUSE);
 	offset += 4;
-	mvwprintw(INFO_WINDOW, offset, 7, "process number : %d  ",
-			get_proc_alive(war));
+	//mvwprintw(INFO_WINDOW, offset, 7, "process number : %d  ",
+	//		get_proc_alive(war));
 	wrefresh(INFO_WINDOW);
 	return (0);
 }
