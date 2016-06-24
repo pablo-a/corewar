@@ -6,12 +6,28 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 01:37:19 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 05:49:35 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libftprintf.h"
+
+int		get_proc_alive(t_war *war)
+{
+	t_node	*node;
+	int		result;
+
+	result = 0;
+	node = war->pile_champ->first;
+	while (node)
+	{
+		if (node->champ->is_dead == 0)
+			result++;
+		node = node->next;
+	}
+	return (result);
+}
 
 /*
 ** EXECUTE THE GOOD INSTRUCTION FROM A PROCESS WITH THE OPCODE
@@ -70,7 +86,6 @@ int		launch_war(t_war *war)
 
 	cycle = -1;
 	war->max_check++;
-	handle_cycle_to_die(war);
 	war->current_live_nb = 0;
 	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{
@@ -86,6 +101,7 @@ int		launch_war(t_war *war)
 			refresh_lives_info(war);
 		}
 	}
+	handle_cycle_to_die(war);
 	find_dead_champs(war);
 	reset_champ_live(war);
 	return (0);

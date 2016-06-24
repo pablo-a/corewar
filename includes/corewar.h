@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 20:46:41 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 05:48:57 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ int				dump_war(t_war *war);
 int				get_nbr_cycle(t_war *war, int pc);
 int				handle_cycle_to_die(t_war *war);
 
+int				get_proc_alive(t_war *war);
 int				execute(t_war *war, t_champ *champ);
 int				champ_action(t_war *war);
 int				launch_war(t_war *war);

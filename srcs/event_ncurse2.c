@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 19:53:40 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 20:01:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 04:02:30 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		event_ncurse2(t_war *war, int ch)
 			check_size_window(war);
 		}
 	}
-	else if (ch == 43 && war->ncurse->cycle_per_sec < 700)
+	else if (ch == 43 && war->ncurse->cycle_per_sec < 2000)
 	{
 		war->ncurse->cycle_per_sec += 10;
 		war->ncurse->game_speed = (1000000 / war->ncurse->cycle_per_sec);

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 16:29:04 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/24 03:28:54 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ int		read_champ(char *file, t_champ *champ)
 		error("Bad magic number.");
 	champ->header = header;
 	return (0);
+}
+
+int		count_processes_alive(t_war *war)
+{
+	t_node	*node;
+	int		result;
+
+	result = 0;
+	node = war->pile_champ->first;
+	while (node)
+	{
+		if (node->champ->is_dead == 0)
+			result++;
+		node = node->next;
+	}
+	return (result);
 }
 
 int		load_bytecode(t_champ *champ, t_war *war, int pos)
