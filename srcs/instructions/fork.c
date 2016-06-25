@@ -40,6 +40,7 @@ int			cor_fork(t_war *war, t_champ *champ)
 	copy_father(champ, son);
 	son->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2) % IDX_MOD);
 	son->op_cycles = get_nbr_cycle(war, son->pc);
+	son->op_next = war->ram[son->pc];
 	son->id_process = war->pile_champ->nb_elem + 1;
 	pile_append(war->pile_champ, son);
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);

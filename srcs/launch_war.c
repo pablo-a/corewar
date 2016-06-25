@@ -36,7 +36,7 @@ int		execute(t_war *war, t_champ *champ)
 {
 	int ocpcode;
 
-	ocpcode = war->ram[champ->pc];
+	ocpcode = champ->op_next;
 	if (ocpcode < 1 || ocpcode > 16)
 	{
 		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc, 1));
@@ -45,6 +45,7 @@ int		execute(t_war *war, t_champ *champ)
 	else
 		war->op_tab[ocpcode - 1].associated_function(war, champ);
 	champ->op_cycles = get_nbr_cycle(war, champ->pc);
+	champ->op_next = war->ram[champ->pc];
 	champ->cpt_interne = 1;
 	return (0);
 }

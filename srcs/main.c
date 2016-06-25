@@ -110,6 +110,9 @@ int		get_args(int argc, char **argv, t_war *war)
 
 int		main(int argc, char **argv)
 {
+//	argc = 0;
+//	argv = NULL;
+
 	t_war	*war;
 	t_args	args;
 
@@ -128,5 +131,8 @@ int		main(int argc, char **argv)
 			launch_war(war);
 		who_won(war);
 	}
+
+//	get_ocp(112);
+
 	return (0);
 }
