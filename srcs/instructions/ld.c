@@ -24,11 +24,18 @@ int			ld(t_war *war, t_champ *champ)
 	p1 = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE,
 				def_opt(0, 0, 1)), ocp.first, champ);
 	p2 = get_param(war, define_params_types(REG_CODE, -1, -1,
-				def_opt(0, 0, 1)), ocp.second, champ);
+				def_opt(0, 0, 0)), ocp.second, champ);
 	if (!p1.error && !p2.error)
 	{
 		if (p1.value == 0)
+		{
+//			ft_printf("Carry for P %d at cycle %d OK\n", champ->id_process, war->current_cycle);
 			champ->carry = 1;
+		}
+		else
+		{
+//			ft_printf("Carry for P %d at cycle %d FAILED\n", champ->id_process, war->current_cycle);
+		}
 		p1.value = p1.value;
 		champ->reg_tab[p2.value - 1] = p1.value;
 	}

@@ -14,7 +14,7 @@
 
 int		get_value(t_war *war, int pos, int size)
 {
-	int result;
+	unsigned int result;
 	int i;
 
 	i = 1;
@@ -25,9 +25,9 @@ int		get_value(t_war *war, int pos, int size)
 		result = (war->ram[(pos + i) % MEM_SIZE]) | result;
 		i++;
 	}
-	if (size == 2 && result > SHRT_MAX)
-		result -= USHRT_MAX + 1;
-	if (size == 4 && result > INT_MAX)
-		result -= UINT_MAX + 1;
+	if (size == 2)
+		result = (short int)result;
+	if (size == 4)
+		result = (int)result;
 	return (result);
 }

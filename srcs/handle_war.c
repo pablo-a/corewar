@@ -29,9 +29,7 @@ int		reset_champ_live(t_war *war)
 int		find_dead_champs(t_war *war)
 {
 	t_node	*node;
-	int		i;
 
-	i = 1;
 	node = war->pile_champ->first;
 	while (node)
 	{
@@ -41,7 +39,6 @@ int		find_dead_champs(t_war *war)
 			erase_pc(war, node->champ, node->champ->pc);
 		}
 		node = node->next;
-		i++;
 	}
 	return (0);
 }

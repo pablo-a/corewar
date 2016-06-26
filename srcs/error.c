@@ -38,7 +38,8 @@ int		display_ram(unsigned char ram[MEM_SIZE], int ram_info[MEM_SIZE])
 			ft_putstr(RED);
 		if (ram_info[i] == 0)
 			ft_putstr(END);
-		if (i % 32 == 31)
+		//TODO put back to 32 :
+		if (i % 64 == 63)
 			ft_printf("%02x\n", ram[i]);
 		else
 			ft_printf("%02x ", ram[i]);

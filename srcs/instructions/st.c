@@ -23,7 +23,7 @@ int		st(t_war *war, t_champ *champ)
 	p1 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0)),
 			ocp.first, champ);
 	p2 = get_param(war, define_params_types(REG_CODE, -1, IND_CODE,
-				def_opt(1, 0, 0)), ocp.second, champ);
+				def_opt(0, 0, 0)), ocp.second, champ);
 	if (!p1.error && !p2.error && ocp.second == IND_CODE)
 		write_ram(war, champ, p1.value, calc_pc(champ->pc,
 					(p2.value % IDX_MOD)));

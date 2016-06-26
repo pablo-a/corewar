@@ -105,6 +105,7 @@ t_war		*init_war(t_args *args)
 	{
 		war->ram_info[i] = 0;
 		war->ram[i] = 0;
+//		war->ram2[i] = 0;
 		i++;
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;
