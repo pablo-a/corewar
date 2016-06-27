@@ -18,7 +18,6 @@ int			ld(t_war *war, t_champ *champ)
 	t_return	p2;
 	t_ocp		ocp;
 
-	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	p1 = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE,
@@ -28,14 +27,9 @@ int			ld(t_war *war, t_champ *champ)
 	if (!p1.error && !p2.error)
 	{
 		if (p1.value == 0)
-		{
-//			ft_printf("Carry for P %d at cycle %d OK\n", champ->id_process, war->current_cycle);
 			champ->carry = 1;
-		}
 		else
-		{
-//			ft_printf("Carry for P %d at cycle %d FAILED\n", champ->id_process, war->current_cycle);
-		}
+			champ->carry = 0;
 		p1.value = p1.value;
 		champ->reg_tab[p2.value - 1] = p1.value;
 	}

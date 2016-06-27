@@ -62,13 +62,13 @@ t_return	get_param(t_war *war, t_params params, int param_code,
 		indirect(war, champ, &ret, params.opt.add_value);
 	else if (ret.error)
 	{
-		if (param_code == DIR_CODE && !params.opt.is_index)
+		if (param_code == DIR_CODE && !params.opt.is_index) // 2
 			nb_oct = 4;
-		else if (param_code == DIR_CODE && params.opt.is_index)
+		else if (param_code == DIR_CODE && params.opt.is_index) //2
 			nb_oct = 2;
-		else if (param_code == REG_CODE)
+		else if (param_code == REG_CODE) // 3
 			nb_oct = 1;
-		else if (param_code == IND_CODE)
+		else if (param_code == IND_CODE)  //3
 			nb_oct = 2;
 		else
 			nb_oct = 0;

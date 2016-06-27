@@ -38,7 +38,6 @@ int		execute(t_war *war, t_champ *champ)
 
 //	ocpcode = war->ram[champ->pc];
 	ocpcode = champ->op_next;
-
 	if (ocpcode < 1 || ocpcode > 16)
 	{
 		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc, 1));
@@ -46,6 +45,8 @@ int		execute(t_war *war, t_champ *champ)
 	}
 	else
 		war->op_tab[ocpcode - 1].associated_function(war, champ);
+
+	//TODO Update op cycles and op next here :
 	champ->op_cycles = get_nbr_cycle(war, champ->pc);
 	champ->op_next = war->ram[champ->pc];
 	champ->cpt_interne = 1;
@@ -60,12 +61,6 @@ int		execute(t_war *war, t_champ *champ)
 int		champ_action(t_war *war)
 {
 	t_node	*node;
-	int i;
-
-	i = -1;
-	while (++i < MEM_SIZE)
-		war->ram2[i] = war->ram[i];
-
 
 	node = war->pile_champ->last;
 	while (node)
@@ -79,11 +74,6 @@ int		champ_action(t_war *war)
 		}
 		node = node->prev;
 	}
-
-	i = -1;
-	while (++i < MEM_SIZE)
-		war->ram[i] = war->ram2[i];
-
 	return (0);
 }
 
@@ -102,7 +92,6 @@ int		launch_war(t_war *war)
 	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{
 		champ_action(war);
-//		copy_ram(war);
 		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
 			dump_war(war);
 		if (war->args->ncurse == 1)

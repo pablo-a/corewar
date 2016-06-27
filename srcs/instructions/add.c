@@ -19,7 +19,8 @@ int		add(t_war *war, t_champ *champ)
 	t_return	p2;
 	t_return	p3;
 
-	champ->carry = 0;
+	//TODO Check carry case :
+//	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	p1 = get_param(war, define_params_types(REG_CODE, -1, -1, def_opt(0, 1, 0))
@@ -32,6 +33,8 @@ int		add(t_war *war, t_champ *champ)
 	{
 		if (p1.value + p2.value == 0)
 			champ->carry = 1;
+		else
+			champ->carry = 0;
 		champ->reg_tab[p3.value - 1] = p1.value + p2.value;
 	}
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);

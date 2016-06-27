@@ -57,15 +57,15 @@ int		dump_war(t_war *war)
 int		get_nbr_cycle(t_war *war, int pc)
 {
 	int result;
-	int ocpode;
+	int ocpcode;
 
-	ocpode = war->ram[pc];
-	if (ocpode < 1 || ocpode > 16)
+	ocpcode = war->ram[pc];
+	if (ocpcode < 1 || ocpcode > 16)
 	{
 		result = 1;
 		return (result);
 	}
-	result = war->op_tab[ocpode - 1].nb_cycle;
+	result = war->op_tab[ocpcode - 1].nb_cycle;
 	return (result);
 }
 

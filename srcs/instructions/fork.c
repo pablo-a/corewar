@@ -20,6 +20,7 @@ static int	copy_father(t_champ *father, t_champ *son)
 	while (i++ < 16)
 		son->reg_tab[i] = father->reg_tab[i];
 	son->id = father->id;
+	//TODO Check if it clones carry :
 	son->carry = father->carry;
 	son->cpt_interne = 1;
 	son->is_dead = 0;

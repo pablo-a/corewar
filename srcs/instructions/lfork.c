@@ -20,6 +20,7 @@ static int	copy_father(t_champ *father, t_champ *son)
 	while (i++ < 16)
 		son->reg_tab[i] = father->reg_tab[i];
 	son->id = father->id;
+	//TODO Check if it clones carry :
 	son->carry = father->carry;
 	son->cpt_interne = 1;
 	son->is_dead = 0;
@@ -34,6 +35,9 @@ static int	copy_father(t_champ *father, t_champ *son)
 int			lfork(t_war *war, t_champ *champ)
 {
 	t_champ	*son;
+
+
+	//TODO Modfy carry :
 
 	if ((son = (t_champ *)malloc(sizeof(t_champ))) == NULL)
 		perror_exit("Malloc error ");
