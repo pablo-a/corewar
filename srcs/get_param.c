@@ -14,7 +14,6 @@
 
 static void	reg(t_war *war, t_champ *champ, t_return *ret, int reg_value)
 {
-	ret->error = 1;
 	ret->value = war->ram[champ->tmp_pc];
 	if (ret->value > 0 && ret->value < 17)
 	{
@@ -42,7 +41,7 @@ static void	indirect(t_war *war, t_champ *champ, t_return *ret, int add_value)
 	ret->error = 0;
 	ret->value = get_value(war, champ->tmp_pc, 2) % IDX_MOD;
 	if (add_value)
-		ret->value = get_value(war, calc_pc(champ->pc, ret->value), 4);
+		ret->value = get_value(war, calc_pc(champ->tmp_pc, ret->value), 4);
 	champ->tmp_pc = calc_pc(champ->tmp_pc, 2);
 }
 
@@ -62,13 +61,13 @@ t_return	get_param(t_war *war, t_params params, int param_code,
 		indirect(war, champ, &ret, params.opt.add_value);
 	else if (ret.error)
 	{
-		if (param_code == DIR_CODE && !params.opt.is_index) // 2
+		if (param_code == DIR_CODE && !params.opt.is_index)
 			nb_oct = 4;
-		else if (param_code == DIR_CODE && params.opt.is_index) //2
+		else if (param_code == DIR_CODE && params.opt.is_index)
 			nb_oct = 2;
-		else if (param_code == REG_CODE) // 3
+		else if (param_code == REG_CODE)
 			nb_oct = 1;
-		else if (param_code == IND_CODE)  //3
+		else if (param_code == IND_CODE)
 			nb_oct = 2;
 		else
 			nb_oct = 0;

@@ -38,6 +38,7 @@ int			lfork(t_war *war, t_champ *champ)
 
 
 	//TODO Modfy carry :
+	//Same as fork, without the % IDX_MOD This operation modifies the carry.
 
 	if ((son = (t_champ *)malloc(sizeof(t_champ))) == NULL)
 		perror_exit("Malloc error ");

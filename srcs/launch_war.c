@@ -36,6 +36,9 @@ int		execute(t_war *war, t_champ *champ)
 {
 	int ocpcode;
 
+	//TODO REMOVE :
+	int pc = champ->pc;
+
 //	ocpcode = war->ram[champ->pc];
 	ocpcode = champ->op_next;
 	if (ocpcode < 1 || ocpcode > 16)
@@ -50,6 +53,13 @@ int		execute(t_war *war, t_champ *champ)
 	champ->op_cycles = get_nbr_cycle(war, champ->pc);
 	champ->op_next = war->ram[champ->pc];
 	champ->cpt_interne = 1;
+
+
+	if (champ->id_process == 1563)
+		ft_printf("Cycle %d - Process %d - Old pc : %d New pc : %d Op : %d Next op : %d Next cycle : %d\n",
+		war->current_cycle, champ->id_process, pc, champ->pc, ocpcode,  champ->op_next, champ->op_cycles);
+
+
 	return (0);
 }
 
