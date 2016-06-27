@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 05:49:35 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/27 15:38:43 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		champ_action(t_war *war)
 {
 	t_node	*node;
 
+	copy_ram(war->ram2, war->ram);
 	node = war->pile_champ->last;
 	while (node)
 	{
@@ -84,6 +85,7 @@ int		champ_action(t_war *war)
 		}
 		node = node->prev;
 	}
+	copy_ram(war->ram, war->ram2);
 	return (0);
 }
 
@@ -101,6 +103,7 @@ int		launch_war(t_war *war)
 	war->current_live_nb = 0;
 	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{
+		ft_printf("It is now cycle %d\n", war->current_cycle);
 		champ_action(war);
 		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
 			dump_war(war);

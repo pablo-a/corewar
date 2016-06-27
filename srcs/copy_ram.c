@@ -1,17 +1,25 @@
-//
-// Created by mcotfas on 26/06/16.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   copy_ram.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/27 15:17:40 by pabril            #+#    #+#             */
+/*   Updated: 2016/06/27 15:23:50 by pabril           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
-//void copy_ram(t_war *war)
-//{
-//	int i;
-//
-//	i = 0;
-//	while (i < MEM_SIZE)
-//	{
-////		war->ram[i] = war->ram2[i];
-//		i++;
-//	}
-//}
+void copy_ram(unsigned char ram[MEM_SIZE], unsigned char ram2[MEM_SIZE])
+{
+	int i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		ram[i] = ram2[i];
+		i++;
+	}
+}

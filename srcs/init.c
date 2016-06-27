@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 06:41:34 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/27 15:16:33 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_war		*init_war(t_args *args)
 	{
 		war->ram_info[i] = 0;
 		war->ram[i] = 0;
-//		war->ram2[i] = 0;
+		war->ram2[i] = 0;
 		i++;
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;

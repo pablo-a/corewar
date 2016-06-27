@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 19:20:44 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 19:24:21 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/27 14:56:36 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ int		handle_cycle_to_die(t_war *war)
 	{
 		war->max_check = 0;
 		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", war->cycle_to_die);
 	}
 	else if (war->max_check >= MAX_CHECKS)
 	{
 		war->max_check = 0;
 		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", war->cycle_to_die);
 	}
 	return (0);
 }

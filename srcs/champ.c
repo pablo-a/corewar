@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 20:03:41 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/27 15:16:53 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		load_bytecode(t_champ *champ, t_war *war, int pos)
 	{
 		war->ram_info[i + pos] = -(champ->id);
 		war->ram[i + pos] = champ->instructions[i];
+		war->ram2[i + pos] = champ->instructions[i];
 		i++;
 	}
 	champ->op_cycles = get_nbr_cycle(war, pos);
