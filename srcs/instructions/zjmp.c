@@ -18,7 +18,7 @@ int		zjmp(t_war *war, t_champ *champ)
 	{
 		refresh_pc(war, champ, champ->pc, calc_pc(champ->pc,
 					get_value(war, champ->pc + 1, 2)));
-		champ->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2));
+		champ->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2) % IDX_MOD);
 		return (0);
 	}
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);

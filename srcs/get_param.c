@@ -14,10 +14,10 @@
 
 static void	reg(t_war *war, t_champ *champ, t_return *ret, int reg_value)
 {
-	ret->error = 0;
 	ret->value = war->ram[champ->tmp_pc];
 	if (ret->value > 0 && ret->value < 17)
 	{
+		ret->error = 0;
 		if (reg_value)
 			ret->value = champ->reg_tab[ret->value - 1];
 	}
