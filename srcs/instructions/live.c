@@ -16,15 +16,11 @@ static int	add_live(t_war *war, int id)
 {
 	t_node *node;
 
-
-//	ft_printf("process %d launch live for id : %d at cycle : %d\n", champ->id_process, id, war->current_cycle);
 	node = war->pile_champ->first;
-	while (node && node->champ->id != id)
+	while (node && node->champ && node->champ->id != id)
 		node = node->next;
 	if (!node)
 		return (-1);
-//	champ->cpt_live[0]++;
-//	champ->cpt_live[1] = war->current_cycle;
 	node->champ->player->nbr_live++;
 	node->champ->player->last_live = war->current_cycle;
 	node->champ->player->current_nbr_live++;
@@ -41,11 +37,8 @@ int			live(t_war *war, t_champ *champ)
 	champ->tmp_pc = calc_pc(champ->pc, 1);
 	war->current_live_nb++;
 	id = get_value(war, champ->tmp_pc, 4);
-
 	champ->cpt_live[0]++;
 	champ->cpt_live[1] = war->current_cycle;
-//	ft_printf("Live for id : %d by process nr : %d at cycle %d\n", id, champ->id_process, war->current_cycle);
-
 	if (id == champ->id)
 	{
 		champ->player->last_live = war->current_cycle;

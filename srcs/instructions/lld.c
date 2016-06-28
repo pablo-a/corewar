@@ -18,7 +18,6 @@ int			lld(t_war *war, t_champ *champ)
 	t_return	p2;
 	t_ocp		ocp;
 
-//	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	p1 = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE,

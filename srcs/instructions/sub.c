@@ -19,7 +19,6 @@ int		sub(t_war *war, t_champ *champ)
 	t_return	p2;
 	t_return	p3;
 
-//	champ->carry = 0;
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	p1 = get_param(war, define_params_types(REG_CODE, -1, -1,

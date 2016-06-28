@@ -81,6 +81,8 @@ t_champ		*init_champ(ssize_t id)
 	champ->player->nbr_live = 0;
 	champ->player->is_dead = 0;
 	champ->player->current_nbr_live = 0;
+	champ->op_update = 1;
+
 	return (champ);
 }
 
@@ -105,7 +107,6 @@ t_war		*init_war(t_args *args)
 	{
 		war->ram_info[i] = 0;
 		war->ram[i] = 0;
-//		war->ram2[i] = 0;
 		i++;
 	}
 	war->cycle_to_die = CYCLE_TO_DIE;

@@ -20,7 +20,6 @@ static int	copy_father(t_champ *father, t_champ *son)
 	while (i++ < 16)
 		son->reg_tab[i] = father->reg_tab[i];
 	son->id = father->id;
-	//TODO Check if it clones carry :
 	son->carry = father->carry;
 	son->cpt_interne = 1;
 	son->is_dead = 0;
@@ -29,6 +28,7 @@ static int	copy_father(t_champ *father, t_champ *son)
 	son->header = father->header;
 	son->instructions = NULL;
 	son->player = father->player;
+	son->op_update = 1;
 	return (0);
 }
 
@@ -40,8 +40,6 @@ int			cor_fork(t_war *war, t_champ *champ)
 		perror_exit("Malloc error ");
 	copy_father(champ, son);
 	son->pc = calc_pc(champ->pc, get_value(war, champ->pc + 1, 2) % IDX_MOD);
-	son->op_cycles = get_nbr_cycle(war, son->pc);
-	son->op_next = war->ram[son->pc];
 	son->id_process = war->pile_champ->nb_elem + 1;
 	pile_append(war->pile_champ, son);
 	refresh_pc(war, champ, champ->pc, champ->pc + 3);

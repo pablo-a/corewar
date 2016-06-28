@@ -103,6 +103,7 @@ typedef struct	s_champ
 	int				is_dead;
 	int				op_cycles;
 	int 			op_next;
+	int 			op_update;
 }				t_champ;
 
 /*

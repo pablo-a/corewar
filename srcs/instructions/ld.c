@@ -19,11 +19,6 @@ int			ld(t_war *war, t_champ *champ)
 	t_ocp		ocp;
 
 	ocp = get_ocp(war->ram[calc_pc(champ->pc, 1)]);
-
-//	if (champ->id_process == 1276 && war->current_cycle == 25331)
-//		ft_printf("TMP PC + 2   a %d - b %d - c %d\n", ocp.first, ocp.second, ocp.third);
-
-
 	champ->tmp_pc = calc_pc(champ->pc, 2);
 	p1 = get_param(war, define_params_types(-1, DIR_CODE, IND_CODE,
 				def_opt(0, 0, 1)), ocp.first, champ);
@@ -38,11 +33,6 @@ int			ld(t_war *war, t_champ *champ)
 		champ->reg_tab[p2.value - 1] = p1.value;
 	}
 	refresh_pc(war, champ, champ->pc, champ->tmp_pc);
-
-
-//	if (champ->id_process == 1276 && war->current_cycle == 25331)
-//		ft_printf("Diff tmp->pc - pc %d\n", champ->tmp_pc - champ->pc);
-
 	champ->pc = champ->tmp_pc;
 	return (0);
 }
