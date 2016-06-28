@@ -35,7 +35,6 @@ int		find_dead_champs(t_war *war)
 	{
 		if (!node->champ->is_dead && node->champ->cpt_live[0] == 0)
 		{
-//			ft_printf("DEAD %d at cycle %d last live %d (CTD : %d)\n", node->champ->id_process, war->current_cycle, war->current_cycle - node->champ->cpt_live[1], war->cycle_to_die);
 			node->champ->is_dead = 1;
 			erase_pc(war, node->champ, node->champ->pc);
 		}
@@ -75,14 +74,11 @@ int		handle_cycle_to_die(t_war *war)
 	if (war->current_live_nb >= NBR_LIVE)
 	{
 		war->max_check = 0;
-		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
-		ft_printf("Cycle to die is now %d\n", war->cycle_to_die);
-	}
+		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA; }
 	else if (war->max_check >= MAX_CHECKS)
 	{
 		war->max_check = 0;
 		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
-		ft_printf("Cycle to die is now %d\n", war->cycle_to_die);
 	}
 	return (0);
 }

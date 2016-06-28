@@ -62,7 +62,6 @@
 typedef struct	s_war
 {
 	unsigned char	ram[MEM_SIZE];
-	unsigned char	ram2[MEM_SIZE];
 	int				ram_info[MEM_SIZE];
 	int				cycle_to_die;
 	int				max_check;
