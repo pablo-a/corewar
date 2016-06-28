@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 20:35:50 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 06:41:34 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 15:15:48 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_champ		*init_champ(ssize_t id)
 	i = -1;
 	champ = (t_champ *)malloc(sizeof(t_champ));
 	champ->id = (int)-id;
-	champ->pc = 0;
 	champ->carry = 0;
 	champ->cpt_interne = 1;
 	champ->cpt_live[0] = 0;
@@ -82,7 +81,6 @@ t_champ		*init_champ(ssize_t id)
 	champ->player->is_dead = 0;
 	champ->player->current_nbr_live = 0;
 	champ->op_update = 1;
-
 	return (champ);
 }
 

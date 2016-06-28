@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/27 15:22:26 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 15:19:55 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ typedef struct	s_champ
 	t_header		*header;
 	int				is_dead;
 	int				op_cycles;
-	int 			op_next;
-	int 			op_update;
+	int				op_next;
+	int				op_update;
 }				t_champ;
 
 /*
@@ -203,7 +203,8 @@ typedef struct	s_params
 /*
 ** --------------------- FONCTIONS PROTOTYPES --------------------------------
 */
-void 			copy_ram(unsigned char ram[MEM_SIZE], unsigned char ram2[MEM_SIZE]);
+void			copy_ram(unsigned char ram[MEM_SIZE],
+							unsigned char ram2[MEM_SIZE]);
 
 t_pile			*new_pile(void);
 int				pile_append(t_pile *pile, t_champ *champ);
@@ -228,7 +229,7 @@ int				main(int argc, char **argv);
 int				error(char *str);
 int				perror_exit(char *error);
 int				display_ram(unsigned char ram[MEM_SIZE],
-														int ram_info[MEM_SIZE]);
+int				ram_info[MEM_SIZE]);
 int				display_ram_info(int ram_info[MEM_SIZE]);
 int				display_reg(t_champ *champ);
 
@@ -240,6 +241,7 @@ int				handle_cycle_to_die(t_war *war);
 
 int				get_proc_alive(t_war *war);
 int				execute(t_war *war, t_champ *champ);
+int				parallel(t_war *war);
 int				champ_action(t_war *war);
 int				launch_war(t_war *war);
 

@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 19:36:21 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 05:22:48 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 15:10:49 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ int		display_ram(unsigned char ram[MEM_SIZE], int ram_info[MEM_SIZE])
 	int i;
 
 	i = 0;
+	ft_putstr(RED);
+	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{
 		if (ram_info[i] != 0)
 			ft_putstr(RED);
 		if (ram_info[i] == 0)
 			ft_putstr(END);
-		//TODO put back to 32 :
-		if (i % 64 == 63)
+		if (i % 32 == 0 && i != 0)
+			ft_printf("%#.4x : ", i);
+		if (i % 32 == 31)
 			ft_printf("%02x\n", ram[i]);
 		else
 			ft_printf("%02x ", ram[i]);

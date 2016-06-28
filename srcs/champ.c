@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 21:45:57 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/27 15:16:53 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 14:52:14 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ int		load_players_into_arena(t_war *war)
 	node = war->pile_champ->first;
 	space = MEM_SIZE / war->pile_champ->nb_elem;
 	if (!war->args->ncurse)
-		ft_printf("Introducing contestants :\n");
+		ft_printf("Introducing contestants...\n");
 	while (node)
 	{
 		node->champ->pc = pos;
 		load_bytecode(node->champ, war, pos);
 		if (!war->args->ncurse)
 			ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-ID(node->champ), SIZE(node->champ), NAME(node->champ), COMMENT(node->champ));
+-ID(node->champ), SIZE(node->champ), NAME(node->champ), COMMENT(node->champ));
 		node = node->next;
 		pos += space;
 	}

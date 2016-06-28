@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/18 19:35:49 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/23 23:51:39 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 15:12:21 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_return	get_param(t_war *war, t_params params, int param_code,
 	int			nb_oct;
 
 	ret.error = 1;
-	ret.value = 0;
 	if (param_code == params.reg)
 		reg(war, champ, &ret, params.opt.reg_value);
 	else if (param_code == params.direct)

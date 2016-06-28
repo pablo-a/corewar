@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 11:23:48 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/27 15:38:43 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 15:22:19 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		execute(t_war *war, t_champ *champ)
 ** IT IS USED EACH CYCLE.
 */
 
-int		champ_action(t_war *war)
+int		parralel(t_war *war)
 {
 	t_node	*node;
 
@@ -69,6 +69,13 @@ int		champ_action(t_war *war)
 		}
 		node = node->prev;
 	}
+	return (0);
+}
+
+int		champ_action(t_war *war)
+{
+	t_node	*node;
+
 	node = war->pile_champ->last;
 	while (node)
 	{
@@ -99,7 +106,8 @@ int		launch_war(t_war *war)
 	while (++cycle < war->cycle_to_die && ++war->current_cycle)
 	{
 		champ_action(war);
-		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump)
+		if (war->args->dump > 0 && (war->current_cycle) == war->args->dump &&
+				!war->args->ncurse)
 			dump_war(war);
 		if (war->args->ncurse == 1)
 		{

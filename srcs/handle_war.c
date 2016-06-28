@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 19:20:44 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/27 14:56:36 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/28 14:58:44 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int		handle_cycle_to_die(t_war *war)
 	if (war->current_live_nb >= NBR_LIVE)
 	{
 		war->max_check = 0;
-		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA; }
+		war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
+	}
 	else if (war->max_check >= MAX_CHECKS)
 	{
 		war->max_check = 0;
