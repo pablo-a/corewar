@@ -6,7 +6,7 @@
 /*   By: pabril <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 12:44:14 by pabril            #+#    #+#             */
-/*   Updated: 2016/06/24 19:23:24 by pabril           ###   ########.fr       */
+/*   Updated: 2016/06/27 15:22:26 by pabril           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define YELLOW "\033[33m"
 # define END "\033[0m"
 
-# define MIN_HEIGHT 40
-# define MIN_WIDTH 150
+# define MIN_HEIGHT 70
+# define MIN_WIDTH 250
 # define BYTE_PER_LINE 64
 # define SPACE_BT_BYTE 1
 # define SIZE_INFO 50
@@ -62,6 +62,7 @@
 typedef struct	s_war
 {
 	unsigned char	ram[MEM_SIZE];
+	unsigned char	ram2[MEM_SIZE];
 	int				ram_info[MEM_SIZE];
 	int				cycle_to_die;
 	int				max_check;
@@ -203,7 +204,7 @@ typedef struct	s_params
 /*
 ** --------------------- FONCTIONS PROTOTYPES --------------------------------
 */
-void 			copy_ram(t_war *war);
+void 			copy_ram(unsigned char ram[MEM_SIZE], unsigned char ram2[MEM_SIZE]);
 
 t_pile			*new_pile(void);
 int				pile_append(t_pile *pile, t_champ *champ);
